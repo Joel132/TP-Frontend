@@ -5,7 +5,8 @@ import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { CategoriaComponent } from './categoria/categoria.component';
 import { SubcategoriaComponent } from './subcategoria/subcategoria.component';
-
+import {HttpClientModule} from '@angular/common/http';
+import {environment} from '../environments/environment'
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,9 +20,12 @@ import { SubcategoriaComponent } from './subcategoria/subcategoria.component';
       { path: 'categoria', component: CategoriaComponent },
       { path: 'subcategoria', component: SubcategoriaComponent },
       //{ path: 'products/:productId', component: ProductDetailsComponent },
-    ])
+    ]),
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: "BASE_API_URL", useValue: environment.apiUrl }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
