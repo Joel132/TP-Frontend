@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoriaService } from '../servicios/categoria.service';
-import { Categoria } from '../modelos/categoria';
+import { CategoriaService } from '../../../servicios/categoria/categoria.service';
+import { Categoria } from '../../../modelos/categoria';
 
 @Component({
-  selector: 'app-categoria',
+  selector: 'app-listar-categoria',
   templateUrl: './categoria.component.html',
   styleUrls: ['./categoria.component.css']
 })
-export class CategoriaComponent implements OnInit {
+export class ListarCategoriaComponent implements OnInit {
   lista_categoria: Categoria[];
   constructor(private categoria_service:CategoriaService) { }
 
