@@ -13,6 +13,7 @@ import { EliminarComponent } from './componentes/pacientes/eliminar/eliminar.com
 import { CrearComponent } from './componentes/pacientes/crear/crear.component';
 import { ModificarComponent } from './componentes/pacientes/modificar/modificar.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PaginationComponent } from './componentes/pagination/pagination/pagination.component'
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     EliminarComponent,
     CrearComponent,
     ModificarComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
 export class Categoria{
-    private idCategoria: Number;
-    private descripcion: String;
+    public idCategoria: Number;
+    public descripcion: String;
 }
