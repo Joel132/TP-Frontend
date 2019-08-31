@@ -1,0 +1,42 @@
+<h2>Horarios</h2>
+<div id="buscador">
+        <select (change)="buscarPorDia($event.target.value)">
+            <option value="-1">Todos</option>
+            <option *ngFor="let dia of dias_semana;let i=index" [value]="i">{{dia}}</option>
+        </select>
+    </div>
+    <div id="tabla">
+    <table>
+        <thead>
+            <tr>
+            <th>Dia</th>
+            <th>Hora de Apertura</th>
+            <th>Hora de Cierre</th>
+            <th>Intervalos en Min</th>
+            <th>Doctor</th>
+            <th></th>
+            <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let horario of lista_horario">
+                <td>{{dias_semana[horario.dia]}}</td>
+                <td>{{horario.horaApertura}}</td>
+                <td>{{horario.horaCierre}}</td>
+                <td>{{horario.intervaloMinutos}}</td>
+                <td>{{horario.idEmpleado.nombre}}</td>
+                <td><a [routerLink]="['editar',horario.idPersonaHorarioAgenda]">Editar</a></td>
+                <td><a (click)="eliminar(horario.idPersonaHorarioAgenda)">Eliminar</a></td>
+            </tr>
+        </tbody>
+        
+    </table>
+    <my-pagination
+      (goPage)="goToPage($event,nombreAbuscar.value)"
+      (goNext)="onNext(nombreAbuscar.value)"
+      (goPrev)="onPrev(nombreAbuscar.value)"
+      [pagesToShow]="3"
+      [page]="pagina_actual"
+      [perPage]="limite"
+      [count]="total"></my-pagination>
+    </div>

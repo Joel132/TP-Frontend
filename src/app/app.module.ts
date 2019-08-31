@@ -15,7 +15,8 @@ import { ModificarComponent } from './componentes/pacientes/modificar/modificar.
 import { ReactiveFormsModule } from '@angular/forms';
 import { PaginationComponent } from './componentes/pagination/pagination/pagination.component'
 import { CrearCategoriaComponent } from './componentes/categoria/crear/crear-categoria/crear-categoria.component';
-import { ModificarCategoriaComponent } from './componentes/categoria/modificar/modificar-categoria/modificar-categoria.component'
+import { ModificarCategoriaComponent } from './componentes/categoria/modificar/modificar-categoria/modificar-categoria.component';
+import { ListarHorarioAtencionComponent } from './componentes/horario/listar-horario-atencion/listar-horario-atencion.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ModificarCategoriaComponent } from './componentes/categoria/modificar/m
     ModificarComponent,
     PaginationComponent,
     CrearCategoriaComponent,
-    ModificarCategoriaComponent
+    ModificarCategoriaComponent,
+    ListarHorarioAtencionComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,8 @@ import { ModificarCategoriaComponent } from './componentes/categoria/modificar/m
       { path: 'subcategoria', component: SubcategoriaComponent },
       { path: 'pacientes/crear', component: CrearComponent},
       { path: 'pacientes', component: PacientesComponent},
-      { path: 'listar',component: ListarComponent}
+      { path: 'listar',component: ListarComponent},
+      { path: 'horarios', component: ListarHorarioAtencionComponent },
       //{ path: 'products/:productId', component: ProductDetailsComponent },
     ]),
     HttpClientModule, 
