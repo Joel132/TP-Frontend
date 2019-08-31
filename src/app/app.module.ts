@@ -13,7 +13,8 @@ import { EliminarComponent } from './componentes/pacientes/eliminar/eliminar.com
 import { CrearComponent } from './componentes/pacientes/crear/crear.component';
 import { ModificarComponent } from './componentes/pacientes/modificar/modificar.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PaginationComponent } from './componentes/pagination/pagination/pagination.component'
+import { PaginationComponent } from './componentes/pagination/pagination/pagination.component';
+import { LoginComponent } from './componentes/login/login.component'
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PaginationComponent } from './componentes/pagination/pagination/paginat
     EliminarComponent,
     CrearComponent,
     ModificarComponent,
-    PaginationComponent
+    PaginationComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,8 @@ import { PaginationComponent } from './componentes/pagination/pagination/paginat
       { path: 'subcategoria', component: SubcategoriaComponent },
       { path: 'pacientes/crear', component: CrearComponent},
       { path: 'pacientes', component: PacientesComponent},
-      { path: 'listar',component: ListarComponent}
+      { path: 'listar',component: ListarComponent},
+      { path: 'login', component: LoginComponent}
       //{ path: 'products/:productId', component: ProductDetailsComponent },
     ]),
     HttpClientModule, 
