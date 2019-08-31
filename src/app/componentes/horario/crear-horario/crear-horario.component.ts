@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-crear-horario',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CrearHorarioComponent implements OnInit {
 
-  constructor() { }
+  constructor(private formBuilder : FormBuilder) { }
 
   ngOnInit() {
   }

@@ -4,12 +4,10 @@
             <option value="-1">Cualquiera</option>
             <option *ngFor="let dia of dias_semana;let i=index" [value]="i">{{dia}}</option>
         </select>
-        <label>Doctor</label><select (change)="buscarPorDoctor($event.target.value)">
-                <option value="-1">Cualquiera</option>
-                <option *ngFor="let emp of empleados" [value]="emp.idPersona">{{emp.nombre}}</option>
-            </select>
+        <button (click)="openModal('modal-busqueda')">Buscar Doctor</button>
             <button (click)="agregar()">Asignar Horario</button>
             <button>Agregar Excepcion</button>
+            <button *ngIf="doctorSelected>-1" (click)="buscarPorDoctor(-1)">Quitar filtro por doctor</button>
     </div>
     <div id="tabla">
     <table>
@@ -46,3 +44,10 @@
       [perPage]="limite"
       [count]="total"></my-pagination>
     </div>
+
+    <jw-modal id="modal-busqueda">
+            <app-buscar-doctor (doctorSeleccionado)="buscarPorDoctor($event.idPersona);closeModal('modal-busqueda')"></app-buscar-doctor>
+            <button (click)="closeModal('modal-busqueda');">Cerrar</button>
+        </jw-modal>
+
+        

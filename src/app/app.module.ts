@@ -18,6 +18,9 @@ import { CrearCategoriaComponent } from './componentes/categoria/crear/crear-cat
 import { ModificarCategoriaComponent } from './componentes/categoria/modificar/modificar-categoria/modificar-categoria.component';
 import { ListarHorarioAtencionComponent } from './componentes/horario/listar-horario-atencion/listar-horario-atencion.component';
 import { CrearHorarioComponent } from './componentes/horario/crear-horario/crear-horario.component';
+import { BuscarPacienteComponent } from './componentes/pacientes/buscar-paciente/buscar-paciente.component';
+import { ModalModule } from './_modal';
+import { BuscarDoctorComponent } from './componentes/doctor/buscar-doctor/buscar-doctor.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,9 @@ import { CrearHorarioComponent } from './componentes/horario/crear-horario/crear
     CrearCategoriaComponent,
     ModificarCategoriaComponent,
     ListarHorarioAtencionComponent,
-    CrearHorarioComponent
+    CrearHorarioComponent,
+    BuscarPacienteComponent,
+    BuscarDoctorComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +56,8 @@ import { CrearHorarioComponent } from './componentes/horario/crear-horario/crear
       //{ path: 'products/:productId', component: ProductDetailsComponent },
     ]),
     HttpClientModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ModalModule
   ],
   providers: [
     { provide: "BASE_API_URL", useValue: environment.apiUrl }

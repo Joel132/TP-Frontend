@@ -3,7 +3,7 @@ import { Doctor } from 'src/app/modelos/doctor';
 import { HorarioService } from 'src/app/servicios/horario/horario.service';
 import { Horario } from 'src/app/modelos/horario';
 import { Router } from '@angular/router';
-import { DoctorService } from 'src/app/servicios/doctor/doctor.service';
+import { ModalService } from 'src/app/_modal';
 
 @Component({
   selector: 'app-listar-horario-atencion',
@@ -22,17 +22,12 @@ export class ListarHorarioAtencionComponent implements OnInit {
   orderBy="dia";
   diaSelected=-1;
   doctorSelected=-1;
-  constructor(private horServ: HorarioService, private router : Router, private docSer:DoctorService) { }
+  constructor(private horServ: HorarioService, private router : Router, private modalService: ModalService) { }
 
   ngOnInit() {
-    this.getDoctores();
     this.buscar();
   }
   
-  getDoctores(){
-    this.docSer.getDoctors(null).subscribe(response=>this.empleados=response.lista);
-  }
-
   buscar(){
     this.loading = true;
     let ejemplo={};
@@ -93,5 +88,13 @@ export class ListarHorarioAtencionComponent implements OnInit {
   agregar(): void{
     this.router.navigate(['horario/crear']);
   }
+
+  openModal(id: string) {
+    this.modalService.open(id);
+}
+
+closeModal(id: string) {
+    this.modalService.close(id);
+}
 
 }

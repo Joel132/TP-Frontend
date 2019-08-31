@@ -3,8 +3,12 @@
         <form [formGroup]="crearForm" (ngSubmit)="onCrear()">
     
                 <div class="form-group">
-                        <label for="descripcion">Descripcion:</label>
-                        <input formControlName="descripcion" placeholder="Descripcion" name="descripion" class="form-control" id="nombre">
+                        <label for="hora_ini">Hora de Inicio:</label>
+                        <input formControlName="descripcion" placeholder="Hora" name="hora_ini" class="form-control">
+                </div>
+                <div class="form-group">
+                                <label for="hora_ini">Hora Fin:</label>
+                                <input formControlName="descripcion" placeholder="Hora" name="hora_ini" class="form-control">
                 </div>
                 <input type="submit" [disabled]="!crearForm.valid" class="btn btn-success" value="Crear">
         </form>
