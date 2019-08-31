@@ -14,6 +14,8 @@ import { CrearComponent } from './componentes/pacientes/crear/crear.component';
 import { ModificarComponent } from './componentes/pacientes/modificar/modificar.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PaginationComponent } from './componentes/pagination/pagination/pagination.component'
+import { CrearCategoriaComponent } from './componentes/categoria/crear/crear-categoria/crear-categoria.component';
+import { ModificarCategoriaComponent } from './componentes/categoria/modificar/modificar-categoria/modificar-categoria.component'
 
 @NgModule({
   declarations: [
@@ -26,11 +28,15 @@ import { PaginationComponent } from './componentes/pagination/pagination/paginat
     EliminarComponent,
     CrearComponent,
     ModificarComponent,
-    PaginationComponent
+    PaginationComponent,
+    CrearCategoriaComponent,
+    ModificarCategoriaComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
+      { path: 'categoria/crear', component: CrearCategoriaComponent },
+      { path: 'categoria/editar/:catId', component: ModificarCategoriaComponent },
       { path: 'categoria', component: ListarCategoriaComponent },
       { path: 'subcategoria', component: SubcategoriaComponent },
       { path: 'pacientes/crear', component: CrearComponent},
