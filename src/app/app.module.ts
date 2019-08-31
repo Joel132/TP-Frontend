@@ -17,6 +17,7 @@ import { PaginationComponent } from './componentes/pagination/pagination/paginat
 import { CrearCategoriaComponent } from './componentes/categoria/crear/crear-categoria/crear-categoria.component';
 import { ModificarCategoriaComponent } from './componentes/categoria/modificar/modificar-categoria/modificar-categoria.component';
 import { ListarHorarioAtencionComponent } from './componentes/horario/listar-horario-atencion/listar-horario-atencion.component';
+import { CrearHorarioComponent } from './componentes/horario/crear-horario/crear-horario.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ListarHorarioAtencionComponent } from './componentes/horario/listar-hor
     PaginationComponent,
     CrearCategoriaComponent,
     ModificarCategoriaComponent,
-    ListarHorarioAtencionComponent
+    ListarHorarioAtencionComponent,
+    CrearHorarioComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +46,7 @@ import { ListarHorarioAtencionComponent } from './componentes/horario/listar-hor
       { path: 'pacientes/crear', component: CrearComponent},
       { path: 'pacientes', component: PacientesComponent},
       { path: 'listar',component: ListarComponent},
+      { path: 'horario/crear', component: CrearHorarioComponent },
       { path: 'horarios', component: ListarHorarioAtencionComponent },
       //{ path: 'products/:productId', component: ProductDetailsComponent },
     ]),

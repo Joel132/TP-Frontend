@@ -17,7 +17,7 @@ export class HorarioService {
     params=params.set('cantidad',cantidad);
     params=params.set('orderBy',orderBy);
     params=params.set('orderDir',orderDir);
-    if (busqueda && busqueda.dia){
+    if (busqueda){
       params=params.set('ejemplo',JSON.stringify(busqueda));
       params=params.set('like','S');
     }

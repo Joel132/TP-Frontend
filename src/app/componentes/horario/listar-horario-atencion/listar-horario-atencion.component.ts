@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Doctor } from 'src/app/modelos/doctor';
 import { HorarioService } from 'src/app/servicios/horario/horario.service';
 import { Horario } from 'src/app/modelos/horario';
+import { Router } from '@angular/router';
+import { DoctorService } from 'src/app/servicios/doctor/doctor.service';
 
 @Component({
   selector: 'app-listar-horario-atencion',
@@ -10,7 +12,7 @@ import { Horario } from 'src/app/modelos/horario';
 })
 export class ListarHorarioAtencionComponent implements OnInit {
   dias_semana = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
-  empleado: Doctor[];
+  empleados: Doctor[];
   lista_horario: Horario[];
   total=0;
   limite=8;
@@ -18,15 +20,36 @@ export class ListarHorarioAtencionComponent implements OnInit {
   loading = false;
   private service;
   orderBy="dia";
-  constructor(private horServ: HorarioService) { }
+  diaSelected=-1;
+  doctorSelected=-1;
+  constructor(private horServ: HorarioService, private router : Router, private docSer:DoctorService) { }
 
   ngOnInit() {
-    this.buscar(null);
+    this.getDoctores();
+    this.buscar();
+  }
+  
+  getDoctores(){
+    this.docSer.getDoctors(null).subscribe(response=>this.empleados=response.lista);
   }
 
-  buscar(ejemplo){
+  buscar(){
     this.loading = true;
-    this.service=this.horServ.getHorarios('0',String(this.limite),this.orderBy,'asc',ejemplo).subscribe(
+    let ejemplo={};
+    if(this.diaSelected>=0&&this.doctorSelected>=0){
+      ejemplo={dia:this.diaSelected, idEmpleado:{idPersona:this.doctorSelected}}
+    }
+    else{
+      if(this.diaSelected>=0){
+        ejemplo={dia:this.diaSelected}
+      }
+      if(this.doctorSelected>=0){
+        ejemplo={idEmpleado:{idPersona:this.doctorSelected}}
+      }
+    }
+    let inicio=(this.pagina_actual-1)*this.limite;
+    
+    this.service=this.horServ.getHorarios(String(inicio),String(this.limite),this.orderBy,'asc',ejemplo).subscribe(
       (response)=>{
         this.lista_horario=response.lista;
         this.total=response.totalDatos;
@@ -35,29 +58,40 @@ export class ListarHorarioAtencionComponent implements OnInit {
   }
 
   buscarPorDia(dia:number){
-    if(dia<0){//Sin filtro por dia
-      this.buscar(null);
-    }
-    else{//Filtro por dia
-      let ejemplo = {dia:dia};
-      console.log(ejemplo)
-      this.buscar(ejemplo);
-    }
+    this.diaSelected=dia;
+    this.buscar();
+  }
+
+  buscarPorDoctor(id:number){
+    this.doctorSelected=id;
+    this.buscar();
   }
 
   goToPage(n: number, nombre: String ): void {
     this.pagina_actual = n;
-    this.buscar(nombre);
+    this.buscar();
   }
 
   onNext(nombre: String ): void {
     this.pagina_actual++;
-    this.buscar(nombre);
+    this.buscar();
   }
 
   onPrev(nombre: String ): void {
     this.pagina_actual--;
-    this.buscar(nombre);
+    this.buscar();
+  }
+
+  eliminar(id: number){
+    this.horServ.eliminarHorario(id).subscribe(
+      (response)=>{
+        this.buscar();
+      }
+    )
+  }
+
+  agregar(): void{
+    this.router.navigate(['horario/crear']);
   }
 
 }

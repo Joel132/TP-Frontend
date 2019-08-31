@@ -1,0 +1,11 @@
+<div class="crear">
+        <h2 class="text-center">Asignar Horario</h2>
+        <form [formGroup]="crearForm" (ngSubmit)="onCrear()">
+    
+                <div class="form-group">
+                        <label for="descripcion">Descripcion:</label>
+                        <input formControlName="descripcion" placeholder="Descripcion" name="descripion" class="form-control" id="nombre">
+                </div>
+                <input type="submit" [disabled]="!crearForm.valid" class="btn btn-success" value="Crear">
+        </form>
+    </div>

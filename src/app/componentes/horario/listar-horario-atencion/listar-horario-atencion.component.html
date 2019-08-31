@@ -1,9 +1,15 @@
 <h2>Horarios</h2>
 <div id="buscador">
-        <select (change)="buscarPorDia($event.target.value)">
-            <option value="-1">Todos</option>
+        <label>Dia</label><select (change)="buscarPorDia($event.target.value)">
+            <option value="-1">Cualquiera</option>
             <option *ngFor="let dia of dias_semana;let i=index" [value]="i">{{dia}}</option>
         </select>
+        <label>Doctor</label><select (change)="buscarPorDoctor($event.target.value)">
+                <option value="-1">Cualquiera</option>
+                <option *ngFor="let emp of empleados" [value]="emp.idPersona">{{emp.nombre}}</option>
+            </select>
+            <button (click)="agregar()">Asignar Horario</button>
+            <button>Agregar Excepcion</button>
     </div>
     <div id="tabla">
     <table>
