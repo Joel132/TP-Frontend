@@ -26,6 +26,26 @@ export class CategoriaService {
     return this.http.get<ResponseCategoria>(this.api_categoria, options);
   }
 
+  crearCategoria(categoria: Categoria): Observable<Categoria>{
+    const params=new HttpParams().set('Content-Type','application/json');
+    const options={params:params};
+    return this.http.post<Categoria>(this.api_categoria, categoria, options);
+  }
+
+  editarCategoria(categoria: Categoria): Observable<Categoria>{
+    const params=new HttpParams().set('Content-Type','application/json');
+    const options={params:params};
+    return this.http.put<Categoria>(this.api_categoria, categoria, options);
+  }
+
+  eliminarCategoria(idCategoria: number): Observable<number>{
+    return this.http.delete<number>(this.api_categoria+"/"+idCategoria);
+  }
+
+  getCategoria(idCategoria: number): Observable<Categoria>{
+    return this.http.get<Categoria>(this.api_categoria+"/"+idCategoria);
+  }
+
 }
 
 class ResponseCategoria{
