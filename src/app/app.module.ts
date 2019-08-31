@@ -16,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PaginationComponent } from './componentes/pagination/pagination/pagination.component'
 import { CrearCategoriaComponent } from './componentes/categoria/crear/crear-categoria/crear-categoria.component';
 import { ModificarCategoriaComponent } from './componentes/categoria/modificar/modificar-categoria/modificar-categoria.component'
+import { LoginComponent } from './componentes/login/login.component'
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ModificarCategoriaComponent } from './componentes/categoria/modificar/m
     ModificarComponent,
     PaginationComponent,
     CrearCategoriaComponent,
-    ModificarCategoriaComponent
+    ModificarCategoriaComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,8 @@ import { ModificarCategoriaComponent } from './componentes/categoria/modificar/m
       { path: 'subcategoria', component: SubcategoriaComponent },
       { path: 'pacientes/crear', component: CrearComponent},
       { path: 'pacientes', component: PacientesComponent},
-      { path: 'listar',component: ListarComponent}
+      { path: 'listar',component: ListarComponent},
+      { path: 'login', component: LoginComponent}
       //{ path: 'products/:productId', component: ProductDetailsComponent },
     ]),
     HttpClientModule, 
