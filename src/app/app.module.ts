@@ -17,6 +17,11 @@ import { PaginationComponent } from './componentes/pagination/pagination/paginat
 import { CrearCategoriaComponent } from './componentes/categoria/crear/crear-categoria/crear-categoria.component';
 import { ModificarCategoriaComponent } from './componentes/categoria/modificar/modificar-categoria/modificar-categoria.component'
 import { LoginComponent } from './componentes/login/login.component'
+import { ListarHorarioAtencionComponent } from './componentes/horario/listar-horario-atencion/listar-horario-atencion.component';
+import { CrearHorarioComponent } from './componentes/horario/crear-horario/crear-horario.component';
+import { BuscarPacienteComponent } from './componentes/pacientes/buscar-paciente/buscar-paciente.component';
+import { ModalModule } from './_modal';
+import { BuscarDoctorComponent } from './componentes/doctor/buscar-doctor/buscar-doctor.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +37,11 @@ import { LoginComponent } from './componentes/login/login.component'
     PaginationComponent,
     CrearCategoriaComponent,
     ModificarCategoriaComponent,
-    LoginComponent
+    LoginComponent,
+    ListarHorarioAtencionComponent,
+    CrearHorarioComponent,
+    BuscarPacienteComponent,
+    BuscarDoctorComponent
   ],
   imports: [
     BrowserModule,
@@ -44,11 +53,14 @@ import { LoginComponent } from './componentes/login/login.component'
       { path: 'pacientes/crear', component: CrearComponent},
       { path: 'pacientes', component: PacientesComponent},
       { path: 'listar',component: ListarComponent},
-      { path: 'login', component: LoginComponent}
+      { path: 'login', component: LoginComponent},
+      { path: 'horario/crear', component: CrearHorarioComponent },
+      { path: 'horarios', component: ListarHorarioAtencionComponent },
       //{ path: 'products/:productId', component: ProductDetailsComponent },
     ]),
     HttpClientModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ModalModule
   ],
   providers: [
     { provide: "BASE_API_URL", useValue: environment.apiUrl }
