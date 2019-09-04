@@ -29,7 +29,7 @@
                 <td>{{horario.horaCierre}}</td>
                 <td>{{horario.intervaloMinutos}}</td>
                 <td>{{horario.idEmpleado.nombre}}</td>
-                <td><a [routerLink]="['editar',horario.idPersonaHorarioAgenda]">Editar</a></td>
+                <td><a [routerLink]="['/horario/editar',horario.idPersonaHorarioAgenda]">Editar</a></td>
                 <td><a (click)="eliminar(horario.idPersonaHorarioAgenda)">Eliminar</a></td>
             </tr>
         </tbody>

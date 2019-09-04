@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpParams, HttpClient } from '@angular/common/http';
+import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Horario } from 'src/app/modelos/horario';
 
 @Injectable({
@@ -26,16 +26,16 @@ export class HorarioService {
   }
 
   crearHorario(Horario: Horario, usuario: string): Observable<Horario>{
-    let params=new HttpParams().set('Content-Type','application/json');
-    params=new HttpParams().set('usuario',usuario);
-    const options={params:params};
+    let header=new HttpHeaders().set('Content-Type','application/json');
+    header=header.set('usuario',usuario?usuario:"pedro");//CAMBIAR CUANDO SE CONECTE A LOGIN
+    const options={headers:header};
     return this.http.post<Horario>(this.api_Horario, Horario, options);
   }
 
   editarHorario(Horario: Horario, usuario: string): Observable<Horario>{
-    let params=new HttpParams().set('Content-Type','application/json');
-    params=new HttpParams().set('usuario',usuario);
-    const options={params:params};
+    let header=new HttpHeaders().set('Content-Type','application/json');
+    header=header.set('usuario',usuario?usuario:"pedro");//CAMBIAR CUANDO SE CONECTE A LOGIN
+    const options={headers:header};
     return this.http.put<Horario>(this.api_Horario, Horario, options);
   }
 

@@ -1,6 +1,6 @@
-<div class="crear">
-        <h2 class="text-center">Asignar Horario</h2>
-        <form [formGroup]="crearForm" (ngSubmit)="onCrear()">
+<div class="editar">
+        <h2 class="text-center">Cambiar Horario</h2>
+        <form *ngIf="editarForm" [formGroup]="editarForm" (ngSubmit)="onEditar()">
                 <div class="form-group">
                         <label>Dia de la semana:</label>
                         <select  formControlName="dia">
@@ -8,11 +8,11 @@
                         </select>
                 </div>
                 <div class="form-group">
-                                <div *ngIf="doctorSel"><label>Doctor:</label><b>{{doctorSel}}</b><br></div>
-                                <a (click)="openModal('modal-busqueda')">Asignar Doctor</a>
-                                <div *ngIf= " aceptado && val.idEmpleado.errors" class= "invalid-feedback">
-                                        <div *ngIf="val.idEmpleado.errors.noSeleccionado.message" style="color:red;">Asigne un doctor</div>
-                                </div>
+                        <label>Doctor:</label><b>{{doctorSel}}</b><br>
+                        <a (click)="openModal('modal-busqueda')">Cambiar Doctor</a>
+                        <div *ngIf= " aceptado && val.idEmpleado.errors" class= "invalid-feedback">
+                                <div *ngIf="val.idEmpleado.errors.noSeleccionado.message" style="color:red;">Asigne un doctor</div>
+                        </div>
                 </div>
                 <div class="form-group">
                         <label for="hora_ini">Hora de Inicio:</label>
@@ -42,8 +42,8 @@
                         
                 
                 <div class="form-group">
-                        <button type = "submit" class="btn btn-primary signin">Crear</button>
-                        <button class= "btn btn-secondary" type = "reset" (click)="onCancelar()">Cancelar</button>    
+                        <button type = "submit" class="btn btn-primary signin">Modificar</button>
+                        <button class= "btn btn-secondary" type = "button" (click)="onCancelar()">Cancelar</button>    
                 </div>
                              
         </form>

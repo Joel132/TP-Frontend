@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { ModalService } from 'src/app/_modal';
+import { HorarioService } from 'src/app/servicios/horario/horario.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-crear-horario',
@@ -7,10 +10,72 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./crear-horario.component.css']
 })
 export class CrearHorarioComponent implements OnInit {
-
-  constructor(private formBuilder : FormBuilder) { }
+  crearForm : FormGroup;
+  dias_semana = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
+  aceptado = false;
+  doctorSel;
+  constructor(private formBuilder : FormBuilder, private modalService:ModalService, private horSer: HorarioService,
+    private router : Router) { }
 
   ngOnInit() {
+    this.crearForm = this.formBuilder.group({
+      idPersonaHorarioAgenda : [],
+      dia : ['1', Validators.required],
+      horaAperturaCadena : ['', [Validators.required,Validators.min(0),Validators.max(2359)]],
+      horaCierreCadena : ['', [Validators.required,Validators.min(0),Validators.max(2359)]],
+      intervaloMinutos: ['', [Validators.required,Validators.min(5),Validators.max(60)]],
+      idEmpleado : [{idPersona:''}, noSeleccionadoValidator()],
+      
+    })
   }
 
+  openModal(id: string) {
+    this.modalService.open(id);
+  }
+
+  closeModal(id: string) {
+      this.modalService.close(id);
+  }
+
+  asignarDoctor(doctor){
+    this.crearForm.patchValue({
+      idEmpleado:{idPersona:doctor.id}
+    })
+    this.doctorSel=doctor.nombre;
+  }
+
+  onCrear(){
+    this.aceptado = true;
+    if(this.crearForm.invalid){
+      return;
+    }
+    let horario=this.crearForm.value;
+    horario.horaAperturaCadena=horario.horaAperturaCadena.slice(0,2)+horario.horaAperturaCadena.slice(3,5);
+    horario.horaCierreCadena=horario.horaCierreCadena.slice(0,2)+horario.horaCierreCadena.slice(3,5);
+    this.horSer.crearHorario(horario,"")
+      .subscribe(response =>{ 
+      this.router.navigate(['horarios']);
+      //TODO: colocar mensaje de exito
+    })
+    
+  }
+
+  onCancelar(){
+    this.aceptado = false;
+    this.crearForm.reset();
+    this.doctorSel="";
+  }
+
+  get val(){
+    return this.crearForm.controls;
+  }
+
+}
+
+export function noSeleccionadoValidator(): ValidatorFn {
+  return (control: AbstractControl): {[key: string]: any} | null => {
+    const asignado=control.value&&control.value.idPersona;
+    console.log(control.value);
+    return asignado ? null:{'noSeleccionado': {message: 'No seleccionado'}};
+  };
 }
