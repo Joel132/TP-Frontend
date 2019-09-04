@@ -6,7 +6,7 @@
         </select>
         <button (click)="openModal('modal-busqueda')">Buscar Doctor</button>
             <button (click)="agregar()">Asignar Horario</button>
-            <button>Agregar Excepcion</button>
+            <button (click)="verE()">Ver Excepciones</button>
             <button *ngIf="doctorSelected>-1" (click)="buscarPorDoctor(-1)">Quitar filtro por doctor</button>
     </div>
     <div id="tabla">
@@ -36,9 +36,9 @@
         
     </table>
     <my-pagination
-      (goPage)="goToPage($event,nombreAbuscar.value)"
-      (goNext)="onNext(nombreAbuscar.value)"
-      (goPrev)="onPrev(nombreAbuscar.value)"
+      (goPage)="goToPage($event)"
+      (goNext)="onNext()"
+      (goPrev)="onPrev()"
       [pagesToShow]="3"
       [page]="pagina_actual"
       [perPage]="limite"

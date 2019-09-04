@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { ModalService } from 'src/app/_modal';
-import { HorarioService } from 'src/app/servicios/horario/horario.service';
+import { HorarioExcepcionService } from 'src/app/servicios/horarioExc/horario-excepcion.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Horario } from 'src/app/modelos/horario';
+import { HorarioExcepcion } from 'src/app/modelos/horario';
 
 @Component({
-  selector: 'app-editar-horario',
-  templateUrl: './editar-horario.component.html',
-  styleUrls: ['./editar-horario.component.css']
+  selector: 'app-editar-ex-horario',
+  templateUrl: './editar-horario-ex.component.html',
+  styleUrls: ['./editar-horario-ex.component.css']
 })
-export class EditarHorarioComponent implements OnInit {
+export class EditarHorarioExComponent implements OnInit {
   editarForm : FormGroup;
-  horarioOriginal: Horario;
-  dias_semana = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
+  horarioOriginal: HorarioExcepcion;
   aceptado = false;
   doctorSel;
-  constructor(private formBuilder : FormBuilder, private modalService:ModalService, private horSer: HorarioService,
+  ocultarHoras=false;
+  constructor(private formBuilder : FormBuilder, private modalService:ModalService, private horSer: HorarioExcepcionService,
     private router : Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -30,14 +30,16 @@ export class EditarHorarioComponent implements OnInit {
 
   private llenarForm(): void{
     this.editarForm = this.formBuilder.group({
-      idPersonaHorarioAgenda : [this.horarioOriginal.idPersonaHorarioAgenda],
-      dia : [this.horarioOriginal.dia, Validators.required],
+      idHorarioExcepcion : [this.horarioOriginal.idHorarioExcepcion],
+      fechaCadena : [this.horarioOriginal.fecha, Validators.required],
       horaAperturaCadena : [this.horarioOriginal.horaApertura, [Validators.required,Validators.min(0),Validators.max(2359)]],
       horaCierreCadena : [this.horarioOriginal.horaCierre, [Validators.required,Validators.min(0),Validators.max(2359)]],
       intervaloMinutos: [this.horarioOriginal.intervaloMinutos, [Validators.required,Validators.min(5),Validators.max(60)]],
       idEmpleado : [this.horarioOriginal.idEmpleado, noSeleccionadoValidator()],
+      flagEsHabilitar: this.horarioOriginal.flagEsHabilitar
       
     })
+    if(this.horarioOriginal.flagEsHabilitar=='N')this.ocultarHoras=true;
     this.doctorSel=this.horarioOriginal.idEmpleado.nombre;
 
   }
@@ -59,16 +61,27 @@ export class EditarHorarioComponent implements OnInit {
 
   onEditar(){
     this.aceptado = true;
+    if(this.ocultarHoras){  
+      this.editarForm.get('horaAperturaCadena').setValidators([]); // or clearValidators()
+      this.editarForm.get('horaAperturaCadena').updateValueAndValidity();
+      this.editarForm.get('horaCierreCadena').setValidators([]); // or clearValidators()
+      this.editarForm.get('horaCierreCadena').updateValueAndValidity();
+      this.editarForm.get('intervaloMinutos').setValidators([]); // or clearValidators()
+      this.editarForm.get('intervaloMinutos').updateValueAndValidity();
+    }
     if(this.editarForm.invalid){
       return;
     }
     let horario=this.editarForm.value;
-    horario.horaAperturaCadena=horario.horaAperturaCadena.slice(0,2)+horario.horaAperturaCadena.slice(3,5);
-    horario.horaCierreCadena=horario.horaCierreCadena.slice(0,2)+horario.horaCierreCadena.slice(3,5);
     horario.idEmpleado={idPersona:horario.idEmpleado.idPersona}
+    if(!this.ocultarHoras){
+      horario.horaAperturaCadena=horario.horaAperturaCadena.slice(0,2)+horario.horaAperturaCadena.slice(3,5);
+      horario.horaCierreCadena=horario.horaCierreCadena.slice(0,2)+horario.horaCierreCadena.slice(3,5);
+    }
+    horario.fechaCadena=horario.fechaCadena.replace(/\-/gi,"");
     this.horSer.editarHorario(this.editarForm.value,"")
       .subscribe(response =>{ 
-      this.router.navigate(['horarios']);
+      this.router.navigate(['horariosE']);
       //TODO: colocar mensaje de exito
     })
     alert('Horario Asignado correctamente!')
@@ -76,14 +89,7 @@ export class EditarHorarioComponent implements OnInit {
 
   onCancelar(){
     this.aceptado = false;
-    this.editarForm.patchValue({
-      idPersonaHorarioAgenda : this.horarioOriginal.idPersonaHorarioAgenda,
-      dia : this.horarioOriginal.dia,
-      horaAperturaCadena : this.horarioOriginal.horaApertura,
-      horaCierreCadena : this.horarioOriginal.horaCierre,
-      intervaloMinutos: this.horarioOriginal.intervaloMinutos,
-      idEmpleado : this.horarioOriginal.idEmpleado
-    });
+    this.editarForm.patchValue(this.horarioOriginal);
     this.doctorSel=this.horarioOriginal.idEmpleado.nombre;
     
   }

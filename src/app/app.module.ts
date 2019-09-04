@@ -23,6 +23,9 @@ import { BuscarPacienteComponent } from './componentes/pacientes/buscar-paciente
 import { ModalModule } from './_modal';
 import { BuscarDoctorComponent } from './componentes/doctor/buscar-doctor/buscar-doctor.component';
 import { EditarHorarioComponent } from './componentes/horario/editar-horario/editar-horario.component';
+import { CrearHorarioExComponent } from './componentes/horarioE/crear-horario/crear-horario-ex.component';
+import { ListarHorarioExComponent } from './componentes/horarioE/listar-horario-ex/listar-horario-ex.component';
+import { EditarHorarioExComponent } from './componentes/horarioE/editar-horario/editar-horario-ex.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,11 @@ import { EditarHorarioComponent } from './componentes/horario/editar-horario/edi
     CrearHorarioComponent,
     BuscarPacienteComponent,
     BuscarDoctorComponent,
-    EditarHorarioComponent
+    EditarHorarioComponent,
+    CrearHorarioExComponent,
+    EditarHorarioComponent,
+    ListarHorarioExComponent,
+    EditarHorarioExComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +66,9 @@ import { EditarHorarioComponent } from './componentes/horario/editar-horario/edi
       { path: 'horario/crear', component: CrearHorarioComponent },
       { path: 'horario/editar/:horId', component: EditarHorarioComponent },
       { path: 'horarios', component: ListarHorarioAtencionComponent },
+      { path: 'horarioE/crear', component: CrearHorarioExComponent },
+      { path: 'horarioE/editar/:horId', component: EditarHorarioExComponent },
+      { path: 'horariosE', component: ListarHorarioExComponent },
       //{ path: 'products/:productId', component: ProductDetailsComponent },
     ]),
     HttpClientModule, 

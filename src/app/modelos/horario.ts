@@ -11,3 +11,16 @@ export class Horario{
     diaCadena: string;
     idEmpleado: Doctor;
 }
+
+export class HorarioExcepcion{
+    idHorarioExcepcion: number;
+    fecha: string;
+    horaApertura: string;
+    horaCierre: string;
+    flagEsHabilitar: string;
+    idEmpleado: Doctor;
+    intervaloMinutos: number;
+    horaAperturaCadena: string;
+    horaCierreCadena: string;
+    fechaCadena: string;
+}

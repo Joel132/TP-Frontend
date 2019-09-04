@@ -1,0 +1,55 @@
+<h2>Horarios Excepcionales</h2>
+<div id="buscador">
+        <label>Fecha</label>
+        <input type="date" [value]="diaSelected" (change)="buscarPorDia($event.target.value)">
+        <label>Tipo de Excepcion</label><select #flag (change)="flagEsHabilitar=flag.value;buscar()">
+            <option value="S" selected>Habilitar</option>
+            <option value="N">Desabilitar</option>
+        </select>
+        <button (click)="openModal('modal-busqueda')">Buscar Doctor</button>
+            <button (click)="agregar()">Agregar Excepcion</button>
+            <button *ngIf="doctorSelected>-1" (click)="buscarPorDoctor(-1)">Quitar filtro por doctor</button>
+            
+    </div>
+    <div id="tabla">
+    <table>
+        <thead>
+            <tr>
+            <th>Fecha</th>
+            <th *ngIf="flagEsHabilitar=='S'">Hora de Apertura</th>
+            <th *ngIf="flagEsHabilitar=='S'">Hora de Cierre</th>
+            <th *ngIf="flagEsHabilitar=='S'">Intervalos en Min</th>
+            <th>Doctor</th>
+            <th></th>
+            <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let horario of lista_horario">
+                <td>{{horario.fecha}}</td>
+                <td *ngIf="flagEsHabilitar=='S'">{{horario.horaApertura}}</td>
+                <td *ngIf="flagEsHabilitar=='S'">{{horario.horaCierre}}</td>
+                <td *ngIf="flagEsHabilitar=='S'">{{horario.intervaloMinutos}}</td>
+                <td>{{horario.idEmpleado.nombre}}</td>
+                <td><a [routerLink]="['/horarioE/editar',horario.idHorarioExcepcion]">Editar</a></td>
+                <td><a (click)="eliminar(horario.idHorarioExcepcion)">Eliminar</a></td>
+            </tr>
+        </tbody>
+        
+    </table>
+    <my-pagination
+      (goPage)="goToPage($event)"
+      (goNext)="onNext()"
+      (goPrev)="onPrev()"
+      [pagesToShow]="3"
+      [page]="pagina_actual"
+      [perPage]="limite"
+      [count]="total"></my-pagination>
+    </div>
+
+    <jw-modal id="modal-busqueda">
+            <app-buscar-doctor (doctorSeleccionado)="buscarPorDoctor($event.idPersona);closeModal('modal-busqueda')"></app-buscar-doctor>
+            <button (click)="closeModal('modal-busqueda');">Cerrar</button>
+        </jw-modal>
+
+        

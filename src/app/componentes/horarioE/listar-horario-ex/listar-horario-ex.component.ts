@@ -1,28 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { Doctor } from 'src/app/modelos/doctor';
-import { HorarioService } from 'src/app/servicios/horario/horario.service';
-import { Horario } from 'src/app/modelos/horario';
+import { HorarioExcepcionService } from 'src/app/servicios/horarioExc/horario-excepcion.service';
+import { HorarioExcepcion } from 'src/app/modelos/horario';
 import { Router } from '@angular/router';
 import { ModalService } from 'src/app/_modal';
 
 @Component({
-  selector: 'app-listar-horario-atencion',
-  templateUrl: './listar-horario-atencion.component.html',
-  styleUrls: ['./listar-horario-atencion.component.css']
+  selector: 'app-listar-horario-ex',
+  templateUrl: './listar-horario-ex.component.html',
+  styleUrls: ['./listar-horario-ex.component.css']
 })
-export class ListarHorarioAtencionComponent implements OnInit {
-  dias_semana = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
+export class ListarHorarioExComponent implements OnInit {
   empleados: Doctor[];
-  lista_horario: Horario[];
+  lista_horario: HorarioExcepcion[];
+  flagEsHabilitar="S";
   total=0;
   limite=8;
   pagina_actual=1;
   loading = false;
   private service;
-  orderBy="dia";
-  diaSelected=-1;
+  orderBy="fechaCadena";
+  diaSelected="2019-09-04";
   doctorSelected=-1;
-  constructor(private horServ: HorarioService, private router : Router, private modalService: ModalService) { }
+  constructor(private horServ: HorarioExcepcionService, private router : Router, private modalService: ModalService) { }
 
   ngOnInit() {
     this.buscar();
@@ -30,17 +30,14 @@ export class ListarHorarioAtencionComponent implements OnInit {
   
   buscar(){
     this.loading = true;
+    this.lista_horario=[];
     let ejemplo={};
-    if(this.diaSelected>=0&&this.doctorSelected>=0){
-      ejemplo={dia:this.diaSelected, idEmpleado:{idPersona:this.doctorSelected}}
+    let fecha=this.diaSelected.replace(/\-/gi,"");
+    if(this.doctorSelected>=0){
+      ejemplo={fechaCadena:fecha, idEmpleado:{idPersona:this.doctorSelected},flagEsHabilitar:this.flagEsHabilitar}
     }
     else{
-      if(this.diaSelected>=0){
-        ejemplo={dia:this.diaSelected}
-      }
-      if(this.doctorSelected>=0){
-        ejemplo={idEmpleado:{idPersona:this.doctorSelected}}
-      }
+      ejemplo={fechaCadena:fecha,flagEsHabilitar:this.flagEsHabilitar}
     }
     let inicio=(this.pagina_actual-1)*this.limite;
     
@@ -52,7 +49,7 @@ export class ListarHorarioAtencionComponent implements OnInit {
       });
   }
 
-  buscarPorDia(dia:number){
+  buscarPorDia(dia){
     this.diaSelected=dia;
     this.buscar();
   }
@@ -62,12 +59,12 @@ export class ListarHorarioAtencionComponent implements OnInit {
     this.buscar();
   }
 
-  goToPage(n: number ): void {
+  goToPage(n: number): void {
     this.pagina_actual = n;
     this.buscar();
   }
 
-  onNext(): void {
+  onNext( ): void {
     this.pagina_actual++;
     this.buscar();
   }
@@ -86,11 +83,7 @@ export class ListarHorarioAtencionComponent implements OnInit {
   }
 
   agregar(): void{
-    this.router.navigate(['horario/crear']);
-  }
-
-  verE(): void{
-    this.router.navigate(['horariosE']);
+    this.router.navigate(['horarioE/crear']);
   }
 
   openModal(id: string) {
