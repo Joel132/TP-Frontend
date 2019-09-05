@@ -26,6 +26,8 @@ import { EditarHorarioComponent } from './componentes/horario/editar-horario/edi
 import { CrearHorarioExComponent } from './componentes/horarioE/crear-horario/crear-horario-ex.component';
 import { ListarHorarioExComponent } from './componentes/horarioE/listar-horario-ex/listar-horario-ex.component';
 import { EditarHorarioExComponent } from './componentes/horarioE/editar-horario/editar-horario-ex.component';
+import { ListarReservaComponent } from './componentes/reserva/listado/listar-reserva.component';
+import { CrearReservaComponent } from './componentes/reserva/crear/crear-reserva.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,9 @@ import { EditarHorarioExComponent } from './componentes/horarioE/editar-horario/
     CrearHorarioExComponent,
     EditarHorarioComponent,
     ListarHorarioExComponent,
-    EditarHorarioExComponent
+    EditarHorarioExComponent, 
+    ListarReservaComponent,
+    CrearReservaComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +73,8 @@ import { EditarHorarioExComponent } from './componentes/horarioE/editar-horario/
       { path: 'horarioE/crear', component: CrearHorarioExComponent },
       { path: 'horarioE/editar/:horId', component: EditarHorarioExComponent },
       { path: 'horariosE', component: ListarHorarioExComponent },
+      { path: 'reservas', component: ListarReservaComponent },
+      { path: 'reserva/crear', component: CrearReservaComponent },
       //{ path: 'products/:productId', component: ProductDetailsComponent },
     ]),
     HttpClientModule, 

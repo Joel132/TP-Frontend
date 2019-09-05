@@ -4,7 +4,7 @@ import { HorarioExcepcionService } from 'src/app/servicios/horarioExc/horario-ex
 import { HorarioExcepcion } from 'src/app/modelos/horario';
 import { Router } from '@angular/router';
 import { ModalService } from 'src/app/_modal';
-
+import {formatDate} from 'src/app/otros/funciones'
 @Component({
   selector: 'app-listar-horario-ex',
   templateUrl: './listar-horario-ex.component.html',
@@ -20,7 +20,7 @@ export class ListarHorarioExComponent implements OnInit {
   loading = false;
   private service;
   orderBy="fechaCadena";
-  diaSelected="2019-09-04";
+  diaSelected=formatDate(new Date);
   doctorSelected=-1;
   constructor(private horServ: HorarioExcepcionService, private router : Router, private modalService: ModalService) { }
 
