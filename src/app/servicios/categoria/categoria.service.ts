@@ -12,6 +12,12 @@ export class CategoriaService {
   constructor(private http:HttpClient,
     @Inject('BASE_API_URL') private baseUrl:String) { }
 
+    //TODO: ELIMINAR
+  getSubcategorias(id){
+    let ejemplo={idCategoria:{idCategoria:id}}
+    return this.http.get<{lista:{idTipoProducto:number,descripcion:string}[],totalDatos}>('/stock-pwfe/tipoProducto',{params:{ejemplo:JSON.stringify(ejemplo)}})
+  }
+
   getCategorias(inicio='0', cantidad, orderBy, orderDir='asc',busqueda): Observable<ResponseCategoria>{
     let params = new HttpParams();
     params=params.set('inicio',inicio);

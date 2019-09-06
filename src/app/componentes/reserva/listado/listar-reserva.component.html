@@ -23,7 +23,6 @@
             <th>Observacion</th>
             <th></th>
             <th></th>
-            <th></th>
             </tr>
         </thead>
         <tbody>
@@ -34,10 +33,8 @@
                 <td>{{reserva.idEmpleado.nombre}}</td>
                 <td>{{reserva.idCliente.nombre}}</td>
                 <td>{{reserva.observacion}}</td>
-                <td><a (click)="openModal('modal-modificar');setReservaModificar(reserva.idReserva)">{{reserva.observacion?"Editar":"Agregar"}} Observacion</a></td>
-                <td *ngIf="!reserva.flagAsistio">Marcar Asistencia</td>
+                <td><a (click)="openModal('modal-modificar');setReservaModificar(reserva)">{{reserva.observacion?"Editar":"Agregar"}} Observacion</a></td>
                 <td><a (click)="eliminar(reserva.idReserva)">Eliminar</a></td>
-
             </tr>
         </tbody>
         
@@ -64,8 +61,8 @@
 
     <jw-modal id="modal-modificar">
             <label>Observacion</label>
-            <textarea #observacion></textarea><br>
-            <label>Asistio?</label><input type="checkbox" #asistio value="si"><br>
+            <textarea #observacion>{{reservaModificar?.observacion}}</textarea><br>
+            <label>Asistio?</label><input type="checkbox" #asistio value="si" [checked]="reservaModificar?.flagAsistio=='S'?true:false"><br>
             <button (click)="modificar(asistio.checked,observacion.value)">Guardar</button>
             <button (click)="closeModal('modal-modificar');">Cerrar</button>
     </jw-modal>
