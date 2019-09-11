@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { StorageService } from './servicios/session/storage.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'tpFrontend';
+
+  constructor(private storageService: StorageService){}
 }

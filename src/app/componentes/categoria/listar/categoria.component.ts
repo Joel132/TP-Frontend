@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoriaService } from '../../../servicios/categoria/categoria.service';
 import { Categoria } from '../../../modelos/categoria';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listar-categoria',
@@ -15,8 +16,9 @@ export class ListarCategoriaComponent implements OnInit {
   loading = false;
   private service;
   orderBy="descripcion";
-  constructor(private categoria_service:CategoriaService) { }
+  constructor(private categoria_service:CategoriaService, private router : Router) { }
 
+ 
   ngOnInit() {
     this.loading = true;
     this.service=this.categoria_service.getCategorias('0',String(this.limite),this.orderBy,'asc',null).subscribe(
@@ -27,8 +29,8 @@ export class ListarCategoriaComponent implements OnInit {
       });
   }
 
-  buscar(nombre: String){
-    let cat = { descripcion:nombre};
+  buscar(nombre?: String){
+    let cat = nombre ? { descripcion:nombre}: null;
     //Se calcula desde donde pedir a partir de la pagina solicitada
     let inicio=(this.pagina_actual-1)*this.limite;
     this.service=this.categoria_service.getCategorias(String(inicio),String(this.limite),this.orderBy,'asc',cat).subscribe(
@@ -52,6 +54,18 @@ export class ListarCategoriaComponent implements OnInit {
   onPrev(nombre: String ): void {
     this.pagina_actual--;
     this.buscar(nombre);
+  }
+
+  eliminar(id: number){
+    this.categoria_service.eliminarCategoria(id).subscribe(
+      (response)=>{
+        this.buscar();
+      }
+    )
+  }
+
+  agregar(): void{
+    this.router.navigate(['categoria/crear']);
   }
 
 }

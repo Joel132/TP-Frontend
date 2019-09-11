@@ -1,0 +1,36 @@
+<div id="buscador">
+    <input type="text" #nombreAbuscar placeholder="">
+    <input type="button" (click)="buscar(nombreAbuscar.value)" value="Buscar">
+    <input type="button" (click)="agregar()" value="Agregar">
+</div>
+<div id="tabla">
+<table>
+    <thead>
+        <tr>
+        <th>Cedula</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Telefono</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let paciente of lista_pacientes">
+            <td>{{paciente.cedula}}</td>
+            <td>{{paciente.nombre}}</td>
+            <td>{{paciente.email}}</td>
+            <td>{{paciente.telefono}}</td>
+            <td><a [routerLink]="['editar',paciente.idPersona]">Editar</a></td>
+            <td><input type="button" (click)="eliminar(paciente.idPersona)" value="Eliminar"></td>
+        </tr>
+    </tbody>
+    
+</table>
+<my-pagination
+  (goPage)="goToPage($event,nombreAbuscar.value)"
+  (goNext)="onNext(nombreAbuscar.value)"
+  (goPrev)="onPrev(nombreAbuscar.value)"
+  [pagesToShow]="3"
+  [page]="pagina_actual"
+  [perPage]="limite"
+  [count]="total"></my-pagination>
+</div>

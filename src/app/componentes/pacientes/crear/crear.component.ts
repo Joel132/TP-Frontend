@@ -12,6 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class CrearComponent implements OnInit {
 
   crearForm : FormGroup;
+  aceptado = false;
   constructor(private pacienteService : PacientesService, private formBuilder : FormBuilder, private router : Router) { }
 
   ngOnInit() {
@@ -28,11 +29,24 @@ export class CrearComponent implements OnInit {
     })
   }
   onCrear(){
+    this.aceptado = true;
+    if(this.crearForm.invalid){
+      return;
+    }
     this.pacienteService.crearPaciente(this.crearForm.value)
       .subscribe(response =>{ 
       console.log(response);
       this.router.navigate(['pacientes']);
     })
+  }
+
+  onCancelar(){
+    this.aceptado = false;
+    this.crearForm.reset();
+  }
+
+  get val(){
+    return this.crearForm.controls;
   }
 
 }

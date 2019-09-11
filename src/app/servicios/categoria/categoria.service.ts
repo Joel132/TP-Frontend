@@ -12,6 +12,12 @@ export class CategoriaService {
   constructor(private http:HttpClient,
     @Inject('BASE_API_URL') private baseUrl:String) { }
 
+    //TODO: ELIMINAR
+  getSubcategorias(id){
+    let ejemplo={idCategoria:{idCategoria:id}}
+    return this.http.get<{lista:{idTipoProducto:number,descripcion:string}[],totalDatos}>('/stock-pwfe/tipoProducto',{params:{ejemplo:JSON.stringify(ejemplo)}})
+  }
+
   getCategorias(inicio='0', cantidad, orderBy, orderDir='asc',busqueda): Observable<ResponseCategoria>{
     let params = new HttpParams();
     params=params.set('inicio',inicio);
@@ -24,6 +30,26 @@ export class CategoriaService {
     }
     const options = { params: params };
     return this.http.get<ResponseCategoria>(this.api_categoria, options);
+  }
+
+  crearCategoria(categoria: Categoria): Observable<Categoria>{
+    const params=new HttpParams().set('Content-Type','application/json');
+    const options={params:params};
+    return this.http.post<Categoria>(this.api_categoria, categoria, options);
+  }
+
+  editarCategoria(categoria: Categoria): Observable<Categoria>{
+    const params=new HttpParams().set('Content-Type','application/json');
+    const options={params:params};
+    return this.http.put<Categoria>(this.api_categoria, categoria, options);
+  }
+
+  eliminarCategoria(idCategoria: number): Observable<number>{
+    return this.http.delete<number>(this.api_categoria+"/"+idCategoria);
+  }
+
+  getCategoria(idCategoria: number): Observable<Categoria>{
+    return this.http.get<Categoria>(this.api_categoria+"/"+idCategoria);
   }
 
 }
