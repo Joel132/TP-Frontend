@@ -1,6 +1,7 @@
 <div id="buscador">
     <input type="text" #nombreAbuscar placeholder="">
     <input type="button" (click)="buscar(nombreAbuscar.value)" value="Buscar">
+    <input type="button" (click)="agregar()" value="Agregar">
 </div>
 <div id="tabla">
 <table>
@@ -18,6 +19,8 @@
             <td>{{paciente.nombre}}</td>
             <td>{{paciente.email}}</td>
             <td>{{paciente.telefono}}</td>
+            <td><a [routerLink]="['editar',paciente.idPersona]">Editar</a></td>
+            <td><input type="button" (click)="eliminar(paciente.idPersona)" value="Eliminar"></td>
         </tr>
     </tbody>
     

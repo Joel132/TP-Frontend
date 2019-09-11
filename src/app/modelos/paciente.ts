@@ -1,11 +1,11 @@
 export class Paciente{
-    private idPersona : Number;
-    private nombre : string;
-    private apellido : string;
-    private telefono : number;
-    private email : string;
-    private ruc : number;
-    private cedula : number;
-    private tipoPersona : string;
-    private fechaNacimiento : string;
+    public idPersona : Number;
+    public nombre : string;
+    public apellido : string;
+    public telefono : number;
+    public email : string;
+    public ruc : number;
+    public cedula : number;
+    public tipoPersona : string;
+    public fechaNacimiento : string;
 }

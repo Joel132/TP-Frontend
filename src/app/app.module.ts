@@ -7,8 +7,7 @@ import { ListarCategoriaComponent } from './componentes/categoria/listar/categor
 import { SubcategoriaComponent } from './componentes/subcategoria/listar/subcategoria.component';
 import {HttpClientModule} from '@angular/common/http';
 import {environment} from '../environments/environment';
-import { PacientesComponent } from './componentes/pacientes/pacientes.component';
-import { ListarComponent } from './componentes/pacientes/listar/listar.component';
+import { PacientesComponent } from './componentes/pacientes/listar/pacientes.component';
 import { EliminarComponent } from './componentes/pacientes/eliminar/eliminar.component';
 import { CrearComponent } from './componentes/pacientes/crear/crear.component';
 import { ModificarComponent } from './componentes/pacientes/modificar/modificar.component';
@@ -30,7 +29,6 @@ import { BuscarDoctorComponent } from './componentes/doctor/buscar-doctor/buscar
     ListarCategoriaComponent,
     SubcategoriaComponent,
     PacientesComponent,
-    ListarComponent,
     EliminarComponent,
     CrearComponent,
     ModificarComponent,
@@ -52,7 +50,8 @@ import { BuscarDoctorComponent } from './componentes/doctor/buscar-doctor/buscar
       { path: 'subcategoria', component: SubcategoriaComponent },
       { path: 'pacientes/crear', component: CrearComponent},
       { path: 'pacientes', component: PacientesComponent},
-      { path: 'listar',component: ListarComponent},
+      { path: 'pacientes/editar/:pacId', component: ModificarComponent},
+      { path: 'listar/pacientes',component: PacientesComponent},
       { path: 'login', component: LoginComponent},
       { path: 'horario/crear', component: CrearHorarioComponent },
       { path: 'horarios', component: ListarHorarioAtencionComponent },

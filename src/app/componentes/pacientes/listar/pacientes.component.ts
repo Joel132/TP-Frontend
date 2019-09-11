@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Paciente } from "../../../modelos/paciente";
+import { Paciente } from '../../../modelos/paciente';
 import { PacientesService } from '../../../servicios/pacientes/pacientes.service';
 import { Router } from '@angular/router';
 
-
 @Component({
-  selector: 'app-listar',
-  templateUrl: './listar.component.html',
-  styleUrls: ['./listar.component.css']
+  selector: 'app-pacientes',
+  templateUrl: './pacientes.component.html',
+  styleUrls: ['./pacientes.component.css']
 })
-export class ListarComponent implements OnInit {
-
+export class PacientesComponent implements OnInit {
   
   lista_pacientes: Paciente[];
   total=0;
@@ -58,4 +56,14 @@ export class ListarComponent implements OnInit {
     this.buscar(nombre);
   }
 
+  eliminar(id: number){
+    this.paciente_service.eliminarPaciente(id).subscribe(
+      (response)=>{
+        this.buscar();
+      }
+    )
+  }
+  agregar(): void{
+    this.router.navigate(['pacientes/crear']);
+  }
 }
