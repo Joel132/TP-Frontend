@@ -1,10 +1,26 @@
-<a [routerLink]="['/categoria']">
-Categoria</a>
-<a [routerLink]="['/subcategoria']">
-    SubCategoria</a>
-<a [routerLink]="['/listar']">
-    Pacientes
-</a>
-<a [routerLink]="['/pacientes/crear']">
-    Crear Pacientes
-</a>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+      <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title">SistemaPacientes</span>
+        <div class="mdl-layout-spacer"></div>
+        <nav class="mdl-navigation mdl-layout--large-screen-only">
+          <a class="mdl-navigation__link" [routerLink]="['/categoria']">Categoria</a>
+          <a class="mdl-navigation__link" [routerLink]="['/subcategoria']">SubCategoria</a>
+          <a class="mdl-navigation__link" [routerLink]="['/listar']">Pacientes</a>
+          <a class="mdl-navigation__link" [routerLink]="['/pacientes/crear']">Crear Pacientes</a>
+        </nav>
+      </div>
+    </header>
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title">Lista</span>
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" [routerLink]="['/categoria']">Categoria</a>
+        <a class="mdl-navigation__link" [routerLink]="['/subcategoria']">SubCategoria</a>
+        <a class="mdl-navigation__link" [routerLink]="['/pacientes/crear']">Pacientes</a>
+        <a class="mdl-navigation__link" [routerLink]="['/pacientes/crear']">Crear Pacientes</a>
+      </nav>
+    </div>
+    <main class="mdl-layout__content">
+      <div class="page-content"><!-- Your content goes here --></div>
+    </main>
+</div>
