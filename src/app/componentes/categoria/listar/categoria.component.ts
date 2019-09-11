@@ -18,6 +18,7 @@ export class ListarCategoriaComponent implements OnInit {
   orderBy="descripcion";
   constructor(private categoria_service:CategoriaService, private router : Router) { }
 
+ 
   ngOnInit() {
     this.loading = true;
     this.service=this.categoria_service.getCategorias('0',String(this.limite),this.orderBy,'asc',null).subscribe(
