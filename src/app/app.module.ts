@@ -14,7 +14,8 @@ import { ModificarComponent } from './componentes/pacientes/modificar/modificar.
 import { ReactiveFormsModule } from '@angular/forms';
 import { PaginationComponent } from './componentes/pagination/pagination/pagination.component'
 import { CrearCategoriaComponent } from './componentes/categoria/crear/crear-categoria/crear-categoria.component';
-import { ModificarCategoriaComponent } from './componentes/categoria/modificar/modificar-categoria/modificar-categoria.component'
+import { ModificarCategoriaComponent } from './componentes/categoria/modificar/modificar-categoria/modificar-categoria.component';
+import { ModificarSubcategoriaComponent } from './componentes/subcategoria/modificar/modificar-subcategoria/modificar-subcategoria.component'
 import { LoginComponent } from './componentes/login/login.component'
 import { ListarHorarioAtencionComponent } from './componentes/horario/listar-horario-atencion/listar-horario-atencion.component';
 import { CrearHorarioComponent } from './componentes/horario/crear-horario/crear-horario.component';
@@ -43,6 +44,7 @@ import { AuthorizatedGuardService } from './servicios/guard/authorizated-guard.s
     PaginationComponent,
     CrearCategoriaComponent,
     ModificarCategoriaComponent,
+    ModificarSubcategoriaComponent,
     LoginComponent,
     ListarHorarioAtencionComponent,
     CrearHorarioComponent,
@@ -64,6 +66,7 @@ import { AuthorizatedGuardService } from './servicios/guard/authorizated-guard.s
       { path: 'categoria/crear', component: CrearCategoriaComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'categoria/editar/:catId', component: ModificarCategoriaComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'categoria', component: ListarCategoriaComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'subcategoria/editar/:subcatId', component: ModificarSubcategoriaComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'subcategoria', component: SubcategoriaComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'pacientes/crear', component: CrearComponent, canActivate:[AuthorizatedGuardService]},
       { path: 'pacientes', component: PacientesComponent, canActivate:[AuthorizatedGuardService]},

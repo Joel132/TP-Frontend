@@ -12,7 +12,7 @@ export class SubcategoriaService {
   constructor(private http:HttpClient,
     @Inject('BASE_API_URL') private baseUrl:String) { }
 
-  getCategorias(inicio='0', cantidad, orderBy, orderDir='asc',busqueda): Observable<ResponseCategoria>{
+  getSubcategorias(inicio='0', cantidad, orderBy, orderDir='asc',busqueda): Observable<ResponseCategoria>{
     let params = new HttpParams();
     params=params.set('inicio',inicio);
     params=params.set('cantidad',cantidad);
@@ -24,6 +24,14 @@ export class SubcategoriaService {
     }
     const options = { params: params };
     return this.http.get<ResponseCategoria>(this.api_categoria, options);
+  }
+   editarSubcategoria(subcategoria: Subcategoria): Observable<Subcategoria>{
+    const params=new HttpParams().set('Content-Type','application/json');
+    const options={params:params};
+    return this.http.put<Subcategoria>(this.api_categoria, subcategoria, options);
+  }
+   getSubcategoria(idSubcategoria: number): Observable<Subcategoria>{
+    return this.http.get<Subcategoria>(this.api_categoria+"/"+idSubcategoria);
   }
 
 }

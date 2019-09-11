@@ -18,19 +18,18 @@ export class SubcategoriaComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.service=this.subcategoria_service.getCategorias('0',String(this.limite),this.orderBy,'asc',null).subscribe(
+    this.service=this.subcategoria_service.getSubcategorias('0',String(this.limite),this.orderBy,'asc',null).subscribe(
       (response)=>{
         this.lista_categoria=response.lista;
         this.total=response.totalDatos;
         this.loading = false;
       });
   }
-
   buscar(nombre: String){
     let cat = { descripcion:nombre};
     //Se calcula desde donde pedir a partir de la pagina solicitada
     let inicio=(this.pagina_actual-1)*this.limite;
-    this.service=this.subcategoria_service.getCategorias(String(inicio),String(this.limite),this.orderBy,'asc',cat).subscribe(
+    this.service=this.subcategoria_service.getSubcategorias(String(inicio),String(this.limite),this.orderBy,'asc',cat).subscribe(
       (response)=>{
         this.lista_categoria=response.lista;
         this.total=response.totalDatos;
