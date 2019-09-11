@@ -1,1 +1,20 @@
-<p>subcategoria works!</p>
+<p>categoria works!</p>
+<div id="buscador">
+    <input type="text" #nombreAbuscar>
+    <input type="button" (click)="buscar(nombreAbuscar.value)" value="Buscar">
+</div>
+<div id="tabla">
+<ul>
+    <li *ngFor="let categoria of lista_categoria">
+        {{categoria.descripcion}}
+    </li>
+</ul>
+<my-pagination
+  (goPage)="goToPage($event,nombreAbuscar.value)"
+  (goNext)="onNext(nombreAbuscar.value)"
+  (goPrev)="onPrev(nombreAbuscar.value)"
+  [pagesToShow]="3"
+  [page]="pagina_actual"
+  [perPage]="limite"
+  [count]="total"></my-pagination>
+</div>
