@@ -28,6 +28,7 @@ import { EditarHorarioExComponent } from './componentes/horarioE/editar-horario/
 import { ListarReservaComponent } from './componentes/reserva/listado/listar-reserva.component';
 import { CrearReservaComponent } from './componentes/reserva/crear/crear-reserva.component';
 import { ListarFichaComponent } from './componentes/ficha/listado/listar-ficha.component';
+import { AuthorizatedGuardService } from './servicios/guard/authorizated-guard.service';
 
 @NgModule({
   declarations: [
@@ -59,24 +60,25 @@ import { ListarFichaComponent } from './componentes/ficha/listado/listar-ficha.c
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      { path: 'categoria/crear', component: CrearCategoriaComponent },
-      { path: 'categoria/editar/:catId', component: ModificarCategoriaComponent },
-      { path: 'categoria', component: ListarCategoriaComponent },
-      { path: 'subcategoria', component: SubcategoriaComponent },
-      { path: 'pacientes/crear', component: CrearComponent},
-      { path: 'pacientes', component: PacientesComponent},
-      { path: 'pacientes/editar/:pacId', component: ModificarComponent},
-      { path: 'listar/pacientes',component: PacientesComponent},
+      { path: '', redirectTo: '/reservas', pathMatch: 'full' },
+      { path: 'categoria/crear', component: CrearCategoriaComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'categoria/editar/:catId', component: ModificarCategoriaComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'categoria', component: ListarCategoriaComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'subcategoria', component: SubcategoriaComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'pacientes/crear', component: CrearComponent, canActivate:[AuthorizatedGuardService]},
+      { path: 'pacientes', component: PacientesComponent, canActivate:[AuthorizatedGuardService]},
+      { path: 'pacientes/editar/:pacId', component: ModificarComponent, canActivate:[AuthorizatedGuardService]},
+      { path: 'listar/pacientes',component: PacientesComponent, canActivate:[AuthorizatedGuardService]},
       { path: 'login', component: LoginComponent},
-      { path: 'horario/crear', component: CrearHorarioComponent },
-      { path: 'horario/editar/:horId', component: EditarHorarioComponent },
-      { path: 'horarios', component: ListarHorarioAtencionComponent },
-      { path: 'horarioE/crear', component: CrearHorarioExComponent },
-      { path: 'horarioE/editar/:horId', component: EditarHorarioExComponent },
-      { path: 'horariosE', component: ListarHorarioExComponent },
-      { path: 'reservas', component: ListarReservaComponent },
-      { path: 'reserva/crear', component: CrearReservaComponent },
-      { path: 'fichas', component: ListarFichaComponent },
+      { path: 'horario/crear', component: CrearHorarioComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'horario/editar/:horId', component: EditarHorarioComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'horarios', component: ListarHorarioAtencionComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'horarioE/crear', component: CrearHorarioExComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'horarioE/editar/:horId', component: EditarHorarioExComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'horariosE', component: ListarHorarioExComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'reservas', component: ListarReservaComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'reserva/crear', component: CrearReservaComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'fichas', component: ListarFichaComponent, canActivate:[AuthorizatedGuardService] }
       //{ path: 'products/:productId', component: ProductDetailsComponent },
     ]),
     HttpClientModule, 
