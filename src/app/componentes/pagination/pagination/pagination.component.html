@@ -1,5 +1,5 @@
-
-<div class="pagination" *ngIf="count > 0">
+<nav aria-label="Page navigation example" *ngIf="count > 0">
+    <ul class="pagination justify-content-end">
         <div class="description">
             <span class="page-counts">{{ getMin() }} - {{ getMax() }} de {{ count }}</span><br>
             <span class="page-totals">{{ totalPages() }} paginas</span>
@@ -7,11 +7,9 @@
         <div class="numbers">
             <button class="link" (click)="onPrev()" [disabled]="page === 1 || loading" [ngClass]="{ 'disabled': page === 1 || loading }">&lt; Anterior</button>
             
-            <button
-                *ngFor="let pageNum of getPages()"
-                (click)="onPage(pageNum)"
-                [ngClass]="{'active': pageNum === page, 'disabled': loading}">{{ pageNum }}</button>
+            <button *ngFor="let pageNum of getPages()" (click)="onPage(pageNum)" [ngClass]="{'active': pageNum === page, 'disabled': loading}">{{ pageNum }}</button>
     
             <button class="link" (click)="onNext(true)" [disabled]="lastPage() || loading" [ngClass]="{ 'disabled': lastPage() || loading }">Siguiente &gt;</button>
         </div>
-    </div>
+    </ul>
+</nav>

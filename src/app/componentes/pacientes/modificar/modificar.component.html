@@ -1,69 +1,86 @@
-<div class="modificar">
-    <h2 class="text-center">Modificar Paciente</h2>
-    <form *ngIf="modificarForm" form [formGroup]="modificarForm" (ngSubmit)="onModificar()">
-    <div class = "formbox">
-      <div class="form-group">
-        <label for="nombre"  >Nombre:</label>
-        <input type = "text" formControlName="nombre" placeholder="Nombre" name="nombre" class="form-control" id="nombre" [ngClass]="{'is-invalid': aceptado && val.nombre.errors}" />
-        <div *ngIf= " aceptado && val.nombre.errors" class= "invalid-feedback">
-            <div *ngIf="val.nombre.errors.required" style="color:red;">Nombre es obligatorio</div>
+<div class="container py-3">
+    <div class="row">
+      <div class="mx-auto col-sm-6">
+        <div class="card">
+          <div class="card-header text-center" style="background: url(../../../../assets/img/paciente.jpg) center center;">
+              <h3 class="mb-0" style="color:navy;">Modificar Pacientes</h3>
+          </div>
+          <div class="card-body" style="border-radius: 10px;">
+              <form class="form" role="form" *ngIf="modificarForm" form [formGroup]="modificarForm" (ngSubmit)="onModificar()">
+                <div class="form-group row">
+                  <label for="nombre" class="col-lg-3 col-form-label form-control-label">Nombre</label>
+                  <div class="col-lg-9">
+                    <input type="text" formControlName="nombre" placeholder="Ingrese su nombre" name="nombre" class="form-control" id="nombre" [ngClass]="{'is-invalid': aceptado && val.nombre.errors}"/>
+                  </div>
+                  <div *ngIf= " aceptado && val.nombre.errors" class= "invalid-feedback">
+                    <div *ngIf="val.nombre.errors.required" style="color:red;">Nombre es obligatorio</div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="apellido" class="col-lg-3 col-form-label form-control-label">Apellido</label>
+                  <div class="col-lg-9">
+                    <input formControlName="apellido" placeholder="Ingrese su apellido" name="apellido" class="form-control" id="apellido" [ngClass]="{'is-invalid': aceptado && val.apellido.errors}"/>
+                  </div>
+                  <div *ngIf= " aceptado && val.apellido.errors" class= "invalid-feedback">
+                    <div *ngIf="val.apellido.errors.required" style="color:red;">Apellido es obligatorio</div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="telefono" class="col-lg-3 col-form-label form-control-label">Telefono</label>
+                  <div class="col-lg-9">
+                    <input type="number" formControlName="telefono" placeholder="Ingrese su telefono" name="telefono" class="form-control" id="telefono" [ngClass]="{'is-invalid': aceptado && val.telefono.errors}"/>
+                  </div>
+                  <div *ngIf= " aceptado && val.telefono.errors" class= "invalid-feedback">
+                    <div *ngIf="val.telefono.errors.required" style="color:red;">Nr. de Telefono es obligatorio</div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="email" class="col-lg-3 col-form-label form-control-label">Email</label>
+                  <div class="col-lg-9">
+                    <input formControlName="email" placeholder="Ingrese su email" name="email" class="form-control" id="email" [ngClass]="{'is-invalid': aceptado && val.email.errors}"/>
+                  </div>
+                  <div *ngIf= "aceptado && val.email.errors" class= "invalid-feedback">
+                    <div *ngIf="val.email.errors.required" style="color:red;">Email es obligatorio</div>
+                  </div>
+                </div>  
+                <div class="form-group row">
+                  <label for="ruc" class="col-lg-3 col-form-label form-control-label">RUC</label>
+                  <div class="col-lg-9">
+                    <input type="number" formControlName="ruc" placeholder="Ingrese su RUC" name="ruc" class="form-control" id="ruc" [ngClass]="{'is-invalid': aceptado && val.ruc.errors}"/>
+                  </div>
+                  <div *ngIf= " aceptado && val.ruc.errors" class= "invalid-feedback">
+                    <div *ngIf="val.ruc.errors.required" style="color:red;">RUC es obligatorio</div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="cedula" class="col-lg-3 col-form-label form-control-label">Cedula</label>
+                  <div class="col-lg-9">
+                    <input type="number" formControlName="cedula" placeholder="Ingrese su cedula" name="cedula" class="form-control" id="cedula" [ngClass]="{'is-invalid': aceptado && val.cedula.errors}"/>
+                  </div>
+                  <div *ngIf= " aceptado && val.cedula.errors" class= "invalid-feedback">
+                    <div *ngIf="val.cedula.errors.required" style="color:red;">Cédula es obligatorio</div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label for="fechaNacimiento" class="col-lg-3 col-form-label form-control-label">Fecha de Nacimiento</label>
+                  <div class="col-lg-9">
+                    <input formControlName="fechaNacimiento" placeholder="Ingrese su FechaNacimiento" name="fecha Nacimiento" class="form-control" id="fechaNacimiento" [ngClass]="{'is-invalid': aceptado && val.fechaNacimiento.errors}"/>
+                  </div>
+                  <div *ngIf= "aceptado && val.fechaNacimiento.errors" class= "invalid-feedback">
+                    <div *ngIf="val.fechaNacimiento.errors.required" style="color:red;">La fecha de Nacamiento es obligatoria</div>
+                  </div>
+                </div> 
+                <div class="form-group row">
+                  <label class="col-lg-3 col-form-label form-control-label"></label>
+                  <div class="col-lg-9">
+                    <button class= "btn btn-secondary"  (click)="onCancelar()">Cancelar</button>
+                    <button type = "submit" class="btn btn-primary" style="margin-left: 10px;">Modificar</button>
+                  </div>
+                </div>
+              </form>
+          </div>
         </div>
       </div>
-  
-      <div class="form-group">
-        <label for="apellido">Apellido:</label>
-        <input formControlName="apellido" placeholder="Apellido" name="apellido" class="form-control" id="apellido" [ngClass]="{'is-invalid': aceptado && val.apellido.errors}" />
-        <div *ngIf= " aceptado && val.apellido.errors" class= "invalid-feedback">
-            <div *ngIf="val.apellido.errors.required" style="color:red;">Apellido es obligatorio</div>
-        </div>
-      </div>
-  
-      <div class="form-group">
-            <label for="telefono">Telefono:</label>
-            <input type="number" formControlName="telefono" placeholder="telefono" name="telefono" class="form-control" id="telefono" [ngClass]="{'is-invalid': aceptado && val.telefono.errors}" />
-            <div *ngIf= " aceptado && val.telefono.errors" class= "invalid-feedback">
-                <div *ngIf="val.telefono.errors.required" style="color:red;">Nr. de Telefono es obligatorio</div>
-            </div>
-      </div>
-
-      <div class="form-group">
-            <label for="email">Email:</label>
-            <input formControlName="email" placeholder="email" name="email" class="form-control" id="email" [ngClass]="{'is-invalid': aceptado && val.email.errors}" />
-            <div *ngIf= " aceptado && val.email.errors" class= "invalid-feedback">
-                <div *ngIf="val.email.errors.required" style="color:red;">Email es obligatorio</div>
-            </div>
-      </div>  
-
-      <div class="form-group">
-        <label for="ruc">RUC:</label>
-        <input type="number" formControlName="ruc" placeholder="RUC" name="ruc" class="form-control" id="ruc" [ngClass]="{'is-invalid': aceptado && val.ruc.errors}" />
-        <div *ngIf= " aceptado && val.ruc.errors" class= "invalid-feedback">
-            <div *ngIf="val.ruc.errors.required" style="color:red;">RUC es obligatorio</div>
-        </div>
-      </div>
-  
-      <div class="form-group">
-        <label for="cedula">Cedula:</label>
-        <input type="number" formControlName="cedula" placeholder="cedula" name="cedula" class="form-control" id="cedula" [ngClass]="{'is-invalid': aceptado && val.cedula.errors}" />
-        <div *ngIf= " aceptado && val.cedula.errors" class= "invalid-feedback">
-            <div *ngIf="val.cedula.errors.required" style="color:red;">Cédula es obligatorio</div>
-        </div>
-      </div>
-
-      <div class="form-group">
-            <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-            <input formControlName="fechaNacimiento" placeholder="fechaNacimiento" name="fecha Nacimiento" class="form-control" id="fechaNacimiento" [ngClass]="{'is-invalid': aceptado && val.fechaNacimiento.errors}" />
-            <div *ngIf= " aceptado && val.fechaNacimiento.errors" class= "invalid-feedback">
-                <div *ngIf="val.fechaNacimiento.errors.required" style="color:red;">La fecha de Nacamiento es obligatoria</div>
-            </div>
-      </div> 
-      
-      <div class="form-group">
-        <button type = "submit" class="btn btn-primary signin">Modificar</button>
-        <button class= "btn btn-secondary"  (click)="onCancelar()">Cancelar</button>
-
-      </div>
-     
     </div>
-    </form>
-</div>
+  </div>
+    
