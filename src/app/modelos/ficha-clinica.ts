@@ -9,7 +9,7 @@ export class FichaClinica{
     observacion: string;
     idEmpleado: Doctor;
     idCliente: Paciente;
-    idTipoProducto: {idTipoProducto:number,descripcion:string};//TODO: CAMBIAR A TIPO SUBCATEGORIA
+    idTipoProducto: {idTipoProducto:number,descripcion:string,idCategoria:{idCategoria:number,descripcion:string}};//TODO: CAMBIAR A TIPO SUBCATEGORIA
     fechaHoraCadena: string;
     fechaDesdeCadena: string;
     fechaHastaCadena: string;

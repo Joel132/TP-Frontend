@@ -1,19 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Detalle } from 'src/app/modelos/detalle';
+import {formatDate, getHora} from 'src/app/otros/funciones'
+import {ActivatedRoute, Router } from '@angular/router';
 import { ModalService } from 'src/app/_modal';
-import { FichaClinica } from 'src/app/modelos/ficha-clinica';
-import { FichaClinicaService } from 'src/app/servicios/ficha/ficha-clinica.service';
-import {formatDate} from 'src/app/otros/funciones'
+import { ServiciosService } from 'src/app/servicios/servicios/servicios.service';
 import { CategoriaService } from 'src/app/servicios/categoria/categoria.service';
 import { Categoria } from 'src/app/modelos/categoria';
+import { FichaClinica } from 'src/app/modelos/ficha-clinica';
+import { FichaClinicaService } from 'src/app/servicios/ficha/ficha-clinica.service';
+
+
 @Component({
-  selector: 'app-listar-ficha',
-  templateUrl: './listar-ficha.component.html',
-  styleUrls: ['./listar-ficha.component.css']
+  selector: 'app-crear-servicio',
+  templateUrl: './crear-servicio.component.html',
+  styleUrls: ['./crear-servicio.component.css']
 })
-export class ListarFichaComponent implements OnInit {
+export class CrearServicioComponent implements OnInit {
+
   lista_ficha: FichaClinica[];
-  
+
   total=0;
   limite=8;
   pagina_actual=1;
@@ -25,19 +30,21 @@ export class ListarFichaComponent implements OnInit {
   fechaHasta=this.fechaActual;//TODO: CAMBIAR POR FECHA ACTUAL
   doctorSelected=-1;
   pacienteSelected=-1;
-  fichaModifcar;
+  fichaSelected: FichaClinica;
+  
+  servicioCrear;
   subcategoriaSelected=-1;
   lista_subcategoria=[];
   lista_categoria:Categoria[];
+
   constructor(private resServ: FichaClinicaService, private router : Router, private modalService: ModalService,
-    private catSer: CategoriaService
-    ) { }
+    private catSer: CategoriaService, private serSer: ServiciosService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    
     this.buscar({});
     this.cargarCategorias();
   }
-  
   buscar(ejemplo){
     this.loading = true;
     this.lista_ficha=[];
@@ -51,9 +58,7 @@ export class ListarFichaComponent implements OnInit {
     if(this.pacienteSelected>=0){
       ejemplo.idCliente={idPersona:this.pacienteSelected}
     }
-    if(this.subcategoriaSelected>=0){
-      ejemplo.idTipoProducto={idTipoProducto:this.subcategoriaSelected}
-    }
+  
     let inicio=(this.pagina_actual-1)*this.limite;
     
     this.service=this.resServ.listarFichas(String(inicio),String(this.limite),this.orderBy,ejemplo).subscribe(
@@ -66,10 +71,6 @@ export class ListarFichaComponent implements OnInit {
 
   setFechaDesde(fecha){
     this.fechaDesde=fecha;
-    this.buscar({});
-  }
-
-  setFechaHasta(fecha){
     this.fechaHasta=fecha;
     this.buscar({});
   }
@@ -83,7 +84,7 @@ export class ListarFichaComponent implements OnInit {
     this.pacienteSelected=id;
     this.buscar({});
   }
-  
+
   buscarPorSubCategoria(id:number){
     this.subcategoriaSelected=id;
     this.buscar({});
@@ -104,33 +105,25 @@ export class ListarFichaComponent implements OnInit {
     this.buscar({});
   }
 
-  eliminar(id: number){
-    this.resServ.cancelarFicha(id).subscribe(
-      (response)=>{
-        this.buscar({});
-      }
-    )
-  }
-
-  agregar(): void{
-    this.router.navigate(['reserva/crear']);
-  }
 
   openModal(id: string) {
     this.modalService.open(id);
   }
 
-  agregarServicio(idFichaClinica:number):void{
-    this.router.navigate(['servicios/crear-servicio:idFichaClinica'])
+  seleccionar(ficha: FichaClinica){
+    this.fichaSelected = ficha;
+    this.fichaSelected.idEmpleado.fechaNacimiento = ficha.idEmpleado.fechaNacimiento + " 00:00:00";
+    this.fichaSelected.idCliente.fechaNacimiento = ficha.idCliente.fechaNacimiento + " 00:00:00";
   }
 
-  modificar(obs){
-    let ficha = {idFichaClinica:this.fichaModifcar.idFichaClinica,observacion:obs}
-    this.resServ.modificarFicha(ficha,"").subscribe(
+  crearServicio(observacion: string){
+    let servicio = {idFichaClinica: this.fichaSelected,observacion:observacion,fechaHora: this.fechaActual+ getHora(new Date)}
+    this.serSer.crearServicio(servicio,"").subscribe(
       (response)=>{
         this.buscar({});
-        this.closeModal('modal-modificar');
-      });
+        this.closeModal('modal-agregar')
+      }
+    )
   }
 
   cargarCategorias(){
@@ -152,12 +145,7 @@ export class ListarFichaComponent implements OnInit {
     )
   }
 
-  setFichaModificar(ficha){
-    this.fichaModifcar=ficha;
-  }
-
-closeModal(id: string) {
+  closeModal(id: string) {
     this.modalService.close(id);
-}
-
+  }
 }

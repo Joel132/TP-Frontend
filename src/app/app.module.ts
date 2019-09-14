@@ -29,6 +29,8 @@ import { ListarReservaComponent } from './componentes/reserva/listado/listar-res
 import { CrearReservaComponent } from './componentes/reserva/crear/crear-reserva.component';
 import { ListarFichaComponent } from './componentes/ficha/listado/listar-ficha.component';
 import { AuthorizatedGuardService } from './servicios/guard/authorizated-guard.service';
+import { ServiciosComponent } from './componentes/servicios/servicios/servicios.component';
+import { CrearServicioComponent } from './componentes/servicios/crear-servicio/crear-servicio.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,10 @@ import { AuthorizatedGuardService } from './servicios/guard/authorizated-guard.s
     EditarHorarioExComponent, 
     ListarReservaComponent,
     CrearReservaComponent,
-    ListarFichaComponent
+    ListarFichaComponent,
+    ServiciosComponent,
+    CrearServicioComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -78,7 +83,10 @@ import { AuthorizatedGuardService } from './servicios/guard/authorizated-guard.s
       { path: 'horariosE', component: ListarHorarioExComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'reservas', component: ListarReservaComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'reserva/crear', component: CrearReservaComponent, canActivate:[AuthorizatedGuardService] },
-      { path: 'fichas', component: ListarFichaComponent, canActivate:[AuthorizatedGuardService] }
+      { path: 'fichas', component: ListarFichaComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'servicios',component: ServiciosComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'servicios/crear-servicio',component:CrearServicioComponent, canActivate:[AuthorizatedGuardService]},
+      { path: 'servicios/crear-servicio:idFichaClinica',component:CrearServicioComponent,  canActivate:[AuthorizatedGuardService]}
       //{ path: 'products/:productId', component: ProductDetailsComponent },
     ]),
     HttpClientModule, 
