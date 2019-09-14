@@ -1,0 +1,71 @@
+<div class="crear">
+        <h2 class="text-center">Modificar Reserva</h2>
+        <form *ngIf="modificarForm" [formGroup]="modificarForm" (ngSubmit)="onModificar()">
+                
+              
+                <div>
+                        <div *ngIf="doctorSel"><label>Doctor:</label><b>{{doctorSel}}</b><br></div>
+                        <a (click)="openModal('modal-busqueda-doctor')">Asignar Doctor</a>
+                        <div *ngIf= " aceptado && val.idEmpleado.errors">
+                                <div *ngIf="val.idEmpleado.errors.noSeleccionado.message" style="color:red;">Asigne un doctor</div>
+                        </div>
+                </div>
+
+                <div>
+                        <label for="fecha">Seleccionar Fecha:</label>
+                        <input type="date" name="fecha" (change)="asignarFecha($event.target.value)" [value]="fechaSel">
+                        <div *ngIf="!fechaValida" style="color:red;">
+                                Seleccione otra fecha
+                        </div>
+                </div>
+
+                <div class="form-group">
+                        <div *ngIf="pacienteSel"><label>Paciente:</label><b>{{pacienteSel}}</b><br></div>
+                        <a (click)="openModal('modal-busqueda-paciente')">Asignar Paciente</a>
+                        <div *ngIf= " aceptado && val.idCliente.errors">
+                                <div *ngIf="val.idCliente.errors.noSeleccionado.message" style="color:red;">Asigne un paciente</div>
+                        </div>
+                </div>
+                <div class="form-group">
+                        <label for="horario">Horario:</label>
+                        <select formControlName="horarioSel">
+                                <option value="-1">{{reservaOriginal.horaInicioCadena | formatoFecha}}- {{reservaOriginal.horaFinCadena| formatoFecha}}</option>
+                                <option *ngFor="let horario of lista_horarios;let i=index" [value]="i">
+                                        {{horario.horaInicioCadena | formatoFecha}}- {{horario.horaFinCadena| formatoFecha}}
+                                </option>
+                        </select>
+                        <div *ngIf= " aceptado && val.horarioSel.errors">
+                                <div *ngIf="val.horarioSel.errors.required" style="color:red;">Campo obligatorio</div>
+                        </div>
+                </div>
+               
+                <div class="form-group">
+                        <label for="observacion">Observacion:</label>
+                        <input type="text" formControlName="observacion" placeholder="Observacion" name="observacion" class="form-control" [ngClass]="{'is-invalid': aceptado && val.observacion.errors}">
+                        
+                </div>
+
+                <div class="form-group">
+                        <label for="fA">Asistio:</label>
+                        Si<input type="radio" formControlName="flagAsistio" name="flagAsistio" class="form-control" value ="S" [ngClass]="{'is-invalid': aceptado && val.flagAsistio.errors}">
+                        No<input type="radio" formControlName="flagAsistio" name="flagAsistio" class="form-control" value ="N" [ngClass]="{'is-invalid': aceptado && val.flagAsistio.errors}">
+                </div>
+                
+                        
+                
+                <div class="form-group">
+                        <button type = "submit" class="btn btn-primary signin">Modificar</button>
+                        <button class= "btn btn-secondary" type = "button" (click)="onCancelar()">Cancelar</button>    
+                </div>
+                
+                             
+        </form>
+    </div>
+<jw-modal id="modal-busqueda-doctor">
+                <app-buscar-doctor (doctorSeleccionado)="asignarDoctor($event);closeModal('modal-busqueda-doctor')"></app-buscar-doctor>
+                <button (click)="closeModal('modal-busqueda-doctor');">Cerrar</button>
+</jw-modal>
+<jw-modal id="modal-busqueda-paciente">
+        <app-buscar-paciente (pacienteSeleccionado)="asignarPaciente($event);closeModal('modal-busqueda-paciente')"></app-buscar-paciente>
+        <button (click)="closeModal('modal-busqueda-paciente');">Cerrar</button>
+</jw-modal>

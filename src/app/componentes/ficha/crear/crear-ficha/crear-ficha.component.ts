@@ -33,8 +33,14 @@ export class CrearFichaComponent implements OnInit {
       let id=+params.get('resId');
       if(id){//Si hay id en la url entonces hay una reserva en la cual la ficha se basa
         this.reservaService.getReserva(id).subscribe((response)=>{
-          response.flagAsistio='S';
-          this.reservaService.modificarReserva(response,'').subscribe((data)=>{});
+          if(!response.flagAsistio&&response){
+            response.flagAsistio='S';
+            let reserva = {idReserva:response.idReserva,flagAsistio:response.flagAsistio}
+            this.reservaService.modificarReserva(reserva,'').subscribe((data)=>{},(error)=>{
+              if(error.status==500)console.log("reserva no se puede modificar");
+
+            });
+          }
           let paciente=this.pacienteSelected=response.idCliente;
           let doctor=this.doctorSelected=response.idEmpleado;
           this.inicializarForm(paciente, doctor);

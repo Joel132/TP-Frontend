@@ -35,9 +35,9 @@
                 <td>{{reserva.idCliente.nombre}}</td>
                 <td>{{reserva.observacion}}</td>
                 <td>{{reserva.flagAsistio=="S"?"Asistido":reserva.flagEstado=="C"?"Cancelado":reserva.flagAsistio=="N"?"No asistio":"Reservado"}}</td>
-                <td><a *ngIf="reserva.flagEstado!='C'&&!reserva.flagAsistio&&!reserva.observacion&&reserva.fecha>fechaActual" (click)="openModal('modal-modificar');setReservaModificar(reserva)">Modificar</a></td>
-                <td><a (click)="eliminar(reserva.idReserva)">Eliminar</a></td>
-                <td><a [routerLink]="['/ficha/crear',reserva.idReserva]">Agregar Ficha</a></td>
+                <td><a *ngIf="reserva.flagEstado!='C'&&!reserva.flagAsistio&&reserva.fecha>fechaActual" (click)="openModal('modal-modificar');setReservaModificar(reserva)">Modificar</a></td>
+                <td><a *ngIf="reserva.flagEstado!='C'&&!reserva.flagAsistio&&reserva.fecha>fechaActual" (click)="eliminar(reserva.idReserva)">Cancelar</a></td>
+                <td><a *ngIf="reserva.flagEstado!='C'&&!reserva.flagAsistio" [routerLink]="['/ficha/crear',reserva.idReserva]">Agregar Ficha</a></td>
             </tr>
         </tbody>
         
