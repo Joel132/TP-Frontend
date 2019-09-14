@@ -1,3 +1,6 @@
+import { ValidatorFn, AbstractControl } from '@angular/forms';
+import { Pipe, PipeTransform } from '@angular/core';
+
 /**
  * Formatear una fecha en el formato YYYY-MM-DD
  * @param date la fecha a formatear
@@ -13,3 +16,22 @@ export function formatDate(date) {
 
     return [year, month, day].join('-');
 }
+
+export function noSeleccionadoValidator(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} | null => {
+      let asignado;
+      asignado=control.value&&control.value.idPersona;
+      console.log(control.value);
+      return asignado ? null:{'noSeleccionado': {message: 'No seleccionado'}};
+    };
+  
+    
+  }
+
+  @Pipe({name: 'formatoFecha'})
+  export class formatoFecha implements PipeTransform {
+    transform(value: string): string {
+      return value.slice(0,2)+':'+value.slice(2,4);   
+    }
+  }
+  

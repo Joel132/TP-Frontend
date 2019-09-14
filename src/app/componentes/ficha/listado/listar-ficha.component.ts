@@ -113,7 +113,7 @@ export class ListarFichaComponent implements OnInit {
   }
 
   agregar(): void{
-    this.router.navigate(['reserva/crear']);
+    this.router.navigate(['ficha/crear']);
   }
 
   openModal(id: string) {

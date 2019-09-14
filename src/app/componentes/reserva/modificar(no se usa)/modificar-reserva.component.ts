@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalService } from 'src/app/_modal';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ReservaService } from 'src/app/servicios/turnos/reserva.service';
 import { Reserva } from 'src/app/modelos/reserva';
 import {noSeleccionadoValidator} from 'src/app/otros/funciones';
 @Component({
-  selector: 'app-crear-reserva',
-  templateUrl: './crear-reserva.component.html',
-  styleUrls: ['./crear-reserva.component.css']
+  selector: 'app-modificar-reserva',
+  templateUrl: './modificar-reserva.component.html',
+  styleUrls: ['./modificar-reserva.component.css']
 })
-export class CrearReservaComponent implements OnInit {
-  crearForm : FormGroup;
+export class ModificarReservaComponent implements OnInit {
+  modificarForm : FormGroup;
   aceptado = false;
   doctorSel;//Atributo que almacena el nombre del doctor seleccionado
   pacienteSel;//Atributo que almacena el nombre del paciente seleccionado
@@ -19,18 +19,35 @@ export class CrearReservaComponent implements OnInit {
   lista_horarios: Reserva[];//Lista de horarios disponibles de un doctor en particular en una fecha dada
   fechaValida=true;//Si al menos hay 1 elemento en la lista_horarios
   idDoctor;
+  reservaOriginal: Reserva;
   constructor(private formBuilder : FormBuilder, private modalService:ModalService, private resSer: ReservaService,
-    private router : Router) { }
+    private router : Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.crearForm = this.formBuilder.group({
-      idReserva : [],
-      idEmpleado : [{idPersona:''}, noSeleccionadoValidator()],
-      idCliente : [{idPersona:''}, noSeleccionadoValidator()],
-      fechaCadena: ['', Validators.required],
-      horarioSel: [0,[Validators.required,Validators.min(0)]]
-      
+    this.route.paramMap.subscribe(params => {
+      this.resSer.getReserva(+params.get('resId')).subscribe((response)=>{
+        this.reservaOriginal=response
+        this.llenarForm();
+      });
+    });
+    
+  }
+
+  llenarForm(){
+    this.modificarForm = this.formBuilder.group({
+      idReserva : [this.reservaOriginal.idReserva],
+      idEmpleado : [{idPersona:this.reservaOriginal.idEmpleado.idPersona}, noSeleccionadoValidator()],
+      idCliente : [{idPersona:this.reservaOriginal.idCliente.idPersona}, noSeleccionadoValidator()],
+      fechaCadena: [this.reservaOriginal.fecha, Validators.required],
+      horarioSel: [-1,[Validators.required,Validators.min(-1)]],
+      observacion: [this.reservaOriginal.observacion],
+      flagAsistio: [this.reservaOriginal.flagAsistio]
     })
+    this.doctorSel=this.reservaOriginal.idEmpleado.nombre;
+    this.pacienteSel=this.reservaOriginal.idCliente.nombre;
+    this.fechaSel=this.reservaOriginal.fecha;
+    this.idDoctor=this.reservaOriginal.idEmpleado.idPersona;
+    this.cargarHorarios();
   }
   
 
@@ -57,7 +74,7 @@ export class CrearReservaComponent implements OnInit {
   
   asignarDoctor(doctor){
     this.idDoctor=doctor.idPersona;
-    this.crearForm.patchValue({
+    this.modificarForm.patchValue({
       idEmpleado:{idPersona:doctor.idPersona}
     })
     this.doctorSel=doctor.nombre;
@@ -65,7 +82,7 @@ export class CrearReservaComponent implements OnInit {
   }
 
   asignarPaciente(paciente){
-    this.crearForm.patchValue({
+    this.modificarForm.patchValue({
       idCliente:{idPersona:paciente.idPersona}
     })
     this.pacienteSel=paciente.nombre;
@@ -73,26 +90,28 @@ export class CrearReservaComponent implements OnInit {
 
   asignarFecha(fecha){
     this.fechaSel=fecha;
-    this.crearForm.patchValue({
+    this.modificarForm.patchValue({
       fechaCadena:fecha
     })
     if(this.idDoctor)this.cargarHorarios();
   }
 
-  onCrear(){
+  onModificar(){
     this.aceptado = true;
-    console.log(this.crearForm);
-    if(this.crearForm.invalid){
+    console.log(this.modificarForm);
+    if(this.modificarForm.invalid){
       return;
     }
-    let reserva=this.crearForm.value;
-    reserva.horaInicioCadena=this.lista_horarios[reserva.horarioSel].horaInicioCadena;
-    reserva.horaFinCadena=this.lista_horarios[reserva.horarioSel].horaFinCadena;
+    let reserva=this.modificarForm.value;
+    if(reserva.horarioSel>-1){
+      reserva.horaInicioCadena=this.lista_horarios[reserva.horarioSel].horaInicioCadena;
+      reserva.horaFinCadena=this.lista_horarios[reserva.horarioSel].horaFinCadena;
+    }
     
     reserva.fechaCadena=reserva.fechaCadena.replace(/\-/gi,"");
     delete reserva.horarioSel//SE ELIMINA ESTE CAMPO PORQUE NO NECESITA
     console.log(reserva);
-    this.resSer.agendarTurno(reserva,"")
+    this.resSer.modificarReserva(reserva,"")
       .subscribe(response =>{ 
       this.router.navigate(['reservas']);
       //TODO: colocar mensaje de exito
@@ -103,14 +122,11 @@ export class CrearReservaComponent implements OnInit {
 
   onCancelar(){
     this.aceptado = false;
-    this.crearForm.reset();
-    this.doctorSel="";
-    this.pacienteSel="";
-    this.idDoctor=null;
+    this.llenarForm();
   }
 
   get val(){
-    return this.crearForm.controls;
+    return this.modificarForm.controls;
   }
 
 }

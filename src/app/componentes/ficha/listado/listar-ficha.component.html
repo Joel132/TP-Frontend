@@ -20,7 +20,7 @@
             <option *ngFor="let subCat of lista_subcategoria" [value]="subCat.idTipoProducto" >
                 {{subCat.descripcion}}
             </option>
-        </select>     
+        </select>
 </div>
 <div id="tabla">
     <table>
@@ -39,7 +39,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let ficha of lista_ficha">
-                <td>{{ficha.fechaHora}}</td>
+                <td>{{ficha.fechaHora | date : 'longDate'}}</td>
                 <td>{{ficha.idEmpleado.nombre}}</td>
                 <td>{{ficha.idCliente.nombre}}</td>
                 <td>{{ficha.idTipoProducto.descripcion}}</td>
