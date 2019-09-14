@@ -72,6 +72,10 @@ export class ReservaService {
   public cancelarReserva(reservaId){
     return this.httpClient.delete(this.api_reserva+'/'+reservaId);
   }
+  
+  public getReserva(reservaId): Observable<Reserva>{
+    return this.httpClient.get<Reserva>(this.api_reserva+'/'+reservaId);
+  }
 
 }
 

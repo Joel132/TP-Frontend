@@ -107,7 +107,7 @@ export class ListarReservaComponent implements OnInit {
   }
 
   modificar(asis, obs){
-    let reserva = {idReserva:this.reservaModificar.idReserva,observacion:obs,flagAsistio:asis?"S":null}
+    let reserva = {idReserva:this.reservaModificar.idReserva,observacion:obs,flagAsistio:asis?"S":"N"}
     this.resServ.modificarReserva(reserva,"").subscribe(
       (response)=>{
         this.buscar({});

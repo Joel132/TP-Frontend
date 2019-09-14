@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalService } from 'src/app/_modal';
 import { Router } from '@angular/router';
 import { ReservaService } from 'src/app/servicios/turnos/reserva.service';
 import { Reserva } from 'src/app/modelos/reserva';
-
+import {noSeleccionadoValidator} from 'src/app/otros/funciones';
 @Component({
   selector: 'app-crear-reserva',
   templateUrl: './crear-reserva.component.html',
@@ -28,7 +28,7 @@ export class CrearReservaComponent implements OnInit {
       idEmpleado : [{idPersona:''}, noSeleccionadoValidator()],
       idCliente : [{idPersona:''}, noSeleccionadoValidator()],
       fechaCadena: ['', Validators.required],
-      horarioSel: [0,[Validators.required,Validators.min(1)]]
+      horarioSel: [0,[Validators.required,Validators.min(0)]]
       
     })
   }
@@ -81,6 +81,7 @@ export class CrearReservaComponent implements OnInit {
 
   onCrear(){
     this.aceptado = true;
+    console.log(this.crearForm);
     if(this.crearForm.invalid){
       return;
     }
@@ -114,12 +115,4 @@ export class CrearReservaComponent implements OnInit {
 
 }
 
-export function noSeleccionadoValidator(): ValidatorFn {
-  return (control: AbstractControl): {[key: string]: any} | null => {
-    const asignado=control.value&&control.value.idPersona;
-    console.log(control.value);
-    return asignado ? null:{'noSeleccionado': {message: 'No seleccionado'}};
-  };
 
-  
-}

@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="form-group">
-                        <div *ngIf="doctorSel"><label>Paciente:</label><b>{{pacienteSel}}</b><br></div>
+                        <div *ngIf="pacienteSel"><label>Paciente:</label><b>{{pacienteSel}}</b><br></div>
                         <a (click)="openModal('modal-busqueda-paciente')">Asignar Paciente</a>
                         <div *ngIf= " aceptado && val.idCliente.errors">
                                 <div *ngIf="val.idCliente.errors.noSeleccionado.message" style="color:red;">Asigne un paciente</div>
@@ -30,7 +30,7 @@
                         <label for="horario">Horario:</label>
                         <select formControlName="horarioSel">
                                 <option *ngFor="let horario of lista_horarios;let i=index" [value]="i">
-                                        {{horario.horaInicioCadena + '-' + horario.horaFinCadena}}
+                                        {{horario.horaInicioCadena | formatoFecha}}- {{horario.horaFinCadena| formatoFecha}}
                                 </option>
                         </select>
                         <div *ngIf= " aceptado && val.horarioSel.errors">

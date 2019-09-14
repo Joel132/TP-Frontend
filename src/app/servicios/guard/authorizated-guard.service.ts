@@ -19,7 +19,6 @@ export class AuthorizatedGuardService implements CanActivate {
  * Permite el acceso al Scrum Master y al Adminitrador a ciertas rutas.
  */
 canActivate() {
-
     // logeado entonces devuelve true 
     if (this.storageService.isAuthenticated() ) {
       return true;
