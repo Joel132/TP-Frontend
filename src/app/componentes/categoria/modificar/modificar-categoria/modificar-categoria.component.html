@@ -1,11 +1,22 @@
-<div class="crear">
-        <h2 class="text-center">Modificar Categoria</h2>
-        <form *ngIf="modificarForm" [formGroup]="modificarForm" (ngSubmit)="onModificar()">
-    
-                <div class="form-group">
-                        <label for="descripcion">Descripcion:</label>
-                        <input formControlName="descripcion" placeholder="Descripcion" name="descripion" class="form-control" id="nombre">
-                </div>
-                <input type="submit" [disabled]="!modificarForm.valid" class="btn btn-success" value="Modificar">
-        </form>
+<div class="container py-3">
+  <div class="row">
+    <div class="mx-auto col-sm-6">
+      <div class="card">
+        <div class="card-header text-center" style="background-color: lightseagreen;">
+          <h2>Modificar Cateogria</h2>
+        </div>
+        <div class="card-body">
+          <form *ngIf="modificarForm" [formGroup]="modificarForm" (ngSubmit)="onModificar()">
+            <div class="row">
+              <label for="descripcion">Descripcion:</label>
+              <textarea class="form-control" rows="2" formControlName="descripcion" placeholder="Descripcion" name="descripion" class="form-control" id="nombre"></textarea>
+            </div><br>
+            <div class="row">
+                <input type="submit" [disabled]="!modificarForm.valid" class="btn btn-success btn-lg btn-block" value="Modificar">
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
+</div>

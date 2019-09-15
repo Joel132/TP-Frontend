@@ -1,32 +1,47 @@
-<div id="buscador">
-    <input type="text" #nombreAbuscar placeholder="Descripcion">
-    <input type="button" (click)="buscar(nombreAbuscar.value)" value="Buscar">
-    <input type="button" (click)="agregar()" value="Agregar">
-</div>
-<div id="tabla">
-<table>
-    <thead>
-        <tr>
-        <th>Descripcion</th>
-        <th></th>
-        <th></th>
+<div class="container mt-3">
+  <div class="row">
+    <h1 class="display-4">Categoria</h1>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-6">
+      <input class="form-control" type="text" #nombreAbuscar placeholder="Busqueda de descripcion">
+    </div>
+    <div class="col-md-1 col-lg-2">
+      <input type="button" class="btn btn-dark" (click)="buscar(nombreAbuscar.value)" value="Buscar">
+    </div>
+  </div><br>
+  <div class="row">
+    <input type="button" class="btn btn-dark" (click)="agregar()" value="Agregar descripcion" style="margin-left: 14px;">
+  </div><br>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead class="thead-dark">
+        <tr class="text-center">
+          <th scope="col">Descripcion</th>
+          <th scope="col">Opciones</th>
         </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody class="text-center">
         <tr *ngFor="let categoria of lista_categoria">
-            <td>{{categoria.descripcion}}</td>
-            <td><a [routerLink]="['editar',categoria.idCategoria]">Editar</a></td>
-            <td><a (click)="eliminar(categoria.idCategoria)">Eliminar</a></td>
+          <td>{{categoria.descripcion}}</td>
+          <td>
+            <a class="btn btn-warning" [routerLink]="['editar',categoria.idCategoria]">Editar</a>
+            <a class="btn btn-danger" style="margin-left: 10px; cursor: pointer;" (click)="eliminar(categoria.idCategoria)">Eliminar</a>
+          </td>
         </tr>
-    </tbody>
-    
-</table>
-<my-pagination
-  (goPage)="goToPage($event,nombreAbuscar.value)"
-  (goNext)="onNext(nombreAbuscar.value)"
-  (goPrev)="onPrev(nombreAbuscar.value)"
-  [pagesToShow]="3"
-  [page]="pagina_actual"
-  [perPage]="limite"
-  [count]="total"></my-pagination>
+      </tbody>
+    </table>
+  </div>
+</div><br>
+<div class="row">
+  <my-pagination
+    (goPage)="goToPage($event,nombreAbuscar.value)"
+    (goNext)="onNext(nombreAbuscar.value)"
+    (goPrev)="onPrev(nombreAbuscar.value)"
+    [pagesToShow]="3"
+    [page]="pagina_actual"
+    [perPage]="limite"
+    [count]="total">
+  </my-pagination>
 </div>
