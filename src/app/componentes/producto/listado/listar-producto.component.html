@@ -1,0 +1,49 @@
+<h2>Lista de Productos</h2>
+<div id="buscador">
+        <input type="text" #nombreBuscar><button (click)="buscarPorNombre(nombreBuscar.value)">Buscar</button>
+            <button (click)="agregar()">Registrar Producto</button>
+        Categoria:<select (change)="cargarSubcategorias($event.target.value)">
+            <option value="-1">Todas</option>
+            <option *ngFor="let cat of lista_categoria" [value]="cat.idCategoria" >
+                {{cat.descripcion}}
+            </option>
+        </select>
+        SubCategoria:<select (change)="buscarPorSubCategoria($event.target.value)">
+            <option value="-1">Todas</option>
+            <option *ngFor="let subCat of lista_subcategoria" [value]="subCat.idTipoProducto" >
+                {{subCat.descripcion}}
+            </option>
+        </select>
+</div>
+<div id="tabla">
+    <table>
+        <thead>
+            <tr>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Subcategoria</th>
+            <th></th>
+            <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let producto of lista_producto">
+                <td>{{producto.nombre}}</td>
+                <td>{{producto.descripcion}}</td>
+                <td>{{producto.idProducto.idTipoProducto.descripcion}}</td>
+                <td><a [routerLink]="['/producto/modificar',producto.idPresentacionProducto]">Modificar</a></td>
+                <td><a (click)="eliminar(producto.idPresentacionProducto)">Eliminar</a></td>
+
+            </tr>
+        </tbody>
+        
+    </table>
+    <my-pagination
+      (goPage)="goToPage($event)"
+      (goNext)="onNext()"
+      (goPrev)="onPrev()"
+      [pagesToShow]="3"
+      [page]="pagina_actual"
+      [perPage]="limite"
+      [count]="total"></my-pagination>
+</div>
