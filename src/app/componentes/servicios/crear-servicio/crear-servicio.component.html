@@ -1,54 +1,31 @@
-<h2>Fichas Clinica</h2>
+<h2>Servicios</h2>
 <div id="buscador">
-        <label>Fecha Desde:</label>
+        <label>Fecha:</label>
         <input type="date" [value]="fechaDesde" (change)="setFechaDesde($event.target.value)">
-        <label>Fecha Hasta:</label>
-        <input type="date" [value]="fechaHasta" (change)="setFechaHasta($event.target.value)">
         <button (click)="openModal('modal-busqueda-doctor')">Buscar Doctor</button>
         <button (click)="openModal('modal-busqueda-paciente')">Buscar Paciente</button>
-            <button (click)="agregar()">Registrar Ficha</button>
             <button *ngIf="doctorSelected>-1" (click)="buscarPorDoctor(-1)">Quitar filtro por doctor</button>
-            <button *ngIf="pacienteSelected>-1" (click)="buscarPorPaciente(-1)">Quitar filtro por paciente</button>
-        Categoria:<select (change)="cargarSubcategorias($event.target.value)">
-            <option value="-1">Todas</option>
-            <option *ngFor="let cat of lista_categoria" [value]="cat.idCategoria" >
-                {{cat.descripcion}}
-            </option>
-        </select>
-        SubCategoria:<select (change)="buscarPorSubCategoria($event.target.value)">
-            <option value="-1">Todas</option>
-            <option *ngFor="let subCat of lista_subcategoria" [value]="subCat.idTipoProducto" >
-                {{subCat.descripcion}}
-            </option>
-        </select>
+            <button *ngIf="pacienteSelected>-1" (click)="buscarPorPaciente(-1)">Quitar filtro por paciente</button>  
+               
 </div>
 <div id="tabla">
     <table>
         <thead>
             <tr>
+            <th>IdFicha</th>
             <th>Fecha</th>
-            <th>Doctor</th>
-            <th>Paciente</th>
             <th>Subcategoria</th>
-            <th>Motivo Consulta</th>
-            <th>Diagnostico</th>
-            <th>Observacion</th>
+            <th>Acciones</th>
             <th></th>
             <th></th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let ficha of lista_ficha">
-                <td>{{ficha.fechaHora | date : 'longDate'}}</td>
-                <td>{{ficha.idEmpleado.nombre}}</td>
-                <td>{{ficha.idCliente.nombre}}</td>
+                <td>{{ficha.idFichaClinica}}</td>
+                <td>{{ficha.fechaHora}}</td>
                 <td>{{ficha.idTipoProducto.descripcion}}</td>
-                <td>{{ficha.motivoConsulta}}</td>
-                <td>{{ficha.diagnostico}}</td>
-                <td>{{ficha.observacion}}</td>
-                <td><a (click)="openModal('modal-modificar');setFichaModificar(ficha)">{{ficha.observacion?"Editar":"Agregar"}} Observacion</a></td>
-                <td><a (click)="eliminar(ficha.idFichaClinica)">Eliminar</a></td>
-                <td><button (click)="agregarServicio(idFichaClinica)">Agregar Servicio</button></td>
+                <td><button  (click)="seleccionar(ficha);openModal('modal-agregar')">Agregar</button></td>
 
             </tr>
         </tbody>
@@ -62,6 +39,21 @@
       [page]="pagina_actual"
       [perPage]="limite"
       [count]="total"></my-pagination>
+</div>
+<h3>Detalles</h3>
+<div id="buscador">
+    Categoria:<select (change)="cargarSubcategorias($event.target.value)">
+        <option value="-1">Todas</option>
+        <option *ngFor="let cat of lista_categoria" [value]="cat.idCategoria" >
+            {{cat.descripcion}}
+        </option>
+    </select>
+    SubCategoria:<select (change)="buscarPorSubCategoria($event.target.value)">
+        <option value="-1">Todas</option>
+        <option *ngFor="let subCat of lista_subcategoria" [value]="subCat.idTipoProducto" >
+            {{subCat.descripcion}}
+        </option>
+    </select>     
 </div>
 
 <jw-modal id="modal-busqueda-doctor">
@@ -79,5 +71,12 @@
         <textarea #observacion>{{fichaModifcar?.observacion}}</textarea><br>
         <button (click)="modificar(observacion.value)">Guardar</button>
         <button (click)="closeModal('modal-modificar');">Cerrar</button>
+</jw-modal>
+
+<jw-modal id="modal-agregar">
+        <label>Observacion</label>
+        <textarea #observacion>{{servicioCrear?.observacion}}</textarea><br>
+        <button (click)="crearServicio(observacion.value)">Guardar</button>
+        <button (click)="closeModal('modal-agregar');">Cerrar</button>
 </jw-modal>
         

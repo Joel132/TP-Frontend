@@ -34,6 +34,8 @@ import { formatoFecha } from './otros/funciones';
 import { ListarProductoComponent } from './componentes/producto/listado/listar-producto.component';
 import { CrearProductoComponent } from './componentes/producto/crear/crear-producto/crear-producto.component';
 import { ModificarProductoComponent } from './componentes/producto/modificar/modificar-producto/modificar-producto.component';
+import { ServiciosComponent } from './componentes/servicios/servicios/servicios.component';
+import { CrearServicioComponent } from './componentes/servicios/crear-servicio/crear-servicio.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +67,10 @@ import { ModificarProductoComponent } from './componentes/producto/modificar/mod
     CrearFichaComponent,
     ListarProductoComponent,
     CrearProductoComponent,
-    ModificarProductoComponent
+    ModificarProductoComponent,
+    ServiciosComponent,
+    CrearServicioComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -93,7 +98,10 @@ import { ModificarProductoComponent } from './componentes/producto/modificar/mod
       { path: 'producto/crear', component: CrearProductoComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'producto/modificar/:proId', component: ModificarProductoComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'ficha/crear/:resId', component: CrearFichaComponent, canActivate:[AuthorizatedGuardService] },
-      { path: 'ficha/crear', component: CrearFichaComponent, canActivate:[AuthorizatedGuardService] }
+      { path: 'ficha/crear', component: CrearFichaComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'servicios',component: ServiciosComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'servicios/crear-servicio',component:CrearServicioComponent, canActivate:[AuthorizatedGuardService]},
+      { path: 'servicios/crear-servicio:idFichaClinica',component:CrearServicioComponent,  canActivate:[AuthorizatedGuardService]}
       //{ path: 'products/:productId', component: ProductDetailsComponent },
     ]),
     HttpClientModule, 

@@ -35,3 +35,13 @@ export function noSeleccionadoValidator(): ValidatorFn {
     }
   }
   
+export function getHora(date){
+    let h = new Date(date),
+        hour = ' ' + (h.getHours()),
+        min = '' + (h.getMinutes()),
+        sec = '' + (h.getSeconds());
+    if(hour.length < 2) hour = '0' + hour;
+    if(min.length < 2) min = '0' + min;
+    if(sec.length < 2) sec = '0' + sec;
+    return [hour, min, sec].join(':');
+}
