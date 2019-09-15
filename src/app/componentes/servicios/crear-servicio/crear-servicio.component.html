@@ -61,7 +61,7 @@
 <div id="buscador">
     Categoria:
     <select (change)="cargarSubcategorias($event.target.value)">
-        <option value="-1">Todas</option>
+            <option value="-1">Seleccione una</option>
         <option *ngFor="let cat of lista_categoria" [value]="cat.idCategoria" >
             {{cat.descripcion}}
         </option>
@@ -69,7 +69,7 @@
 
     SubCategoria:
     <select (change)="cargarPresentaciones($event.target.value)">
-        <option value="-1">Todas</option>
+            <option value="-1">Seleccione una</option>
         <option *ngFor="let subCat of lista_subcategoria" [value]="subCat.idTipoProducto" >
             {{subCat.descripcion}}
         </option>
@@ -77,6 +77,7 @@
     
     Tipo Servicio:
     <select (change)="cargarPrecio($event.target.value)">
+        <option value="-1">Seleccione una</option>
         <option *ngFor="let pro of lista_productos;let i=index" [value]="i" >
             {{pro.nombre}}
         </option>

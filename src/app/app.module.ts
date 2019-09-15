@@ -36,6 +36,7 @@ import { CrearProductoComponent } from './componentes/producto/crear/crear-produ
 import { ModificarProductoComponent } from './componentes/producto/modificar/modificar-producto/modificar-producto.component';
 import { ServiciosComponent } from './componentes/servicios/servicios/servicios.component';
 import { CrearServicioComponent } from './componentes/servicios/crear-servicio/crear-servicio.component';
+import { ModificarServicioComponent } from './componentes/servicios/modificar-servicio/modificar-servicio.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { CrearServicioComponent } from './componentes/servicios/crear-servicio/c
     CrearProductoComponent,
     ModificarProductoComponent,
     ServiciosComponent,
-    CrearServicioComponent
+    CrearServicioComponent,
+    ModificarServicioComponent
     
   ],
   imports: [
@@ -102,6 +104,7 @@ import { CrearServicioComponent } from './componentes/servicios/crear-servicio/c
       { path: 'ficha/crear', component: CrearFichaComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'servicios',component: ServiciosComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'servicios/crear-servicio',component:CrearServicioComponent, canActivate:[AuthorizatedGuardService]},
+      { path: 'servicio/modificar/:serId/:ficId',component:ModificarServicioComponent, canActivate:[AuthorizatedGuardService]},
       { path: 'servicios/crear-servicio:idFichaClinica',component:CrearServicioComponent,  canActivate:[AuthorizatedGuardService]}
       //{ path: 'products/:productId', component: ProductDetailsComponent },
     ]),

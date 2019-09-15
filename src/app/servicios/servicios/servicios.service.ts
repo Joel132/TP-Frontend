@@ -3,6 +3,7 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { FichaClinica } from 'src/app/modelos/ficha-clinica';
 import { Servicio, DetalleServicio } from 'src/app/modelos/servicio';
 import { Observable } from 'rxjs';
+import { retry } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -62,7 +63,7 @@ public crearServicio(servicio,usuario){
     let header=new HttpHeaders().set('Content-Type','application/json');
     header=header.set('usuario',usuario?usuario:"pedro");//CAMBIAR CUANDO SE CONECTE A LOGIN
     const options = {headers:header}
-    return this.httpClient.post<Servicio>(this.api_servicio+'/'+servicioId+'/detalle',detalle,options) 
+    return this.httpClient.post<Servicio>(this.api_servicio+'/'+servicioId+'/detalle',detalle,options).pipe(retry(3)) 
   }
 
   public eliminarDetalle(servicioId, detalleId,usuario){
