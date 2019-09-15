@@ -1,0 +1,15 @@
+table{
+    table-layout: fixed;
+}
+
+#miTablaPersonalizada th{
+    width: 130px;
+    overflow: auto;
+    border: 1px solid;
+}
+
+#tablaPersonaliza td{
+    width: 130px;
+    overflow: auto;
+    border: 1px solid; 
+}

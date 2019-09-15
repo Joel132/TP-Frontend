@@ -33,6 +33,8 @@ export class CrearComponent implements OnInit {
     if(this.crearForm.invalid){
       return;
     }
+    let paciente=this.crearForm.value;
+    paciente.fechaNacimiento=paciente.fechaNacimiento+" 00:00:00"
     this.pacienteService.crearPaciente(this.crearForm.value)
       .subscribe(response =>{ 
       console.log(response);

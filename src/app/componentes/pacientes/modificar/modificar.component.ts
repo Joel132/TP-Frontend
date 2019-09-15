@@ -35,7 +35,7 @@ export class ModificarComponent implements OnInit {
       ruc : [this.pacienteOriginal.ruc, Validators.required],
       cedula : [this.pacienteOriginal.cedula, Validators.required],
       tipoPersona : [this.pacienteOriginal.tipoPersona, Validators.required],
-      fechaNacimiento : [this.pacienteOriginal.fechaNacimiento + ' 00:00:00', Validators.required]
+      fechaNacimiento : [this.pacienteOriginal.fechaNacimiento, Validators.required]
       
     })
   }
@@ -45,7 +45,9 @@ export class ModificarComponent implements OnInit {
     if(this.modificarForm.invalid){
       return;
     }
-    this.pacService.editarPaciente(this.modificarForm.value)
+    let paciente=this.modificarForm.value;
+    paciente.fechaNacimiento=paciente.fechaNacimiento+" 00:00:00"
+    this.pacService.editarPaciente(paciente)
       .subscribe(response => {
         console.log(response);
         this.router.navigate(['listar/pacientes']);

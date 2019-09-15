@@ -1,36 +1,52 @@
-<div id="buscador">
-    <input type="text" #nombreAbuscar placeholder="">
-    <input type="button" (click)="buscar(nombreAbuscar.value)" value="Buscar">
-    <input type="button" (click)="agregar()" value="Agregar">
-</div>
-<div id="tabla">
-<table>
-    <thead>
-        <tr>
-        <th>Cedula</th>
-        <th>Nombre</th>
-        <th>Email</th>
-        <th>Telefono</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let paciente of lista_pacientes">
-            <td>{{paciente.cedula}}</td>
-            <td>{{paciente.nombre}}</td>
-            <td>{{paciente.email}}</td>
-            <td>{{paciente.telefono}}</td>
-            <td><a [routerLink]="['editar',paciente.idPersona]">Editar</a></td>
-            <td><input type="button" (click)="eliminar(paciente.idPersona)" value="Eliminar"></td>
-        </tr>
-    </tbody>
-    
-</table>
-<my-pagination
-  (goPage)="goToPage($event,nombreAbuscar.value)"
-  (goNext)="onNext(nombreAbuscar.value)"
-  (goPrev)="onPrev(nombreAbuscar.value)"
-  [pagesToShow]="3"
-  [page]="pagina_actual"
-  [perPage]="limite"
-  [count]="total"></my-pagination>
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-6">
+            <input class="form-control" type="text" #nombreAbuscar placeholder="Busqueda de un paciente" aria-label="Busqueda de un paciente">
+        </div>
+        <div class="col-md-1 col-lg-2">
+            <input type="button" class="btn btn-dark" (click)="buscar(nombreAbuscar.value)" value="Buscar">
+        </div>
+    </div>
+    <br>
+    <div class="row" style="margin-left: 3px;">
+        <input type="button" class="btn btn-dark" (click)="agregar()" value="Agregar Paciente">
+    </div>
+    <br><br>
+    <div class="table-responsive">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr class="text-center">
+                    <th scope="col">Cedula</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">Opciones</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                <tr *ngFor="let paciente of lista_pacientes">
+                    <td>{{paciente.cedula}}</td>
+                    <td>{{paciente.nombre}}</td>
+                    <td>{{paciente.email}}</td>
+                    <td>{{paciente.telefono}}</td>
+                    <td>
+                        <a class="btn btn-warning" [routerLink]="['editar',paciente.idPersona]">Editar</a>
+                        <input type="button" class="btn btn-danger" style="margin-left: 10px;" (click)="eliminar(paciente.idPersona)" value="Eliminar">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <div class="row">
+        <my-pagination
+            (goPage)="goToPage($event,nombreAbuscar.value)"
+            (goNext)="onNext(nombreAbuscar.value)"
+            (goPrev)="onPrev(nombreAbuscar.value)"
+            [pagesToShow]="3"
+            [page]="pagina_actual"
+            [perPage]="limite"
+            [count]="total">
+        </my-pagination>
+    <div>
 </div>

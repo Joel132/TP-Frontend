@@ -1,33 +1,43 @@
-<div id="buscador">
-        <input type="text" #nombreAbuscar placeholder="">
-        <input type="button" (click)="buscar(nombreAbuscar.value)" value="Buscar">
+<div class="container-py">
+    <div class="modal-header">
+        <div class="row">
+            <div class="col-sm-9">
+                <input type="text" #nombreAbuscar class="form-control">
+            </div>
+            <div class="col-sm-2">
+                <input class="btn btn-info" type="button" (click)="buscar(nombreAbuscar.value)" value="Buscar">
+            </div>
+        </div>
     </div>
-    <div id="tabla">
-    <table>
-        <thead>
-            <tr>
-            <th>Cedula</th>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Telefono</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let paciente of lista_paciente" (click)="elegir(paciente)">
-                <td>{{paciente.cedula}}</td>
-                <td>{{paciente.nombre}}</td>
-                <td>{{paciente.email}}</td>
-                <td>{{paciente.telefono}}</td>
-            </tr>
-        </tbody>
-        
-    </table>
+    <div class="table-responsive-sm">
+        <table class="table users table-hover"> 
+            <thead>
+                <tr id="miTablaPersonalizada" class="text-center" style="background-color: cadetblue;">
+                    <th scope="col">Cedula</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Telefono</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="tablaPersonaliza" class="text-center" *ngFor="let paciente of lista_paciente" (click)="elegir(paciente)">
+                    <td>{{paciente.cedula}}</td>
+                    <td>{{paciente.nombre}}</td>
+                    <td>{{paciente.email}}</td>
+                    <td>{{paciente.telefono}}</td>
+                </tr>
+            </tbody>            
+        </table>
+    </div>
+</div>
+<div class="row">
     <my-pagination
-      (goPage)="goToPage($event,nombreAbuscar.value)"
-      (goNext)="onNext(nombreAbuscar.value)"
-      (goPrev)="onPrev(nombreAbuscar.value)"
-      [pagesToShow]="3"
-      [page]="pagina_actual"
-      [perPage]="limite"
-      [count]="total"></my-pagination>
-    </div>
+        (goPage)="goToPage($event,nombreAbuscar.value)"
+        (goNext)="onNext(nombreAbuscar.value)"
+        (goPrev)="onPrev(nombreAbuscar.value)"
+        [pagesToShow]="3"
+        [page]="pagina_actual"
+        [perPage]="limite"
+        [count]="total">
+    </my-pagination>
+</div>
