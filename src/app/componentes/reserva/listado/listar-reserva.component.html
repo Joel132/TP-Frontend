@@ -1,69 +1,100 @@
-<h2>Reservas</h2>
-<div id="buscador">
-        <label>Fecha Desde:</label>
-        <input type="date" [value]="fechaDesde" (change)="setFechaDesde($event.target.value)">
-        <label>Fecha Hasta:</label>
-        <input type="date" [value]="fechaHasta" (change)="setFechaHasta($event.target.value)">
-        <button (click)="openModal('modal-busqueda-doctor')">Buscar Doctor</button>
-        <button (click)="openModal('modal-busqueda-paciente')">Buscar Paciente</button>
-            <button (click)="agregar()">Reservar Turno</button>
-            <button *ngIf="doctorSelected>-1" (click)="buscarPorDoctor(-1)">Quitar filtro por doctor</button>
-            <button *ngIf="pacienteSelected>-1" (click)="buscarPorPaciente(-1)">Quitar filtro por paciente</button>
-            
+<div class="container mt-3">
+    <div class="row">
+    |<h1 class="display-4">Reservas</h1>
     </div>
-    <div id="tabla">
-    <table>
-        <thead>
-            <tr>
-            <th>Fecha</th>
-            <th>Hora de Entrada</th>
-            <th>Hora de Salida</th>
-            <th>Doctor</th>
-            <th>Paciente</th>
-            <th>Observacion</th>
-            <th></th>
-            <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let reserva of lista_reserva">
-                <td>{{reserva.fecha}}</td>
-                <td>{{reserva.horaInicio}}</td>
-                <td>{{reserva.horaFin}}</td>
-                <td>{{reserva.idEmpleado.nombre}}</td>
-                <td>{{reserva.idCliente.nombre}}</td>
-                <td>{{reserva.observacion}}</td>
-                <td><a (click)="openModal('modal-modificar');setReservaModificar(reserva)">{{reserva.observacion?"Editar":"Agregar"}} Observacion</a></td>
-                <td><a (click)="eliminar(reserva.idReserva)">Eliminar</a></td>
-            </tr>
-        </tbody>
-        
-    </table>
-    <my-pagination
-      (goPage)="goToPage($event)"
-      (goNext)="onNext()"
-      (goPrev)="onPrev()"
-      [pagesToShow]="3"
-      [page]="pagina_actual"
-      [perPage]="limite"
-      [count]="total"></my-pagination>
+    <hr>
+    <div class="row">
+        <div class="col-sm">
+            <label>Fecha Desde: </label>
+            <input class="form-control" type="date" [value]="fechaDesde" (change)="setFechaDesde($event.target.value)">
+        </div>
+        <div class="col-sm">
+            <label>Fecha Hasta: </label>
+            <input class="form-control" type="date" [value]="fechaHasta" (change)="setFechaHasta($event.target.value)">
+        </div>
+    </div><br>
+    <div class="row">
+        <div class="col-sm-2">
+            <button class="btn btn-dark" (click)="openModal('modal-busqueda-doctor')">Buscar Doctor</button>
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-dark" (click)="openModal('modal-busqueda-paciente')">Buscar Paciente</button>
+        </div>
+        <div class="col-sm-2">
+            <button class="btn btn-dark" (click)="agregar()">Reservar Turno</button>
+        </div>
+        <div class="col-sm-2">
+            <button  class="btn btn-warning" style="width: 200px;" *ngIf="doctorSelected>-1" (click)="buscarPorDoctor(-1)">Quitar filtro por doctor</button>
+        </div>
+        <div class="col-sm-2">
+            <button  class="btn btn-warning" style="width: 200px;" *ngIf="pacienteSelected>-1" (click)="buscarPorPaciente(-1)">Quitar filtro por paciente</button>
+        </div>
+    </div><br>
+    <div class="table-resposive">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr class="text-center">
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Hora de Entrada</th>
+                    <th scope="col">Hora de Salida</th>
+                    <th scope="col">Doctor</th>
+                    <th scope="col">Paciente</th>
+                    <th scope="col">Observacion</th>
+                    <th scope="col">Opciones</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                <tr *ngFor="let reserva of lista_reserva">
+                    <td>{{reserva.fecha}}</td>
+                    <td>{{reserva.horaInicio}}</td>
+                    <td>{{reserva.horaFin}}</td>
+                    <td>{{reserva.idEmpleado.nombre}}</td>
+                    <td>{{reserva.idCliente.nombre}}</td>
+                    <td>{{reserva.observacion}}</td>
+                    <td><a class="btn btn-warning activo" role="button" (click)="openModal('modal-modificar');setReservaModificar(reserva)">{{reserva.observacion?"Editar":"Agregar"}} Observacion</a></td>
+                    <td><a class="btn btn-danger activo" role="button" (click)="eliminar(reserva.idReserva)">Eliminar</a></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-
+    <div class="row">
+        <my-pagination
+            (goPage)="goToPage($event)"
+            (goNext)="onNext()"
+            (goPrev)="onPrev()"
+            [pagesToShow]="3"
+            [page]="pagina_actual"
+            [perPage]="limite"
+            [count]="total">
+        </my-pagination>
+    </div>
     <jw-modal id="modal-busqueda-doctor">
-            <app-buscar-doctor (doctorSeleccionado)="buscarPorDoctor($event.idPersona);closeModal('modal-busqueda-doctor')"></app-buscar-doctor>
-            <button (click)="closeModal('modal-busqueda-doctor');">Cerrar</button>
+        <app-buscar-doctor (doctorSeleccionado)="buscarPorDoctor($event.idPersona);closeModal('modal-busqueda-doctor')"></app-buscar-doctor>
+        <button class="btn btn-secondary" (click)="closeModal('modal-busqueda-doctor');">Cerrar</button>
     </jw-modal>
 
     <jw-modal id="modal-busqueda-paciente">
-            <app-buscar-paciente (pacienteSeleccionado)="buscarPorPaciente($event.idPersona);closeModal('modal-busqueda-paciente')"></app-buscar-paciente>
-            <button (click)="closeModal('modal-busqueda-paciente');">Cerrar</button>
+        <app-buscar-paciente (pacienteSeleccionado)="buscarPorPaciente($event.idPersona);closeModal('modal-busqueda-paciente')"></app-buscar-paciente>
+        <button class="btn btn-secondary" (click)="closeModal('modal-busqueda-paciente');">Cerrar</button>
     </jw-modal>
 
     <jw-modal id="modal-modificar">
-            <label>Observacion</label>
-            <textarea #observacion>{{reservaModificar?.observacion}}</textarea><br>
-            <label>Asistio?</label><input type="checkbox" #asistio value="si" [checked]="reservaModificar?.flagAsistio=='S'?true:false"><br>
-            <button (click)="modificar(asistio.checked,observacion.value)">Guardar</button>
-            <button (click)="closeModal('modal-modificar');">Cerrar</button>
+        <div class="row">
+            <label for="commment">Observacion:</label>
+            <textarea class="form-control" rows="2" #observacion>{{reservaModificar?.observacion}}</textarea><br>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" #asistio value="si" [checked]="reservaModificar?.flagAsistio=='S'?true:false">
+            <label class="form-check-label" for="defaultCheck1">Asistio</label>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-1">
+                <button class="btn btn-primary" (click)="modificar(asistio.checked,observacion.value)">Guardar</button>
+            </div>
+            <div class="col-sm-1">
+                <button class="btn btn-secondary" (click)="closeModal('modal-modificar');">Cerrar</button>
+            </div>
+        </div>
     </jw-modal>
-        
+</div>

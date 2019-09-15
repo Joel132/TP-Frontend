@@ -47,7 +47,7 @@
     z-index: -1111;
 }
 
-@media screen and (max-width:800px){
+@media screen and (max-width:950px){
     .menu-boton, .hide-menu-boton{
         display: block;
     }
@@ -75,4 +75,8 @@
     #chk:checked ~ .menu{
         right: 0;
     }
+}
+
+.activo:hover{
+    cursor: pointer;
 }

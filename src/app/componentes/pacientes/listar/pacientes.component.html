@@ -30,7 +30,7 @@
                     <td>{{paciente.email}}</td>
                     <td>{{paciente.telefono}}</td>
                     <td>
-                        <a class="btn btn-warning"[routerLink]="['editar',paciente.idPersona]">Editar</a>
+                        <a class="btn btn-warning" [routerLink]="['editar',paciente.idPersona]">Editar</a>
                         <input type="button" class="btn btn-danger" style="margin-left: 10px;" (click)="eliminar(paciente.idPersona)" value="Eliminar">
                     </td>
                 </tr>
