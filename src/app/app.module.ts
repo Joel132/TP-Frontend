@@ -11,7 +11,7 @@ import { PacientesComponent } from './componentes/pacientes/listar/pacientes.com
 import { EliminarComponent } from './componentes/pacientes/eliminar/eliminar.component';
 import { CrearComponent } from './componentes/pacientes/crear/crear.component';
 import { ModificarComponent } from './componentes/pacientes/modificar/modificar.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PaginationComponent } from './componentes/pagination/pagination/pagination.component'
 import { CrearCategoriaComponent } from './componentes/categoria/crear/crear-categoria/crear-categoria.component';
 import { ModificarCategoriaComponent } from './componentes/categoria/modificar/modificar-categoria/modificar-categoria.component'
@@ -36,6 +36,8 @@ import { CrearProductoComponent } from './componentes/producto/crear/crear-produ
 import { ModificarProductoComponent } from './componentes/producto/modificar/modificar-producto/modificar-producto.component';
 import { ServiciosComponent } from './componentes/servicios/servicios/servicios.component';
 import { CrearServicioComponent } from './componentes/servicios/crear-servicio/crear-servicio.component';
+import { ModificarServicioComponent } from './componentes/servicios/modificar-servicio/modificar-servicio.component';
+import { ServiciosDetalladoComponent } from './componentes/servicios/servicios-detallado/servicios-detallado.component';
 
 @NgModule({
   declarations: [
@@ -69,11 +71,14 @@ import { CrearServicioComponent } from './componentes/servicios/crear-servicio/c
     CrearProductoComponent,
     ModificarProductoComponent,
     ServiciosComponent,
-    CrearServicioComponent
+    CrearServicioComponent,
+    ModificarServicioComponent,
+    ServiciosDetalladoComponent
     
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     RouterModule.forRoot([
       { path: '', redirectTo: '/reservas', pathMatch: 'full' },
       { path: 'categoria/crear', component: CrearCategoriaComponent, canActivate:[AuthorizatedGuardService] },
@@ -100,7 +105,9 @@ import { CrearServicioComponent } from './componentes/servicios/crear-servicio/c
       { path: 'ficha/crear/:resId', component: CrearFichaComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'ficha/crear', component: CrearFichaComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'servicios',component: ServiciosComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'servicios/detalles',component: ServiciosDetalladoComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'servicios/crear-servicio',component:CrearServicioComponent, canActivate:[AuthorizatedGuardService]},
+      { path: 'servicio/modificar/:serId/:ficId',component:ModificarServicioComponent, canActivate:[AuthorizatedGuardService]},
       { path: 'servicios/crear-servicio:idFichaClinica',component:CrearServicioComponent,  canActivate:[AuthorizatedGuardService]}
       //{ path: 'products/:productId', component: ProductDetailsComponent },
     ]),

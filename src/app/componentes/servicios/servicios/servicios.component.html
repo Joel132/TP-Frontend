@@ -21,6 +21,8 @@
                 {{subCat.descripcion}}
             </option>
         </select>     
+        <button (click)="agregar()">Agregar</button>
+        <a [routerLink]="['/servicios/detalles']">Ver detallado</a>
 </div>
 <div id="tabla">
     <table>
@@ -32,6 +34,7 @@
             <th>Doctor</th>
             <th>Paciente</th>
             <th>Subcategoria</th>
+            <th>Presupuesto</th>
             <th>Acciones</th>
             <th></th>
             <th></th>
@@ -44,15 +47,15 @@
                 <td>{{servicio.idFichaClinica.fechaHora}}</td>
                 <td>{{servicio.idFichaClinica.idEmpleado.nombre}}</td>
                 <td>{{servicio.idFichaClinica.idCliente.nombre}}</td>
-                <td>{{servicio.idFichaClinica.idTipoProducto.idCategoria.descripcion}}</td>
-                <td><a>Modificar</a></td>
+                <td>{{servicio.idFichaClinica.idTipoProducto.descripcion}}</td>
+                <td>{{servicio.presupuesto}}</td>
+                <td><a [routerLink]="['/servicio/modificar',servicio.idServicio,servicio.idFichaClinica.idFichaClinica]">Detalles</a></td>
                 
 
             </tr>
         </tbody>
         
     </table>
-    <button (click)="agregar()">Agregar</button>
     <my-pagination
       (goPage)="goToPage($event)"
       (goNext)="onNext()"

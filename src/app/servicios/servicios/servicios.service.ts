@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { FichaClinica } from 'src/app/modelos/ficha-clinica';
-import { Servicio } from 'src/app/modelos/servicio';
+import { Servicio, DetalleServicio } from 'src/app/modelos/servicio';
 import { Observable } from 'rxjs';
+import { retry } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ public crearServicio(servicio,usuario){
   let header=new HttpHeaders().set('Content-Type','application/json');
   header=header.set('usuario',usuario?usuario:"pedro");//CAMBIAR CUANDO SE CONECTE A LOGIN
   const options = {headers:header}
-  return this.httpClient.post<Servicio>(this.api_servicio,servicio,options)
+  return this.httpClient.post<number>(this.api_servicio,servicio,options)
 }
 
  /**
@@ -58,8 +59,42 @@ public crearServicio(servicio,usuario){
     return this.httpClient.delete(this.api_servicio+'/'+servicioId);
   }
 
+  public agregarDetalle(servicioId, detalle,usuario){
+    let header=new HttpHeaders().set('Content-Type','application/json');
+    header=header.set('usuario',usuario?usuario:"pedro");//CAMBIAR CUANDO SE CONECTE A LOGIN
+    const options = {headers:header}
+    return this.httpClient.post<Servicio>(this.api_servicio+'/'+servicioId+'/detalle',detalle,options).pipe(retry(3)) 
+  }
+
+  public eliminarDetalle(servicioId, detalleId,usuario){
+    return this.httpClient.delete(this.api_servicio+'/'+servicioId+'/detalle/'+detalleId) 
+  }
+
+  /**
+   * Para obtener los detalles de un servicio en particular
+   * @param servicioId 
+   */
+  public listarDetalles(servicioId):Observable<DetalleServicio[]>{
+    return this.httpClient.get<DetalleServicio[]>(this.api_servicio+'/'+servicioId+'/detalle')
+  }
+
+  public getServiciosDetallado(inicio,cantidad, modeloServicio){
+    let params=new HttpParams().set('ejemplo',JSON.stringify(modeloServicio));
+    params=params.set('inicio',inicio?inicio:0);
+    params=params.set('cantidad',cantidad?cantidad:0);
+    params=params.set('detalle','S');
+    
+    const options = {params:params}
+    return this.httpClient.get<ResponseServicioDetallado>(this.api_servicio,options)
+  }
+
 }
 class ResponseServicio{
   lista: Servicio[];
+  totalDatos: number;
+}
+
+class ResponseServicioDetallado{
+  lista: DetalleServicio[];
   totalDatos: number;
 }

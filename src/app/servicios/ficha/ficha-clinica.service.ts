@@ -56,6 +56,10 @@ export class FichaClinicaService {
     return this.httpClient.delete(this.api_ficha+'/'+fichaId);
   }
 
+  public getFicha(fichaId):Observable<FichaClinica>{
+    return this.httpClient.get<FichaClinica>(this.api_ficha+'/'+fichaId);
+  }
+
 }
 
 class ResponseFicha{

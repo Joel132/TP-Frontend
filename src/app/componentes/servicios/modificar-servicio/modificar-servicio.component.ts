@@ -14,23 +14,14 @@ import { Presentacion } from 'src/app/modelos/presentacion';
 
 
 @Component({
-  selector: 'app-crear-servicio',
-  templateUrl: './crear-servicio.component.html',
-  styleUrls: ['./crear-servicio.component.css']
+  selector: 'app-modificar-servicio',
+  templateUrl: './modificar-servicio.component.html',
+  styleUrls: ['./modificar-servicio.component.css']
 })
-export class CrearServicioComponent implements OnInit {
+export class ModificarServicioComponent implements OnInit {
 
-  //PARA LA FICHA
-  lista_ficha: FichaClinica[];
-  total=0;
-  limite=8;
-  pagina_actual=1;
-  loading = false;
-  orderBy="fechaHoraCadena";
-  fechaActual=formatDate(new Date);
-  fechaDesde=this.fechaActual;//TODO: CAMBIAR POR FECHA ACTUAL
-  doctorSelected=-1;
-  pacienteSelected=-1;
+  fichaClinica:FichaClinica;
+  servicioId: number;
   //PARA LOS DETALLES
   cabecera_servicio = {idFichaClinica:{idFichaClinica:null},observacion:""}
   lista_detalle : DetalleServicio[]=[];
@@ -42,105 +33,64 @@ export class CrearServicioComponent implements OnInit {
   precioSeleccionado:number;
   productoSeleccionado:Presentacion;
   detalle_valido=true;
-  fichaSeleccionada=true;
-  constructor(private fichaSer: FichaClinicaService, private router : Router, private modalService: ModalService,
+  lista_eliminado: number[]=[];
+  
+  constructor(private fichaSer: FichaClinicaService, private router : Router,
     private catSer: CategoriaService, private serSer: ServiciosService, private route: ActivatedRoute,
     private proSer: ProductoService) { }
 
   ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      let fichaId=+params.get('ficId');
+      this.servicioId=+params.get('serId');
+      console.log(this.servicioId)
+      this.fichaSer.getFicha(fichaId).subscribe(
+        (response)=>this.fichaClinica=response
+      )
+      this.serSer.listarDetalles(this.servicioId).subscribe(
+        (data)=>{
+          this.lista_detalle=data
+          for(let detalle of this.lista_detalle){
+            this.lista_eliminado.push(detalle.idServicioDetalle);
+            this.proSer.getPrecioPresentacion(detalle.idPresentacionProducto.idPresentacionProducto,"").subscribe(
+              (precio)=>detalle.precio=precio
+            );
+          }
+        })
+    })
     
-    this.buscarFicha({});
     this.cargarCategorias();
   }
 
   guardarServicio(){
-    if(!this.cabecera_servicio.idFichaClinica.idFichaClinica){
-      this.fichaSeleccionada=false;
-      return ;//SI NO SELECCIONA NINGUNA FICHA ESTA MAL
-    }
-    this.fichaSeleccionada=true;
-    this.serSer.crearServicio(this.cabecera_servicio,"").subscribe(
-      (response)=>{
-        const id_servicio=response;
-        for( let detalle of this.lista_detalle){
-          this.serSer.agregarDetalle(id_servicio,{
-            cantidad:detalle.cantidad,
-            idPresentacionProducto:{idPresentacionProducto:detalle.idPresentacionProducto.idPresentacionProducto}
-            
-          },"").subscribe(
-            (detalle_response)=>{
-              console.log("Agregado")
-            }
-          )
-        }
-        this.router.navigate(['/servicios']);
+    
+    /**
+     * Se elimina lo que habia
+     */
+      for(let idDetalle of this.lista_eliminado){
+        this.serSer.eliminarDetalle(this.servicioId,idDetalle,"").subscribe(
+          (response)=>{
+            console.log("Eliminado")
+          }
+        )
+      } 
+      
+      /**
+       * Se agrega todo como nuevo
+       */
+      for( let detalle of this.lista_detalle){
+        this.serSer.agregarDetalle(this.servicioId,{
+          cantidad:detalle.cantidad,
+          idPresentacionProducto:{idPresentacionProducto:detalle.idPresentacionProducto.idPresentacionProducto}
+          
+        },"").subscribe(
+          (detalle_response)=>{
+            console.log("Agregado")
+          }
+        )
       }
-    )
-  }
-
-  //PARA FICHA
-  buscarFicha(ejemplo){
-    this.loading = true;
-    this.lista_ficha=[];
-    
-    const fechaD=this.fechaDesde.replace(/\-/gi,""); ejemplo.fechaDesdeCadena=ejemplo.fechaHastaCadena=fechaD;
-    
-    if(this.doctorSelected>=0){
-      ejemplo.idEmpleado={idPersona:this.doctorSelected}
-    }
-    if(this.pacienteSelected>=0){
-      ejemplo.idCliente={idPersona:this.pacienteSelected}
-    }
-  
-    let inicio=(this.pagina_actual-1)*this.limite;
-    
-    this.fichaSer.listarFichas(String(inicio),String(this.limite),this.orderBy,ejemplo).subscribe(
-      (response)=>{
-        this.lista_ficha=response.lista;
-        this.total=response.totalDatos;
-        this.loading = false;
-      });
-  }
-
-  //PARA FICHA
-  setFechaDesde(fecha){
-    this.fechaDesde=fecha;
-    this.buscarFicha({});
-  }
-
-  //PARA FICHA
-  buscarPorDoctor(id:number){
-    this.doctorSelected=id;
-    this.buscarFicha({});
-  }
-
-  //PARA FICHA
-  buscarPorPaciente(id:number){
-    this.pacienteSelected=id;
-    this.buscarFicha({});
-  }
-
-  //PARA FICHA
-  goToPage(n: number): void {
-    this.pagina_actual = n;
-    this.buscarFicha({});
-  }
-
-  //PARA FICHA
-  onNext( ): void {
-    this.pagina_actual++;
-    this.buscarFicha({});
-  }
-
-  //PARA FICHA
-  onPrev( ): void {
-    this.pagina_actual--;
-    this.buscarFicha({});
-  }
-
-
-  openModal(id: string) {
-    this.modalService.open(id);
+      this.router.navigate(['/servicios']);
+      
   }
 
   cargarCategorias(){
@@ -153,7 +103,7 @@ export class CrearServicioComponent implements OnInit {
 
   cargarSubcategorias(categoriaId){
     this.subcategoriaSelected=-1;
-    
+    if(categoriaId==-1)return ;
     //TODO: CARGAR SUBCATEGORIAS DESDE SU SERVICIO
     this.catSer.getSubcategorias(categoriaId).subscribe(
       (response)=>{
@@ -163,6 +113,7 @@ export class CrearServicioComponent implements OnInit {
   }
 
   cargarPresentaciones(subCatId:number){
+    if(subCatId==-1)return ;
     this.subcategoriaSelected=subCatId;
     this.proSer.listarPresentacion('0','0','nombre',{idProducto:{idTipoProducto:{idTipoProducto:this.subcategoriaSelected}}}).subscribe(
       (data)=>{
@@ -207,7 +158,4 @@ export class CrearServicioComponent implements OnInit {
     }
   }
 
-  closeModal(id: string) {
-    this.modalService.close(id);
-  }
 }
