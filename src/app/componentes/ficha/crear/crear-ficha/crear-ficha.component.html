@@ -49,7 +49,7 @@
 
             <div class="form-group" formGroupName="idTipoProducto">
                 <label for="sub">Subcategoria:</label>
-                <select formControlName="idTipoProducto" name="sub" class="form-control" [ngClass]="{'is-invalid': aceptado && val.motivoConsulta.errors}">
+                <select formControlName="idTipoProducto" name="sub" class="form-control" [ngClass]="{'is-invalid': aceptado && val.idTipoProducto.controls.idTipoProducto.errors}">
                         <option *ngFor="let sub of lista_subcategoria" [value]="sub.idTipoProducto">{{sub.descripcion}}</option>
                 </select>
                 <div *ngIf= " aceptado && val.idTipoProducto.controls.idTipoProducto.errors" class= "invalid-feedback">

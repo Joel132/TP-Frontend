@@ -31,6 +31,9 @@ import { ListarFichaComponent } from './componentes/ficha/listado/listar-ficha.c
 import { AuthorizatedGuardService } from './servicios/guard/authorizated-guard.service';
 import { CrearFichaComponent } from './componentes/ficha/crear/crear-ficha/crear-ficha.component';
 import { formatoFecha } from './otros/funciones';
+import { ListarProductoComponent } from './componentes/producto/listado/listar-producto.component';
+import { CrearProductoComponent } from './componentes/producto/crear/crear-producto/crear-producto.component';
+import { ModificarProductoComponent } from './componentes/producto/modificar/modificar-producto/modificar-producto.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +62,10 @@ import { formatoFecha } from './otros/funciones';
     CrearReservaComponent,
     ListarFichaComponent,
     formatoFecha,
-    CrearFichaComponent
+    CrearFichaComponent,
+    ListarProductoComponent,
+    CrearProductoComponent,
+    ModificarProductoComponent
   ],
   imports: [
     BrowserModule,
@@ -83,6 +89,9 @@ import { formatoFecha } from './otros/funciones';
       { path: 'reservas', component: ListarReservaComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'reserva/crear', component: CrearReservaComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'fichas', component: ListarFichaComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'productos', component: ListarProductoComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'producto/crear', component: CrearProductoComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'producto/modificar/:proId', component: ModificarProductoComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'ficha/crear/:resId', component: CrearFichaComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'ficha/crear', component: CrearFichaComponent, canActivate:[AuthorizatedGuardService] }
       //{ path: 'products/:productId', component: ProductDetailsComponent },
