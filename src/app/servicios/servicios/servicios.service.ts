@@ -70,11 +70,31 @@ public crearServicio(servicio,usuario){
     return this.httpClient.delete(this.api_servicio+'/'+servicioId+'/detalle/'+detalleId) 
   }
 
+  /**
+   * Para obtener los detalles de un servicio en particular
+   * @param servicioId 
+   */
   public listarDetalles(servicioId):Observable<DetalleServicio[]>{
     return this.httpClient.get<DetalleServicio[]>(this.api_servicio+'/'+servicioId+'/detalle')
   }
+
+  public getServiciosDetallado(inicio,cantidad, modeloServicio){
+    let params=new HttpParams().set('ejemplo',JSON.stringify(modeloServicio));
+    params=params.set('inicio',inicio?inicio:0);
+    params=params.set('cantidad',cantidad?cantidad:0);
+    params=params.set('detalle','S');
+    
+    const options = {params:params}
+    return this.httpClient.get<ResponseServicioDetallado>(this.api_servicio,options)
+  }
+
 }
 class ResponseServicio{
   lista: Servicio[];
+  totalDatos: number;
+}
+
+class ResponseServicioDetallado{
+  lista: DetalleServicio[];
   totalDatos: number;
 }

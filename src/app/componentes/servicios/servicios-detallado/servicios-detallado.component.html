@@ -1,4 +1,4 @@
-<h2>Fichas Clinica</h2>
+<h2>Servicios Detallados</h2>
 <div id="buscador">
         <label>Fecha Desde:</label>
         <input type="date" [value]="fechaDesde" (change)="setFechaDesde($event.target.value)">
@@ -6,7 +6,7 @@
         <input type="date" [value]="fechaHasta" (change)="setFechaHasta($event.target.value)">
         <button (click)="openModal('modal-busqueda-doctor')">Buscar Doctor</button>
         <button (click)="openModal('modal-busqueda-paciente')">Buscar Paciente</button>
-            <button (click)="agregar()">Registrar Ficha</button>
+            
             <button *ngIf="doctorSelected>-1" (click)="buscarPorDoctor(-1)">Quitar filtro por doctor</button>
             <button *ngIf="pacienteSelected>-1" (click)="buscarPorPaciente(-1)">Quitar filtro por paciente</button>
         Categoria:<select (change)="cargarSubcategorias($event.target.value)">
@@ -15,12 +15,19 @@
                 {{cat.descripcion}}
             </option>
         </select>
-        SubCategoria:<select (change)="buscarPorSubCategoria($event.target.value)">
+        SubCategoria:<select (change)="cargarPresentacion($event.target.value)">
             <option value="-1">Todas</option>
             <option *ngFor="let subCat of lista_subcategoria" [value]="subCat.idTipoProducto" >
                 {{subCat.descripcion}}
             </option>
-        </select>
+        </select>  
+        Presentacion:<select (change)="buscarPorPresentacion($event.target.value)">
+                <option value="-1">Todas</option>
+                <option *ngFor="let pro of lista_presentacion" [value]="pro.idPresentacionProducto" >
+                    {{pro.nombre}}
+                </option>
+            </select>    
+        
 </div>
 <div id="tabla">
     <table>
@@ -29,27 +36,22 @@
             <th>Fecha</th>
             <th>Doctor</th>
             <th>Paciente</th>
-            <th>Subcategoria</th>
-            <th>Motivo Consulta</th>
-            <th>Diagnostico</th>
-            <th>Observacion</th>
-            <th></th>
-            <th></th>
+            <th>Precio Unitario</th>
+            <th>Cantidad</th>
+            <th>Total detalle</th>
+            <th>Presentacion</th>
+
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let ficha of lista_ficha">
-                <td>{{ficha.fechaHora | date : 'longDate'}}</td>
-                <td>{{ficha.idEmpleado.nombre}}</td>
-                <td>{{ficha.idCliente.nombre}}</td>
-                <td>{{ficha.idTipoProducto.descripcion}}</td>
-                <td>{{ficha.motivoConsulta}}</td>
-                <td>{{ficha.diagnostico}}</td>
-                <td>{{ficha.observacion}}</td>
-                <td><a (click)="openModal('modal-modificar');setFichaModificar(ficha)">{{ficha.observacion?"Editar":"Agregar"}} Observacion</a></td>
-                <td><a (click)="eliminar(ficha.idFichaClinica)">Eliminar</a></td>
-                
-
+            <tr *ngFor="let servicio of lista_servicio">
+                <td>{{servicio.idServicio.fechaHora}}</td>
+                <td>{{servicio.idServicio.idFichaClinica.idEmpleado.nombre}}</td>
+                <td>{{servicio.idServicio.idFichaClinica.idCliente.nombre}}</td>
+                <td>{{precios[servicio.idPresentacionProducto.idPresentacionProducto]}}</td>
+                <td>{{servicio.cantidad}}</td>
+                <td>{{servicio.cantidad*precios[servicio.idPresentacionProducto.idPresentacionProducto]}}</td>
+                <td>{{servicio.idPresentacionProducto.nombre}}</td>
             </tr>
         </tbody>
         
@@ -74,10 +76,3 @@
         <button (click)="closeModal('modal-busqueda-paciente');">Cerrar</button>
 </jw-modal>
 
-<jw-modal id="modal-modificar">
-        <label>Observacion</label>
-        <textarea #observacion>{{fichaModifcar?.observacion}}</textarea><br>
-        <button (click)="modificar(observacion.value)">Guardar</button>
-        <button (click)="closeModal('modal-modificar');">Cerrar</button>
-</jw-modal>
-        

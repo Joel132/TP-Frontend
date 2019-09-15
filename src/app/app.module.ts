@@ -37,6 +37,7 @@ import { ModificarProductoComponent } from './componentes/producto/modificar/mod
 import { ServiciosComponent } from './componentes/servicios/servicios/servicios.component';
 import { CrearServicioComponent } from './componentes/servicios/crear-servicio/crear-servicio.component';
 import { ModificarServicioComponent } from './componentes/servicios/modificar-servicio/modificar-servicio.component';
+import { ServiciosDetalladoComponent } from './componentes/servicios/servicios-detallado/servicios-detallado.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { ModificarServicioComponent } from './componentes/servicios/modificar-se
     ModificarProductoComponent,
     ServiciosComponent,
     CrearServicioComponent,
-    ModificarServicioComponent
+    ModificarServicioComponent,
+    ServiciosDetalladoComponent
     
   ],
   imports: [
@@ -103,6 +105,7 @@ import { ModificarServicioComponent } from './componentes/servicios/modificar-se
       { path: 'ficha/crear/:resId', component: CrearFichaComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'ficha/crear', component: CrearFichaComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'servicios',component: ServiciosComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'servicios/detalles',component: ServiciosDetalladoComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'servicios/crear-servicio',component:CrearServicioComponent, canActivate:[AuthorizatedGuardService]},
       { path: 'servicio/modificar/:serId/:ficId',component:ModificarServicioComponent, canActivate:[AuthorizatedGuardService]},
       { path: 'servicios/crear-servicio:idFichaClinica',component:CrearServicioComponent,  canActivate:[AuthorizatedGuardService]}

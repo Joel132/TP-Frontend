@@ -94,7 +94,7 @@ export class CrearServicioComponent implements OnInit {
   
     let inicio=(this.pagina_actual-1)*this.limite;
     
-    this.service=this.fichaSer.listarFichas(String(inicio),String(this.limite),this.orderBy,ejemplo).subscribe(
+    this.fichaSer.listarFichas(String(inicio),String(this.limite),this.orderBy,ejemplo).subscribe(
       (response)=>{
         this.lista_ficha=response.lista;
         this.total=response.totalDatos;
