@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { FichaClinica } from 'src/app/modelos/ficha-clinica';
-import { Servicio } from 'src/app/modelos/servicio';
+import { Servicio, DetalleServicio } from 'src/app/modelos/servicio';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -21,7 +21,7 @@ public crearServicio(servicio,usuario){
   let header=new HttpHeaders().set('Content-Type','application/json');
   header=header.set('usuario',usuario?usuario:"pedro");//CAMBIAR CUANDO SE CONECTE A LOGIN
   const options = {headers:header}
-  return this.httpClient.post<Servicio>(this.api_servicio,servicio,options)
+  return this.httpClient.post<number>(this.api_servicio,servicio,options)
 }
 
  /**
@@ -58,6 +58,20 @@ public crearServicio(servicio,usuario){
     return this.httpClient.delete(this.api_servicio+'/'+servicioId);
   }
 
+  public agregarDetalle(servicioId, detalle,usuario){
+    let header=new HttpHeaders().set('Content-Type','application/json');
+    header=header.set('usuario',usuario?usuario:"pedro");//CAMBIAR CUANDO SE CONECTE A LOGIN
+    const options = {headers:header}
+    return this.httpClient.post<Servicio>(this.api_servicio+'/'+servicioId+'/detalle',detalle,options) 
+  }
+
+  public eliminarDetalle(servicioId, detalleId,usuario){
+    return this.httpClient.delete(this.api_servicio+'/'+servicioId+'/detalle/'+detalleId) 
+  }
+
+  public listarDetalles(servicioId):Observable<DetalleServicio[]>{
+    return this.httpClient.get<DetalleServicio[]>(this.api_servicio+'/'+servicioId+'/detalle')
+  }
 }
 class ResponseServicio{
   lista: Servicio[];

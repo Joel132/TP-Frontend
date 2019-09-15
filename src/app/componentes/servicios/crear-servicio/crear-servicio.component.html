@@ -1,82 +1,117 @@
 <h2>Servicios</h2>
-<div id="buscador">
+<!--SELECCIONADOR DE FICHA-->
+<div id="secFicha">
+    <div id="buscador">
         <label>Fecha:</label>
         <input type="date" [value]="fechaDesde" (change)="setFechaDesde($event.target.value)">
         <button (click)="openModal('modal-busqueda-doctor')">Buscar Doctor</button>
         <button (click)="openModal('modal-busqueda-paciente')">Buscar Paciente</button>
-            <button *ngIf="doctorSelected>-1" (click)="buscarPorDoctor(-1)">Quitar filtro por doctor</button>
-            <button *ngIf="pacienteSelected>-1" (click)="buscarPorPaciente(-1)">Quitar filtro por paciente</button>  
-               
-</div>
-<div id="tabla">
-    <table>
-        <thead>
-            <tr>
-            <th>IdFicha</th>
-            <th>Fecha</th>
-            <th>Subcategoria</th>
-            <th>Acciones</th>
-            <th></th>
-            <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let ficha of lista_ficha">
-                <td>{{ficha.idFichaClinica}}</td>
-                <td>{{ficha.fechaHora}}</td>
-                <td>{{ficha.idTipoProducto.descripcion}}</td>
-                <td><button  (click)="seleccionar(ficha);openModal('modal-agregar')">Agregar</button></td>
+        <button *ngIf="doctorSelected>-1" (click)="buscarPorDoctor(-1)">Quitar filtro por doctor</button>
+        <button *ngIf="pacienteSelected>-1" (click)="buscarPorPaciente(-1)">Quitar filtro por paciente</button>          
+    </div>
+    <div *ngIf="!fichaSeleccionada">
+        <p>Selecciona una ficha</p>
+    </div>
+    <div id="tabla">
+        <table>
+            <thead>
+                <tr>
+                <th>IdFicha</th>
+                <th>Fecha</th>
+                <th>Subcategoria</th>
+                <th>Acciones</th>
+                <th></th>
+                <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ficha of lista_ficha">
+                    <td>{{ficha.idFichaClinica}}</td>
+                    <td>{{ficha.fechaHora}}</td>
+                    <td>{{ficha.idTipoProducto.descripcion}}</td>
+                    <td><input type="radio" name="idFicha" [value]="ficha.idFichaClinica" [(ngModel)]="cabecera_servicio.idFichaClinica.idFichaClinica" ></td>
+                </tr>
+            </tbody>
+            
+        </table>
+        <my-pagination
+        (goPage)="goToPage($event)"
+        (goNext)="onNext()"
+        (goPrev)="onPrev()"
+        [pagesToShow]="3"
+        [page]="pagina_actual"
+        [perPage]="limite"
+        [count]="total"></my-pagination>
+    </div>
 
-            </tr>
-        </tbody>
-        
-    </table>
-    <my-pagination
-      (goPage)="goToPage($event)"
-      (goNext)="onNext()"
-      (goPrev)="onPrev()"
-      [pagesToShow]="3"
-      [page]="pagina_actual"
-      [perPage]="limite"
-      [count]="total"></my-pagination>
+    <jw-modal id="modal-busqueda-doctor">
+            <app-buscar-doctor (doctorSeleccionado)="buscarPorDoctor($event.idPersona);closeModal('modal-busqueda-doctor')"></app-buscar-doctor>
+            <button (click)="closeModal('modal-busqueda-doctor');">Cerrar</button>
+    </jw-modal>
+
+    <jw-modal id="modal-busqueda-paciente">
+            <app-buscar-paciente (pacienteSeleccionado)="buscarPorPaciente($event.idPersona);closeModal('modal-busqueda-paciente')"></app-buscar-paciente>
+            <button (click)="closeModal('modal-busqueda-paciente');">Cerrar</button>
+    </jw-modal>
+
 </div>
+
+<!-- DETALLES SERVICIOS-->
 <h3>Detalles</h3>
 <div id="buscador">
-    Categoria:<select (change)="cargarSubcategorias($event.target.value)">
+    Categoria:
+    <select (change)="cargarSubcategorias($event.target.value)">
         <option value="-1">Todas</option>
         <option *ngFor="let cat of lista_categoria" [value]="cat.idCategoria" >
             {{cat.descripcion}}
         </option>
     </select>
-    SubCategoria:<select (change)="buscarPorSubCategoria($event.target.value)">
+
+    SubCategoria:
+    <select (change)="cargarPresentaciones($event.target.value)">
         <option value="-1">Todas</option>
         <option *ngFor="let subCat of lista_subcategoria" [value]="subCat.idTipoProducto" >
             {{subCat.descripcion}}
         </option>
-    </select>     
+    </select>
+    
+    Tipo Servicio:
+    <select (change)="cargarPrecio($event.target.value)">
+        <option *ngFor="let pro of lista_productos;let i=index" [value]="i" >
+            {{pro.nombre}}
+        </option>
+    </select>
+    
+    Cantidad: <input type="number" #cantidad min="1" [value]="1">
+    Precio: <input type="number" [value]="precioSeleccionado" disabled>
+    <button (click)="agregarDetalle(cantidad.value)"> Agregar</button>
+    <div *ngIf="!detalle_valido">
+        <p>Selecciona al menos un producto</p>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Presentacion</th>
+                <th>Precio Unitario</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let detalle of lista_detalle;let i=index">
+                <td>{{detalle.idPresentacionProducto.nombre}}</td>
+                <td>{{detalle.precio}}</td>
+                <td>{{detalle.cantidad}}</td>
+                <td>{{detalle.precio*detalle.cantidad}}</td>
+                <td><a (click)=eliminarDetalle(i)>Eliminar</a></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
-<jw-modal id="modal-busqueda-doctor">
-        <app-buscar-doctor (doctorSeleccionado)="buscarPorDoctor($event.idPersona);closeModal('modal-busqueda-doctor')"></app-buscar-doctor>
-        <button (click)="closeModal('modal-busqueda-doctor');">Cerrar</button>
-</jw-modal>
+<div>
+    <button (click)="guardarServicio()">Guardar Servicio</button>
+</div>
 
-<jw-modal id="modal-busqueda-paciente">
-        <app-buscar-paciente (pacienteSeleccionado)="buscarPorPaciente($event.idPersona);closeModal('modal-busqueda-paciente')"></app-buscar-paciente>
-        <button (click)="closeModal('modal-busqueda-paciente');">Cerrar</button>
-</jw-modal>
-
-<jw-modal id="modal-modificar">
-        <label>Observacion</label>
-        <textarea #observacion>{{fichaModifcar?.observacion}}</textarea><br>
-        <button (click)="modificar(observacion.value)">Guardar</button>
-        <button (click)="closeModal('modal-modificar');">Cerrar</button>
-</jw-modal>
-
-<jw-modal id="modal-agregar">
-        <label>Observacion</label>
-        <textarea #observacion>{{servicioCrear?.observacion}}</textarea><br>
-        <button (click)="crearServicio(observacion.value)">Guardar</button>
-        <button (click)="closeModal('modal-agregar');">Cerrar</button>
-</jw-modal>
         

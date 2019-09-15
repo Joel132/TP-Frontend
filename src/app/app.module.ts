@@ -11,7 +11,7 @@ import { PacientesComponent } from './componentes/pacientes/listar/pacientes.com
 import { EliminarComponent } from './componentes/pacientes/eliminar/eliminar.component';
 import { CrearComponent } from './componentes/pacientes/crear/crear.component';
 import { ModificarComponent } from './componentes/pacientes/modificar/modificar.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PaginationComponent } from './componentes/pagination/pagination/pagination.component'
 import { CrearCategoriaComponent } from './componentes/categoria/crear/crear-categoria/crear-categoria.component';
 import { ModificarCategoriaComponent } from './componentes/categoria/modificar/modificar-categoria/modificar-categoria.component'
@@ -74,6 +74,7 @@ import { CrearServicioComponent } from './componentes/servicios/crear-servicio/c
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     RouterModule.forRoot([
       { path: '', redirectTo: '/reservas', pathMatch: 'full' },
       { path: 'categoria/crear', component: CrearCategoriaComponent, canActivate:[AuthorizatedGuardService] },
