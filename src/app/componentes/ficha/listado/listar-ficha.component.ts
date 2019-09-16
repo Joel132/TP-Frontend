@@ -6,6 +6,7 @@ import { FichaClinicaService } from 'src/app/servicios/ficha/ficha-clinica.servi
 import {formatDate} from 'src/app/otros/funciones'
 import { CategoriaService } from 'src/app/servicios/categoria/categoria.service';
 import { Categoria } from 'src/app/modelos/categoria';
+import * as alertify from 'alertifyjs';
 @Component({
   selector: 'app-listar-ficha',
   templateUrl: './listar-ficha.component.html',
@@ -108,10 +109,12 @@ export class ListarFichaComponent implements OnInit {
     this.resServ.cancelarFicha(id).subscribe(
       (response)=>{
         this.buscar({});
-        this.openModal('modal-eliminar-correcto');
+        alertify.notify('Eliminado Correctamente!', 'success', 5, function(){  console.log('dismissed'); });
+
+
       },
       (error)=>{
-        this.openModal('modal-eliminar-incorrecto');
+        alertify.notify('No se puede eliminar!', 'error', 5, function(){  console.log('dismissed'); });
       }
     )
   }
@@ -134,6 +137,7 @@ export class ListarFichaComponent implements OnInit {
       (response)=>{
         this.buscar({});
         this.closeModal('modal-modificar');
+        alertify.notify('Modificado Correctamente!', 'success', 5, function(){  console.log('dismissed'); });
       });
   }
 

@@ -1,3 +1,4 @@
+import * as alertify from 'alertifyjs';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -92,6 +93,7 @@ export class ModificarProductoComponent implements OnInit {
       this.proSer.modificarPresentacion(producto,"")
       .subscribe(response =>{ 
       this.router.navigate(['productos']);
+      alertify.notify('Modificado Correctamente!', 'success', 5, function(){  console.log('dismissed'); });
     })
     
       //TODO: colocar mensaje de exito

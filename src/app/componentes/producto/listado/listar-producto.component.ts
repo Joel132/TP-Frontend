@@ -1,3 +1,4 @@
+import * as alertify from 'alertifyjs';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CategoriaService } from 'src/app/servicios/categoria/categoria.service';
@@ -85,10 +86,12 @@ export class ListarProductoComponent implements OnInit {
     this.proSer.eliminarPresentacion(id).subscribe(
       (response)=>{
         this.buscar({});
-        this.openModal('modal-eliminar-correcto');
+        alertify.notify('Eliminado Correctamente!', 'success', 5, function(){  console.log('dismissed'); });
+
+
       },
       (error)=>{
-        this.openModal('modal-eliminar-incorrecto');
+        alertify.notify('No se puede eliminar!', 'error', 5, function(){  console.log('dismissed'); });
       }
     )
   }

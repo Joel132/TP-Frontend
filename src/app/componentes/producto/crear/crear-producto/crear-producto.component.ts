@@ -1,3 +1,4 @@
+import * as alertify from 'alertifyjs';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {  Router } from '@angular/router';
@@ -75,6 +76,7 @@ export class CrearProductoComponent implements OnInit {
       this.proSer.crearProducto(producto,"")
       .subscribe(response =>{ 
       this.router.navigate(['productos']);
+      alertify.notify('Creado Correctamente!', 'success', 5, function(){  console.log('dismissed'); });
     })
     
       //TODO: colocar mensaje de exito

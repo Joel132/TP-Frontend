@@ -1,3 +1,4 @@
+import * as alertify from 'alertifyjs';
 import { Component, OnInit } from '@angular/core';
 import { CategoriaService } from '../../../servicios/categoria/categoria.service';
 import { Categoria } from '../../../modelos/categoria';
@@ -67,10 +68,12 @@ export class ListarCategoriaComponent implements OnInit {
     this.categoria_service.eliminarCategoria(id).subscribe(
       (response)=>{
         this.buscar();
-        this.openModal('modal-eliminar-correcto');
+        alertify.notify('Eliminado Correctamente!', 'success', 5, function(){  console.log('dismissed'); });
+
+
       },
       (error)=>{
-        this.openModal('modal-eliminar-incorrecto');
+        alertify.notify('No se puede eliminar!', 'error', 5, function(){  console.log('dismissed'); });
       }
     )
   }

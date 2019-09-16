@@ -1,3 +1,4 @@
+import * as alertify from 'alertifyjs';
 import { Component, OnInit } from '@angular/core';
 import { Paciente } from '../../../modelos/paciente';
 import { PacientesService } from '../../../servicios/pacientes/pacientes.service';
@@ -61,10 +62,12 @@ export class PacientesComponent implements OnInit {
     this.paciente_service.eliminarPaciente(id).subscribe(
       (response)=>{
         this.buscar();
-        this.openModal('modal-eliminar-correcto');
+        alertify.notify('Eliminado Correctamente!', 'success', 5, function(){  console.log('dismissed'); });
+
+
       },
       (error)=>{
-        this.openModal('modal-eliminar-incorrecto');
+        alertify.notify('No se puede eliminar!', 'error', 5, function(){  console.log('dismissed'); });
       }
     )
   }

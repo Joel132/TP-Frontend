@@ -1,3 +1,4 @@
+import * as alertify from 'alertifyjs';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Paciente } from '../../../modelos/paciente';
@@ -39,6 +40,7 @@ export class CrearComponent implements OnInit {
       .subscribe(response =>{ 
       console.log(response);
       this.router.navigate(['pacientes']);
+      alertify.notify('Creado Correctamente!', 'success', 5, function(){  console.log('dismissed'); });
     })
   }
 

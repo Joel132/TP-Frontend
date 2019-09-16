@@ -1,3 +1,4 @@
+import * as alertify from 'alertifyjs';
 import { Component, OnInit } from '@angular/core';
 import { Reserva } from 'src/app/modelos/reserva';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -122,6 +123,7 @@ export class CrearFichaComponent implements OnInit {
     this.fichaService.cargarFicha(ficha,"")
       .subscribe(response =>{ 
       this.router.navigate(['fichas']);
+      alertify.notify('Creado Correctamente!', 'success', 5, function(){  console.log('dismissed'); });
       //TODO: colocar mensaje de exito
     })
     

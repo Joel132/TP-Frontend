@@ -1,3 +1,4 @@
+import * as alertify from 'alertifyjs';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { ModalService } from 'src/app/_modal';
@@ -82,9 +83,10 @@ export class EditarHorarioExComponent implements OnInit {
     this.horSer.editarHorario(this.editarForm.value,"")
       .subscribe(response =>{ 
       this.router.navigate(['horariosE']);
+      alertify.notify('Modificado Correctamente!', 'success', 5, function(){  console.log('dismissed'); });
       //TODO: colocar mensaje de exito
     })
-    alert('Horario Asignado correctamente!')
+    
   }
 
   onCancelar(){

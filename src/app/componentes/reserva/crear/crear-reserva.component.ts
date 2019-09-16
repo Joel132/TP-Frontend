@@ -1,3 +1,4 @@
+import * as alertify from 'alertifyjs';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalService } from 'src/app/_modal';
@@ -95,6 +96,7 @@ export class CrearReservaComponent implements OnInit {
     this.resSer.agendarTurno(reserva,"")
       .subscribe(response =>{ 
       this.router.navigate(['reservas']);
+      alertify.notify('Creado Correctamente!', 'success', 5, function(){  console.log('dismissed'); });
       //TODO: colocar mensaje de exito
     })
     

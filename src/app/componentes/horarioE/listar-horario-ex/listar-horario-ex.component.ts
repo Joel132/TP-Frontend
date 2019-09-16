@@ -1,3 +1,4 @@
+import * as alertify from 'alertifyjs';
 import { Component, OnInit } from '@angular/core';
 import { Doctor } from 'src/app/modelos/doctor';
 import { HorarioExcepcionService } from 'src/app/servicios/horarioExc/horario-excepcion.service';
@@ -78,10 +79,12 @@ export class ListarHorarioExComponent implements OnInit {
     this.horServ.eliminarHorario(id).subscribe(
       (response)=>{
         this.buscar();
-        this.openModal('modal-eliminar-correcto');
+        alertify.notify('Eliminado Correctamente!', 'success', 5, function(){  console.log('dismissed'); });
+
+
       },
       (error)=>{
-        this.openModal('modal-eliminar-incorrecto');
+        alertify.notify('No se puede eliminar!', 'error', 5, function(){  console.log('dismissed'); });
       }
     )
   }

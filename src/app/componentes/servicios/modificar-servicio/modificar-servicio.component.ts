@@ -1,3 +1,4 @@
+import * as alertify from 'alertifyjs';
 import { Component, OnInit } from '@angular/core';
 import { Detalle } from 'src/app/modelos/detalle';
 import {formatDate, getHora} from 'src/app/otros/funciones'
@@ -90,6 +91,7 @@ export class ModificarServicioComponent implements OnInit {
         )
       }
       this.router.navigate(['/servicios']);
+      alertify.notify('Modificado Correctamente!', 'success', 5, function(){  console.log('dismissed'); });
       
   }
 

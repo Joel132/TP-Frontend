@@ -1,3 +1,4 @@
+import * as alertify from 'alertifyjs';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoriaService } from 'src/app/servicios/categoria/categoria.service';
@@ -24,6 +25,7 @@ export class CrearCategoriaComponent implements OnInit {
       .subscribe(response =>{ 
       console.log(response);
       this.router.navigate(['categoria']);
+      alertify.notify('Creado Correctamente!', 'success', 5, function(){  console.log('dismissed'); });
     })
   }
 

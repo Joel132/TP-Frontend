@@ -1,3 +1,4 @@
+import * as alertify from 'alertifyjs';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PacientesService } from '../../../servicios/pacientes/pacientes.service';
@@ -51,6 +52,7 @@ export class ModificarComponent implements OnInit {
       .subscribe(response => {
         console.log(response);
         this.router.navigate(['listar/pacientes']);
+        alertify.notify('Modificado Correctamente!', 'success', 5, function(){  console.log('dismissed'); });
       })
   }
 
