@@ -1,78 +1,82 @@
-<div class="crear" *ngIf="crearForm">
-    <h2 class="text-center">Agregar Ficha</h2>
-    <form [formGroup]="crearForm" (ngSubmit)="onCrear()">
-            
-          
-            <div>
-                    <div *ngIf="doctorSelected"><label>Doctor:</label><b>{{doctorSelected.nombre}}</b><br></div>
-                    <a (click)="openModal('modal-busqueda-doctor')">Asignar Doctor</a>
-                    <div *ngIf= " aceptado && val.idEmpleado.errors">
-                            <div *ngIf="val.idEmpleado.errors.noSeleccionado.message" style="color:red;">Asigne un doctor</div>
-                    </div>
-            </div>
-
-            <div class="form-group">
-                    <div *ngIf="pacienteSelected"><label>Paciente:</label><b>{{pacienteSelected.nombre}}</b><br></div>
-                    <a (click)="openModal('modal-busqueda-paciente')">Asignar Paciente</a>
-                    <div *ngIf= " aceptado && val.idCliente.errors">
-                            <div *ngIf="val.idCliente.errors.noSeleccionado.message" style="color:red;">Asigne un paciente</div>
-                    </div>
-            </div>
-            
-            <div class="form-group">
-                <label for="dgo">Diagnostico:</label>
-                <input type="text" formControlName="diagnostico" name="dgo" class="form-control" [ngClass]="{'is-invalid': aceptado && val.diagnostico.errors}">
-                <div *ngIf= " aceptado && val.diagnostico.errors" class= "invalid-feedback">
-                        <div *ngIf="val.diagnostico.errors.required" style="color:red;">Campo obligatorio</div>
+<div class="container py-3" *ngIf="crearForm">
+  <div class="row">
+    <div class="mx-auto col-sm-6">
+      <div class="card">
+        <div class="card-header text-center" style="background-color: lightseagreen;">
+          <h2>Agregar Ficha</h2>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="crearForm" (ngSubmit)="onCrear()">
+            <div class="row">
+              <div *ngIf="doctorSelected"><label>Doctor: </label><b> {{doctorSelected.nombre}}</b><br></div>
+              <a role="button" class="btn btn-secondary btn-lg btn-block" style="color: lightyellow; cursor: pointer;" (click)="openModal('modal-busqueda-doctor')">Asignar Doctor</a>
+              <div *ngIf= " aceptado && val.idEmpleado.errors">
+                <div *ngIf="val.idEmpleado.errors.noSeleccionado.message" style="color:red;">Asigne un doctor</div>
+              </div>
+            </div><br>
+            <div class="row">
+              <div *ngIf="pacienteSelected"><label>Paciente: </label><b> {{pacienteSelected.nombre}}</b><br></div>
+              <a role="button" class="btn btn-secondary btn-lg btn-block" style="color: lightyellow; cursor: pointer;" (click)="openModal('modal-busqueda-paciente')">Asignar Paciente</a>
+              <div *ngIf= " aceptado && val.idCliente.errors">
+                <div *ngIf="val.idCliente.errors.noSeleccionado.message" style="color:red;">Asigne un paciente</div>
+              </div>
+            </div><br>
+            <div class="row">
+              <label for="dgo">Diagnostico:</label>
+              <input type="text" formControlName="diagnostico" name="dgo" class="form-control form-control-sm" [ngClass]="{'is-invalid': aceptado && val.diagnostico.errors}">
+              <div *ngIf= " aceptado && val.diagnostico.errors" class= "invalid-feedback">
+                <div *ngIf="val.diagnostico.errors.required" style="color:red;">Campo obligatorio</div>
+              </div>
+            </div><br>
+            <div class="row">
+              <label for="mC">Motivo Consulta:</label>
+              <input type="text" formControlName="motivoConsulta" class="form-control form-control-sm" [ngClass]="{'is-invalid': aceptado && val.motivoConsulta.errors}">
+              <div *ngIf= " aceptado && val.motivoConsulta.errors" class= "invalid-feedback">
+                <div *ngIf="val.motivoConsulta.errors.required" style="color:red;">Campo obligatorio</div>
+              </div>
+            </div><br>
+            <div class="row">
+              <label for="obs">Observacion:</label>
+              <input type="text" formControlName="observacion" name="obs" class="form-control form-control-sm" [ngClass]="{'is-invalid': aceptado && val.observacion.errors}">
+            </div><br>
+            <div class="row">
+              <label>Categoria:</label>
+              <select class="form-control form-control-sm" (change)="selectCategoria($event.target.value)">
+                <option *ngFor="let cat of lista_categoria" [value]="cat.idCategoria">{{cat.descripcion}}</option>
+              </select>
+            </div><br>
+            <div class="row" formGroupName="idTipoProducto">
+              <label for="sub">Subcategoria:</label>
+              <select class="form-control form-control-sm" formControlName="idTipoProducto" name="sub" [ngClass]="{'is-invalid': aceptado && val.idTipoProducto.controls.idTipoProducto.errors}">
+                  <option *ngFor="let sub of lista_subcategoria" [value]="sub.idTipoProducto">{{sub.descripcion}}</option>
+              </select>
+              <div *ngIf= " aceptado && val.idTipoProducto.controls.idTipoProducto.errors" class= "invalid-feedback">
+                <div *ngIf="val.idTipoProducto.controls.idTipoProducto.errors.required" style="color:red;">Campo obligatorio</div>
+              </div>
+            </div><br>
+            <div class="d-flex justify-content-center">
+              <div class="row">
+                <div class="col-sm">
+                  <button type = "submit" class="btn btn-primary signin">Crear</button>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label for="mC">Motivo Consulta:</label>
-                <input type="text" formControlName="motivoConsulta" name="mC" class="form-control" [ngClass]="{'is-invalid': aceptado && val.motivoConsulta.errors}">
-                <div *ngIf= " aceptado && val.motivoConsulta.errors" class= "invalid-feedback">
-                        <div *ngIf="val.motivoConsulta.errors.required" style="color:red;">Campo obligatorio</div>
+                <div class="col-sm">
+                  <button class= "btn btn-secondary" type = "reset" (click)="onCancelar()">Cancelar</button>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label for="obs">Observacion:</label>
-                <input type="text" formControlName="observacion" name="obs" class="form-control" [ngClass]="{'is-invalid': aceptado && val.observacion.errors}">
-            </div>
-           
-            <div >
-                <label>Categoria:</label>
-                <select (change)="selectCategoria($event.target.value)">
-                        <option *ngFor="let cat of lista_categoria" [value]="cat.idCategoria">{{cat.descripcion}}</option>
-                </select>
-            </div>
-
-            <div class="form-group" formGroupName="idTipoProducto">
-                <label for="sub">Subcategoria:</label>
-                <select formControlName="idTipoProducto" name="sub" class="form-control" [ngClass]="{'is-invalid': aceptado && val.idTipoProducto.controls.idTipoProducto.errors}">
-                        <option *ngFor="let sub of lista_subcategoria" [value]="sub.idTipoProducto">{{sub.descripcion}}</option>
-                </select>
-                <div *ngIf= " aceptado && val.idTipoProducto.controls.idTipoProducto.errors" class= "invalid-feedback">
-                        <div *ngIf="val.idTipoProducto.controls.idTipoProducto.errors.required" style="color:red;">Campo obligatorio</div>
-                </div>
-            </div>
-            
-                    
-            
-            <div class="form-group">
-                    <button type = "submit" class="btn btn-primary signin">Crear</button>
-                    <button class= "btn btn-secondary" type = "reset" (click)="onCancelar()">Cancelar</button>    
-            </div>
-            
-                         
-    </form>
+              </div>
+            </div>       
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
 <jw-modal id="modal-busqueda-doctor">
-            <app-buscar-doctor (doctorSeleccionado)="asignarDoctor($event);closeModal('modal-busqueda-doctor')"></app-buscar-doctor>
-            <button (click)="closeModal('modal-busqueda-doctor');">Cerrar</button>
-</jw-modal>
-<jw-modal id="modal-busqueda-paciente">
-    <app-buscar-paciente (pacienteSeleccionado)="asignarPaciente($event);closeModal('modal-busqueda-paciente')"></app-buscar-paciente>
-    <button (click)="closeModal('modal-busqueda-paciente');">Cerrar</button>
+  <app-buscar-doctor (doctorSeleccionado)="asignarDoctor($event);closeModal('modal-busqueda-doctor')"></app-buscar-doctor>
+  <button class="btn btn-secondary" (click)="closeModal('modal-busqueda-doctor');">Cerrar</button>
 </jw-modal>
 
+<jw-modal id="modal-busqueda-paciente">
+  <app-buscar-paciente (pacienteSeleccionado)="asignarPaciente($event);closeModal('modal-busqueda-paciente')"></app-buscar-paciente>
+  <button class="btn btn-secondary" (click)="closeModal('modal-busqueda-paciente');">Cerrar</button>
+</jw-modal>
