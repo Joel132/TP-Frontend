@@ -5,11 +5,13 @@ import { ModalService } from 'src/app/_modal';
 import { HorarioExcepcionService } from 'src/app/servicios/horarioExc/horario-excepcion.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HorarioExcepcion } from 'src/app/modelos/horario';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 @Component({
   selector: 'app-editar-ex-horario',
   templateUrl: './editar-horario-ex.component.html',
-  styleUrls: ['./editar-horario-ex.component.css']
+  styleUrls: ['./editar-horario-ex.component.css'],
+  providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })
 export class EditarHorarioExComponent implements OnInit {
   editarForm : FormGroup;
@@ -17,7 +19,7 @@ export class EditarHorarioExComponent implements OnInit {
   aceptado = false;
   doctorSel;
   ocultarHoras=false;
-  constructor(private formBuilder : FormBuilder, private modalService:ModalService, private horSer: HorarioExcepcionService,
+  constructor(private location: Location,private formBuilder : FormBuilder, private modalService:ModalService, private horSer: HorarioExcepcionService,
     private router : Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -97,7 +99,7 @@ export class EditarHorarioExComponent implements OnInit {
     this.aceptado = false;
     this.editarForm.patchValue(this.horarioOriginal);
     this.doctorSel=this.horarioOriginal.idEmpleado.nombre;
-    
+    this.location.back();
   }
 
   get val(){

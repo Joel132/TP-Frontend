@@ -6,10 +6,13 @@ import { Router } from '@angular/router';
 import { ReservaService } from 'src/app/servicios/turnos/reserva.service';
 import { Reserva } from 'src/app/modelos/reserva';
 import {noSeleccionadoValidator} from 'src/app/otros/funciones';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+
 @Component({
   selector: 'app-crear-reserva',
   templateUrl: './crear-reserva.component.html',
-  styleUrls: ['./crear-reserva.component.css']
+  styleUrls: ['./crear-reserva.component.css'],
+  providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })
 export class CrearReservaComponent implements OnInit {
   crearForm : FormGroup;
@@ -20,7 +23,7 @@ export class CrearReservaComponent implements OnInit {
   lista_horarios: Reserva[];//Lista de horarios disponibles de un doctor en particular en una fecha dada
   fechaValida=true;//Si al menos hay 1 elemento en la lista_horarios
   idDoctor;
-  constructor(private formBuilder : FormBuilder, private modalService:ModalService, private resSer: ReservaService,
+  constructor(private location: Location,private formBuilder : FormBuilder, private modalService:ModalService, private resSer: ReservaService,
     private router : Router) { }
 
   ngOnInit() {
@@ -113,6 +116,7 @@ export class CrearReservaComponent implements OnInit {
     this.doctorSel="";
     this.pacienteSel="";
     this.idDoctor=null;
+    this.location.back();
   }
 
   get val(){

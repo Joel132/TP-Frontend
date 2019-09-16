@@ -11,11 +11,13 @@ import { CategoriaService } from 'src/app/servicios/categoria/categoria.service'
 import { Categoria } from 'src/app/modelos/categoria';
 import { ModalService } from 'src/app/_modal';
 import { FichaClinicaService } from 'src/app/servicios/ficha/ficha-clinica.service';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 @Component({
   selector: 'app-crear-ficha',
   templateUrl: './crear-ficha.component.html',
-  styleUrls: ['./crear-ficha.component.css']
+  styleUrls: ['./crear-ficha.component.css'],
+  providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })
 export class CrearFichaComponent implements OnInit {
   crearForm: FormGroup;
@@ -25,7 +27,7 @@ export class CrearFichaComponent implements OnInit {
   doctorSelected:Doctor;
   pacienteSelected:Paciente;
   aceptado = false;
-  constructor(private formBuilder : FormBuilder, private route: ActivatedRoute, private reservaService: ReservaService,
+  constructor(private location: Location,private formBuilder : FormBuilder, private route: ActivatedRoute, private reservaService: ReservaService,
     private catSer: CategoriaService, private modalService:ModalService, private fichaService: FichaClinicaService,
     private router:Router) { }
 
@@ -139,6 +141,7 @@ export class CrearFichaComponent implements OnInit {
     this.crearForm.reset();
     this.doctorSelected=null;
     this.pacienteSelected=null;
+    this.location.back();
   }
 
   get val(){

@@ -20,8 +20,11 @@
     <div class="col-sm-2">
       <button class="btn btn-dark" (click)="openModal('modal-busqueda')">Buscar Doctor</button>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-2">        
       <button class="btn btn-dark" style="width: 200px;" (click)="agregar()">Agregar Excepcion</button>
+    </div>
+    <div class="col-sm-2">
+        <button class="btn btn-dark" style="margin-left: 40px;"  (click)="onAtras()">Atrás</button>
     </div>
     <div class="col-sm-2">
       <button class="btn btn-warning" style="width: 200px; margin-left: 40px;" *ngIf="doctorSelected>-1" (click)="buscarPorDoctor(-1)">Quitar filtro por doctor</button>

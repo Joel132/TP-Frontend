@@ -4,18 +4,19 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PacientesService } from '../../../servicios/pacientes/pacientes.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Paciente } from "../../../modelos/paciente";
-
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 @Component({
   selector: 'app-modificar',
   templateUrl: './modificar.component.html',
-  styleUrls: ['./modificar.component.css']
+  styleUrls: ['./modificar.component.css'],
+  providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })
 export class ModificarComponent implements OnInit {
   pacienteOriginal: Paciente;
   modificarForm: FormGroup;
   aceptado = false;
-  constructor(private formBuilder: FormBuilder, private pacService : PacientesService, private router : Router, private route: ActivatedRoute,) { }
+  constructor(private location: Location, private formBuilder: FormBuilder, private pacService : PacientesService, private router : Router, private route: ActivatedRoute,) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -63,6 +64,7 @@ export class ModificarComponent implements OnInit {
   onCancelar(){
     this.aceptado = false;
     this.llenarForm();
+    this.location.back();
   }
 
   get val(){
