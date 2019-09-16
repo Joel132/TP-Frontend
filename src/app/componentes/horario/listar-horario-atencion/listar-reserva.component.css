@@ -4,3 +4,7 @@ hr {
     border-bottom: 1px solid #333; 
     height:0;
 }
+
+.activo:hover{
+    cursor: pointer;
+}

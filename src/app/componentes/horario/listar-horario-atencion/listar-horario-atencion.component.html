@@ -1,53 +1,72 @@
-<h2>Horarios</h2>
-<div id="buscador">
-        <label>Dia</label><select (change)="buscarPorDia($event.target.value)">
-            <option value="-1">Cualquiera</option>
-            <option *ngFor="let dia of dias_semana;let i=index" [value]="i">{{dia}}</option>
-        </select>
-        <button (click)="openModal('modal-busqueda')">Buscar Doctor</button>
-            <button (click)="agregar()">Asignar Horario</button>
-            <button (click)="verE()">Ver Excepciones</button>
-            <button *ngIf="doctorSelected>-1" (click)="buscarPorDoctor(-1)">Quitar filtro por doctor</button>
+<div class="container mt-3">
+  <div class="row">
+    <h1 class="display-4">Horarios</h1>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-sm">
+      <label>Dia: </label>
+      <select class="form-control form-control-sm" (change)="buscarPorDia($event.target.value)">
+          <option value="-1">Cualquiera</option>
+          <option *ngFor="let dia of dias_semana;let i=index" [value]="i">{{dia}}</option>
+      </select>
     </div>
-    <div id="tabla">
-    <table>
-        <thead>
-            <tr>
-            <th>Dia</th>
-            <th>Hora de Apertura</th>
-            <th>Hora de Cierre</th>
-            <th>Intervalos en Min</th>
-            <th>Doctor</th>
-            <th></th>
-            <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let horario of lista_horario">
-                <td>{{dias_semana[horario.dia]}}</td>
-                <td>{{horario.horaApertura}}</td>
-                <td>{{horario.horaCierre}}</td>
-                <td>{{horario.intervaloMinutos}}</td>
-                <td>{{horario.idEmpleado.nombre}}</td>
-                <td><a [routerLink]="['/horario/editar',horario.idPersonaHorarioAgenda]">Editar</a></td>
-                <td><a (click)="eliminar(horario.idPersonaHorarioAgenda)">Eliminar</a></td>
-            </tr>
-        </tbody>
-        
+  </div><br>
+  <div class="row">
+    <div class="col-sm-2">
+      <button class="btn btn-dark" (click)="openModal('modal-busqueda')">Buscar Doctor</button>
+    </div>
+    <div class="col-sm-2">
+        <button class="btn btn-dark" (click)="agregar()">Asignar Horario</button>
+    </div>
+    <div class="col-sm-2">
+        <button class="btn btn-dark" (click)="verE()">Ver Excepciones</button>
+    </div>
+    <div class="col-sm-2">
+        <button class="btn btn-warning" style="width: 200px;" *ngIf="doctorSelected>-1" (click)="buscarPorDoctor(-1)">Quitar filtro por doctor</button>
+    </div>
+  </div><br>
+  <div class="table-resposive">
+    <table class="table table-hover">
+      <thead class="thead-dark">
+        <tr class="text-center">
+          <th scope="col">Dia</th>
+          <th scope="col">Hora de Apertura</th>
+          <th scope="col">Hora de Cierre</th>
+          <th scope="col">Intervalos en Min</th>
+          <th scope="col">Doctor</th>
+          <th scope="col">Opciones</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <tr *ngFor="let horario of lista_horario">
+          <td>{{dias_semana[horario.dia]}}</td>
+          <td>{{horario.horaApertura}}</td>
+          <td>{{horario.horaCierre}}</td>
+          <td>{{horario.intervaloMinutos}}</td>
+          <td>{{horario.idEmpleado.nombre}}</td>
+          <td>
+            <a class="btn btn-warning" role="button" [routerLink]="['/horario/editar',horario.idPersonaHorarioAgenda]">Editar</a>
+            <a class="btn btn-danger" role="button" style="margin-left: 10px; cursor: pointer;" (click)="eliminar(horario.idPersonaHorarioAgenda)">Eliminar</a>
+          </td>
+        </tr>
+      </tbody>
     </table>
-    <my-pagination
-      (goPage)="goToPage($event)"
-      (goNext)="onNext()"
-      (goPrev)="onPrev()"
-      [pagesToShow]="3"
-      [page]="pagina_actual"
-      [perPage]="limite"
-      [count]="total"></my-pagination>
-    </div>
+  </div>
+</div>
+<div class="row">
+  <my-pagination
+    (goPage)="goToPage($event)"
+    (goNext)="onNext()"
+    (goPrev)="onPrev()"
+    [pagesToShow]="3"
+    [page]="pagina_actual"
+    [perPage]="limite"
+    [count]="total">
+  </my-pagination>
+</div>
 
-    <jw-modal id="modal-busqueda">
-            <app-buscar-doctor (doctorSeleccionado)="buscarPorDoctor($event.idPersona);closeModal('modal-busqueda')"></app-buscar-doctor>
-            <button (click)="closeModal('modal-busqueda');">Cerrar</button>
-        </jw-modal>
-
-        
+<jw-modal id="modal-busqueda">
+  <app-buscar-doctor (doctorSeleccionado)="buscarPorDoctor($event.idPersona);closeModal('modal-busqueda')"></app-buscar-doctor>
+  <button class="btn btn-secondary" (click)="closeModal('modal-busqueda');">Cerrar</button>
+</jw-modal>

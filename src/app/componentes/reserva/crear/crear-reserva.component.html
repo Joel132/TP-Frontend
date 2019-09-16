@@ -8,8 +8,8 @@
         <div class="card-body">
           <form class="text-center" style="color: #757575;" [formGroup]="crearForm" (ngSubmit)="onCrear()">
             <div class="row">
-              <div *ngIf="doctorSel"><label>Doctor: </label><b>{{doctorSel}}</b><br></div>
-              <a type="button" role="button" class="btn btn-secondary btn-lg btn-block" (click)="openModal('modal-busqueda-doctor')" style="color: lightyellow;">Asignar Doctor</a>
+              <div *ngIf="doctorSel"><label>Doctor: </label><b> {{doctorSel}}</b><br></div>
+              <a type="button" role="button" class="btn btn-secondary btn-lg btn-block" (click)="openModal('modal-busqueda-doctor')" style="color: lightyellow; cursor: pointer;">Asignar Doctor</a>
               <div *ngIf= " aceptado && val.idEmpleado.errors">
                 <div *ngIf="val.idEmpleado.errors.noSeleccionado.message" style="color:red;">Asigne un doctor</div>
               </div>
@@ -22,7 +22,7 @@
               </div>
             </div><br>
             <div class="row">
-              <div *ngIf="doctorSel"><label>Paciente: </label><b>{{pacienteSel}}</b><br></div>
+              <div *ngIf="doctorSel"><label>Paciente: </label><b> {{pacienteSel}}</b><br></div>
               <a type="button" role="button" class="btn btn-secondary btn-lg btn-block" (click)="openModal('modal-busqueda-paciente')" style="color: lightyellow;">Asignar Paciente</a>
               <div *ngIf= " aceptado && val.idCliente.errors">
                 <div *ngIf="val.idCliente.errors.noSeleccionado.message" style="color:red;">Asigne un paciente</div>

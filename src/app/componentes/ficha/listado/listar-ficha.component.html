@@ -1,82 +1,111 @@
-<h2>Fichas Clinica</h2>
-<div id="buscador">
-        <label>Fecha Desde:</label>
-        <input type="date" [value]="fechaDesde" (change)="setFechaDesde($event.target.value)">
-        <label>Fecha Hasta:</label>
-        <input type="date" [value]="fechaHasta" (change)="setFechaHasta($event.target.value)">
-        <button (click)="openModal('modal-busqueda-doctor')">Buscar Doctor</button>
-        <button (click)="openModal('modal-busqueda-paciente')">Buscar Paciente</button>
-            <button (click)="agregar()">Registrar Ficha</button>
-            <button *ngIf="doctorSelected>-1" (click)="buscarPorDoctor(-1)">Quitar filtro por doctor</button>
-            <button *ngIf="pacienteSelected>-1" (click)="buscarPorPaciente(-1)">Quitar filtro por paciente</button>
-        Categoria:<select (change)="cargarSubcategorias($event.target.value)">
-            <option value="-1">Todas</option>
-            <option *ngFor="let cat of lista_categoria" [value]="cat.idCategoria" >
-                {{cat.descripcion}}
-            </option>
-        </select>
-        SubCategoria:<select (change)="buscarPorSubCategoria($event.target.value)">
-            <option value="-1">Todas</option>
-            <option *ngFor="let subCat of lista_subcategoria" [value]="subCat.idTipoProducto" >
-                {{subCat.descripcion}}
-            </option>
-        </select>     
-</div>
-<div id="tabla">
-    <table>
-        <thead>
-            <tr>
-            <th>Fecha</th>
-            <th>Doctor</th>
-            <th>Paciente</th>
-            <th>Subcategoria</th>
-            <th>Motivo Consulta</th>
-            <th>Diagnostico</th>
-            <th>Observacion</th>
-            <th></th>
-            <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let ficha of lista_ficha">
-                <td>{{ficha.fechaHora}}</td>
-                <td>{{ficha.idEmpleado.nombre}}</td>
-                <td>{{ficha.idCliente.nombre}}</td>
-                <td>{{ficha.idTipoProducto.descripcion}}</td>
-                <td>{{ficha.motivoConsulta}}</td>
-                <td>{{ficha.diagnostico}}</td>
-                <td>{{ficha.observacion}}</td>
-                <td><a (click)="openModal('modal-modificar');setFichaModificar(ficha)">{{ficha.observacion?"Editar":"Agregar"}} Observacion</a></td>
-                <td><a (click)="eliminar(ficha.idFichaClinica)">Eliminar</a></td>
-
-            </tr>
-        </tbody>
-        
+<div class="container mt-3">
+  <div class="row">
+    <h1 class="display-4">Ficha Clinica</h1>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-sm">
+      <label>Fecha Desde:</label>
+      <input class="form-control" type="date" [value]="fechaDesde" (change)="setFechaDesde($event.target.value)">
+    </div>
+    <div class="col-sm">
+      <label>Fecha Hasta:</label>
+      <input class="form-control" type="date" [value]="fechaHasta" (change)="setFechaHasta($event.target.value)">
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-sm-2">
+      <button class="btn btn-dark" (click)="openModal('modal-busqueda-doctor')">Buscar Doctor</button>
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-dark" (click)="openModal('modal-busqueda-paciente')">Buscar Paciente</button>
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-dark" (click)="agregar()">Registrar Ficha</button>
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-warning" style="width: 200px;" *ngIf="doctorSelected>-1" (click)="buscarPorDoctor(-1)">Quitar filtro por doctor</button>
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-warning" style="width: 200px; margin-left: 20px;" *ngIf="pacienteSelected>-1" (click)="buscarPorPaciente(-1)">Quitar filtro por paciente</button>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-sm">
+      Categoria:<select class="form-control form-control-sm" (change)="cargarSubcategorias($event.target.value)">
+        <option value="-1">Todas</option>
+        <option *ngFor="let cat of lista_categoria" [value]="cat.idCategoria" >
+          {{cat.descripcion}}
+        </option>
+      </select>
+    </div>
+    <div class="col-sm">
+      SubCategoria:<select class="form-control form-control-sm" (change)="buscarPorSubCategoria($event.target.value)">
+        <option value="-1">Todas</option>
+        <option *ngFor="let subCat of lista_subcategoria" [value]="subCat.idTipoProducto" >
+          {{subCat.descripcion}}
+        </option>
+      </select>  
+    </div>
+  </div><br>
+  <div class="table-resposive">
+    <table class="table table-hover">
+      <thead class="thead-dark">
+        <tr class="text-center">
+          <th scope="col">Fecha</th>
+          <th scope="col">Doctor</th>
+          <th scope="col">Paciente</th>
+          <th scope="col">Subcategoria</th>
+          <th scope="col">Motivo Consulta</th>
+          <th scope="col">Diagnostico</th>
+          <th scope="col">Observacion</th>
+          <th scope="col">Opciones</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <tr *ngFor="let ficha of lista_ficha">
+          <td>{{ficha.fechaHora}}</td>
+          <td>{{ficha.idEmpleado.nombre}}</td>
+          <td>{{ficha.idCliente.nombre}}</td>
+          <td>{{ficha.idTipoProducto.descripcion}}</td>
+          <td>{{ficha.motivoConsulta}}</td>
+          <td>{{ficha.diagnostico}}</td>
+          <td>{{ficha.observacion}}</td>
+          <td>
+            <a class="btn btn-warning" role="button" (click)="openModal('modal-modificar');setFichaModificar(ficha)">{{ficha.observacion?"Editar":"Agregar"}} Observacion</a>
+            <a class="btn btn-danger activo" style="margin-left: 10px;" role="button" (click)="eliminar(ficha.idFichaClinica)">Eliminar</a>
+          </td>
+        </tr>
+      </tbody>
     </table>
-    <my-pagination
-      (goPage)="goToPage($event)"
-      (goNext)="onNext()"
-      (goPrev)="onPrev()"
-      [pagesToShow]="3"
-      [page]="pagina_actual"
-      [perPage]="limite"
-      [count]="total"></my-pagination>
+  </div>
+</div>
+
+<div class="row">
+  <my-pagination
+    (goPage)="goToPage($event)"
+    (goNext)="onNext()"
+    (goPrev)="onPrev()"
+    [pagesToShow]="3"
+    [page]="pagina_actual"
+    [perPage]="limite"
+    [count]="total">
+  </my-pagination>
 </div>
 
 <jw-modal id="modal-busqueda-doctor">
-        <app-buscar-doctor (doctorSeleccionado)="buscarPorDoctor($event.idPersona);closeModal('modal-busqueda-doctor')"></app-buscar-doctor>
-        <button (click)="closeModal('modal-busqueda-doctor');">Cerrar</button>
+  <app-buscar-doctor (doctorSeleccionado)="buscarPorDoctor($event.idPersona);closeModal('modal-busqueda-doctor')"></app-buscar-doctor>
+  <button class="btn btn-secondary" (click)="closeModal('modal-busqueda-doctor');">Cerrar</button>
 </jw-modal>
 
 <jw-modal id="modal-busqueda-paciente">
-        <app-buscar-paciente (pacienteSeleccionado)="buscarPorPaciente($event.idPersona);closeModal('modal-busqueda-paciente')"></app-buscar-paciente>
-        <button (click)="closeModal('modal-busqueda-paciente');">Cerrar</button>
+  <app-buscar-paciente (pacienteSeleccionado)="buscarPorPaciente($event.idPersona);closeModal('modal-busqueda-paciente')"></app-buscar-paciente>
+  <button class="btn btn-secondary" (click)="closeModal('modal-busqueda-paciente');">Cerrar</button>
 </jw-modal>
 
 <jw-modal id="modal-modificar">
-        <label>Observacion</label>
-        <textarea #observacion>{{fichaModifcar?.observacion}}</textarea><br>
-        <button (click)="modificar(observacion.value)">Guardar</button>
-        <button (click)="closeModal('modal-modificar');">Cerrar</button>
+  <label>Observacion</label>
+  <textarea #observacion>{{fichaModifcar?.observacion}}</textarea><br>
+  <button (click)="modificar(observacion.value)">Guardar</button>
+  <button (click)="closeModal('modal-modificar');">Cerrar</button>
 </jw-modal>
-        

@@ -1,6 +1,6 @@
 <div class="container mt-3">
     <div class="row">
-    |<h1 class="display-4">Reservas</h1>
+        <h1 class="display-4">Reservas</h1>
     </div>
     <hr>
     <div class="row">
@@ -41,7 +41,6 @@
                     <th scope="col">Paciente</th>
                     <th scope="col">Observacion</th>
                     <th scope="col">Opciones</th>
-                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody class="text-center">
@@ -52,8 +51,10 @@
                     <td>{{reserva.idEmpleado.nombre}}</td>
                     <td>{{reserva.idCliente.nombre}}</td>
                     <td>{{reserva.observacion}}</td>
-                    <td><a class="btn btn-warning activo" role="button" (click)="openModal('modal-modificar');setReservaModificar(reserva)">{{reserva.observacion?"Editar":"Agregar"}} Observacion</a></td>
-                    <td><a class="btn btn-danger activo" role="button" (click)="eliminar(reserva.idReserva)">Eliminar</a></td>
+                    <td>
+                        <a class="btn btn-warning activo" role="button" (click)="openModal('modal-modificar');setReservaModificar(reserva)">{{reserva.observacion?"Editar":"Agregar"}} Observacion</a>
+                        <a class="btn btn-danger activo" style="margin-left: 10px;" role="button" (click)="eliminar(reserva.idReserva)">Eliminar</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
