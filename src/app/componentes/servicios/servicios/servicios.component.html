@@ -23,9 +23,11 @@
         </select>     
         <button (click)="agregar()">Agregar</button>
         <a [routerLink]="['/servicios/detalles']">Ver detallado</a>
+        <button (click)="exportExcel(tabla)">Exportar Excel</button>
+        <button (click)="exportPDF(tabla)">Exportar PDF</button>
 </div>
 <div id="tabla">
-    <table>
+    <table #tabla>
         <thead>
             <tr>
             <th>Fecha</th>

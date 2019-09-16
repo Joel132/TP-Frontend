@@ -26,10 +26,12 @@
                 <option *ngFor="let pro of lista_presentacion" [value]="pro.idPresentacionProducto" >
                     {{pro.nombre}}
                 </option>
-            </select>    
+            </select>
+            <button (click)="exportExcel(tabla)">Exportar Excel</button>
+            <button (click)="exportPDF(tabla)">Exportar PDF</button>    
         
 </div>
-<div id="tabla">
+<div id="tabla" #tabla>
     <table>
         <thead>
             <tr>

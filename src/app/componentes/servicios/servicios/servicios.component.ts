@@ -6,6 +6,7 @@ import { ServiciosService } from 'src/app/servicios/servicios/servicios.service'
 import { Servicio } from 'src/app/modelos/servicio';
 import { CategoriaService } from 'src/app/servicios/categoria/categoria.service';
 import { Categoria } from 'src/app/modelos/categoria';
+import { ExportarService } from 'src/app/servicios/export/exportar.service';
 
 @Component({
   selector: 'app-servicios',
@@ -14,7 +15,7 @@ import { Categoria } from 'src/app/modelos/categoria';
 })
 export class ServiciosComponent implements OnInit {
   lista_servicio: Servicio[];
-
+  esc=true;
   total=0;
   limite=8;
   pagina_actual=1;
@@ -30,7 +31,16 @@ export class ServiciosComponent implements OnInit {
   subcategoriaSelected=-1;
   lista_subcategoria=[];
   lista_categoria:Categoria[];
-  constructor(private resServ: ServiciosService,private router : Router, private modalService: ModalService,private catSer: CategoriaService) { }
+  constructor(private resServ: ServiciosService,private router : Router, private modalService: ModalService,private catSer: CategoriaService,
+    private exportService:ExportarService) { }
+
+    exportExcel(data) {
+      this.exportService.exportExcel(data, 'servicios');
+    }
+
+    exportPDF(data) {
+      this.exportService.exportPDF(data, 'servicios');
+    }
 
   ngOnInit() {
     this.buscar({});
