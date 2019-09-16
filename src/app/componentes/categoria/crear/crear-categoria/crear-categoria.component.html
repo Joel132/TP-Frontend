@@ -1,11 +1,22 @@
-<div class="crear">
-    <h2 class="text-center">Crear Categoria</h2>
-    <form [formGroup]="crearForm" (ngSubmit)="onCrear()">
-
-            <div class="form-group">
-                    <label for="descripcion">Descripcion:</label>
-                    <input formControlName="descripcion" placeholder="Descripcion" name="descripion" class="form-control" id="nombre">
+<div class="container py-3">
+  <div class="row">
+    <div class="mx-auto col-sm-6">
+      <div class="card">
+        <div class="card-header text-center" style="background-color: lightseagreen;">
+          <h2>Crear Cateogria</h2>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="crearForm" (ngSubmit)="onCrear()">
+            <div class="row">
+                <label for="descripcion">Descripcion:</label>
+                <textarea class="form-control" rows="2" formControlName="descripcion" placeholder="Descripcion" name="descripion" class="form-control" id="nombre"></textarea>
+            </div><br>
+            <div class="row">
+              <input type="submit" [disabled]="!crearForm.valid" class="btn btn-success btn-lg btn-block" value="Crear">
             </div>
-            <input type="submit" [disabled]="!crearForm.valid" class="btn btn-success" value="Crear">
-    </form>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

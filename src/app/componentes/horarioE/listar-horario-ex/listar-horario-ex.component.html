@@ -1,55 +1,74 @@
-<h2>Horarios Excepcionales</h2>
-<div id="buscador">
+<div class="container mt-3">
+  <div class="row">
+    <h1 class="display-4">Horarios Excepcionales</h1>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-sm">
         <label>Fecha</label>
-        <input type="date" [value]="diaSelected" (change)="buscarPorDia($event.target.value)">
-        <label>Tipo de Excepcion</label><select #flag (change)="flagEsHabilitar=flag.value;buscar()">
-            <option value="S" selected>Habilitar</option>
-            <option value="N">Desabilitar</option>
-        </select>
-        <button (click)="openModal('modal-busqueda')">Buscar Doctor</button>
-            <button (click)="agregar()">Agregar Excepcion</button>
-            <button *ngIf="doctorSelected>-1" (click)="buscarPorDoctor(-1)">Quitar filtro por doctor</button>
-            
+        <input class="form-control" type="date" [value]="diaSelected" (change)="buscarPorDia($event.target.value)">
     </div>
-    <div id="tabla">
-    <table>
-        <thead>
-            <tr>
-            <th>Fecha</th>
-            <th *ngIf="flagEsHabilitar=='S'">Hora de Apertura</th>
-            <th *ngIf="flagEsHabilitar=='S'">Hora de Cierre</th>
-            <th *ngIf="flagEsHabilitar=='S'">Intervalos en Min</th>
-            <th>Doctor</th>
-            <th></th>
-            <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let horario of lista_horario">
-                <td>{{horario.fecha}}</td>
-                <td *ngIf="flagEsHabilitar=='S'">{{horario.horaApertura}}</td>
-                <td *ngIf="flagEsHabilitar=='S'">{{horario.horaCierre}}</td>
-                <td *ngIf="flagEsHabilitar=='S'">{{horario.intervaloMinutos}}</td>
-                <td>{{horario.idEmpleado.nombre}}</td>
-                <td><a [routerLink]="['/horarioE/editar',horario.idHorarioExcepcion]">Editar</a></td>
-                <td><a (click)="eliminar(horario.idHorarioExcepcion)">Eliminar</a></td>
-            </tr>
-        </tbody>
-        
+    <div class="col-sm">
+      <label>Tipo de Excepcion</label>
+      <select class="form-control" #flag (change)="flagEsHabilitar=flag.value;buscar()">
+          <option value="S" selected>Habilitar</option>
+          <option value="N">Desabilitar</option>
+      </select>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-sm-2">
+      <button class="btn btn-dark" (click)="openModal('modal-busqueda')">Buscar Doctor</button>
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-dark" style="width: 200px;" (click)="agregar()">Agregar Excepcion</button>
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-warning" style="width: 200px; margin-left: 40px;" *ngIf="doctorSelected>-1" (click)="buscarPorDoctor(-1)">Quitar filtro por doctor</button>
+    </div>
+  </div><br>
+  <div class="table-resposive">
+    <table class="table table-hover">
+      <thead class="thead-dark">
+        <tr class="text-center">
+          <th scope="col">Fecha</th>
+          <th scope="col" *ngIf="flagEsHabilitar=='S'">Hora de Apertura</th>
+          <th scope="col" *ngIf="flagEsHabilitar=='S'">Hora de Cierre</th>
+          <th scope="col" *ngIf="flagEsHabilitar=='S'">Intervalos en Min</th>
+          <th scope="col">Doctor</th>
+          <th scope="col">Opciones</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <tr *ngFor="let horario of lista_horario">
+          <td>{{horario.fecha}}</td>
+          <td *ngIf="flagEsHabilitar=='S'">{{horario.horaApertura}}</td>
+          <td *ngIf="flagEsHabilitar=='S'">{{horario.horaCierre}}</td>
+          <td *ngIf="flagEsHabilitar=='S'">{{horario.intervaloMinutos}}</td>
+          <td>{{horario.idEmpleado.nombre}}</td>
+          <td>
+            <a class="btn btn-warning" role="button" [routerLink]="['/horarioE/editar',horario.idHorarioExcepcion]">Editar</a>
+            <a class="btn btn-danger" style="margin-left: 10px; cursor: pointer;" role="button" (click)="eliminar(horario.idHorarioExcepcion)">Eliminar</a>
+          </td>
+        </tr>
+      </tbody>
     </table>
-    <my-pagination
-      (goPage)="goToPage($event)"
-      (goNext)="onNext()"
-      (goPrev)="onPrev()"
-      [pagesToShow]="3"
-      [page]="pagina_actual"
-      [perPage]="limite"
-      [count]="total"></my-pagination>
-    </div>
+  </div>
+</div>
 
-    <jw-modal id="modal-busqueda">
-            <app-buscar-doctor (doctorSeleccionado)="buscarPorDoctor($event.idPersona);closeModal('modal-busqueda')"></app-buscar-doctor>
-            <button (click)="closeModal('modal-busqueda');">Cerrar</button>
-        </jw-modal>
+<div class="row">
+  <my-pagination
+    (goPage)="goToPage($event)"
+    (goNext)="onNext()"
+    (goPrev)="onPrev()"
+    [pagesToShow]="3"
+    [page]="pagina_actual"
+    [perPage]="limite"
+    [count]="total">
+  </my-pagination>
+</div>
 
-       
+<jw-modal id="modal-busqueda">
+  <app-buscar-doctor (doctorSeleccionado)="buscarPorDoctor($event.idPersona);closeModal('modal-busqueda')"></app-buscar-doctor>
+  <button class="btn btn-secondary" (click)="closeModal('modal-busqueda');">Cerrar</button>
+</jw-modal>
