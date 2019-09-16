@@ -4,6 +4,7 @@ import { CategoriaService } from 'src/app/servicios/categoria/categoria.service'
 import { Categoria } from 'src/app/modelos/categoria';
 import { Presentacion } from 'src/app/modelos/presentacion';
 import { ProductoService } from 'src/app/servicios/presentacion/producto.service';
+import { ModalService } from 'src/app/_modal';
 @Component({
   selector: 'app-listar-producto',
   templateUrl: './listar-producto.component.html',
@@ -23,12 +24,19 @@ export class ListarProductoComponent implements OnInit {
   lista_categoria:Categoria[];
   nombre
   constructor(private proSer: ProductoService, private router : Router,
-    private catSer: CategoriaService
+    private catSer: CategoriaService, private modalService: ModalService
     ) { }
 
   ngOnInit() {
     this.buscar({});
     this.cargarCategorias();
+  }
+
+  closeModal(id: string) {
+    this.modalService.close(id);
+  }
+  openModal(id: string) {
+    this.modalService.open(id);
   }
   
   buscar(ejemplo){
@@ -77,6 +85,10 @@ export class ListarProductoComponent implements OnInit {
     this.proSer.eliminarPresentacion(id).subscribe(
       (response)=>{
         this.buscar({});
+        this.openModal('modal-eliminar-correcto');
+      },
+      (error)=>{
+        this.openModal('modal-eliminar-incorrecto');
       }
     )
   }

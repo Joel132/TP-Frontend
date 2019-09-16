@@ -78,6 +78,10 @@ export class ListarHorarioExComponent implements OnInit {
     this.horServ.eliminarHorario(id).subscribe(
       (response)=>{
         this.buscar();
+        this.openModal('modal-eliminar-correcto');
+      },
+      (error)=>{
+        this.openModal('modal-eliminar-incorrecto');
       }
     )
   }
