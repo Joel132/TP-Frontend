@@ -94,6 +94,10 @@ export class ListarReservaComponent implements OnInit {
     this.resServ.cancelarReserva(id).subscribe(
       (response)=>{
         this.buscar({});
+        this.openModal('modal-eliminar-correcto');
+      },
+      (error)=>{
+        this.openModal('modal-eliminar-incorrecto');
       }
     )
   }

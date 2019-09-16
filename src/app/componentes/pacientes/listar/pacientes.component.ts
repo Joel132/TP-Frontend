@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Paciente } from '../../../modelos/paciente';
 import { PacientesService } from '../../../servicios/pacientes/pacientes.service';
 import { Router } from '@angular/router';
+import { ModalService } from 'src/app/_modal';
 
 @Component({
   selector: 'app-pacientes',
@@ -17,7 +18,7 @@ export class PacientesComponent implements OnInit {
   loading = false;
   private service;
   orderBy="nombre";
-  constructor(private paciente_service:PacientesService, private router : Router) { }
+  constructor(private paciente_service:PacientesService, private router : Router, private modalService: ModalService) { }
 
   ngOnInit() {
     this.loading = true;
@@ -60,10 +61,21 @@ export class PacientesComponent implements OnInit {
     this.paciente_service.eliminarPaciente(id).subscribe(
       (response)=>{
         this.buscar();
+        this.openModal('modal-eliminar-correcto');
+      },
+      (error)=>{
+        this.openModal('modal-eliminar-incorrecto');
       }
     )
   }
   agregar(): void{
     this.router.navigate(['pacientes/crear']);
+  }
+
+  closeModal(id: string) {
+    this.modalService.close(id);
+  }
+  openModal(id: string) {
+    this.modalService.open(id);
   }
 }

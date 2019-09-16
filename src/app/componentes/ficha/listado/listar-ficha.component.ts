@@ -108,6 +108,10 @@ export class ListarFichaComponent implements OnInit {
     this.resServ.cancelarFicha(id).subscribe(
       (response)=>{
         this.buscar({});
+        this.openModal('modal-eliminar-correcto');
+      },
+      (error)=>{
+        this.openModal('modal-eliminar-incorrecto');
       }
     )
   }

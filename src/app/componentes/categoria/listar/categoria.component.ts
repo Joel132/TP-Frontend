@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CategoriaService } from '../../../servicios/categoria/categoria.service';
 import { Categoria } from '../../../modelos/categoria';
 import { Router } from '@angular/router';
+import { ModalService } from 'src/app/_modal';
 
 @Component({
   selector: 'app-listar-categoria',
@@ -16,8 +17,14 @@ export class ListarCategoriaComponent implements OnInit {
   loading = false;
   private service;
   orderBy="descripcion";
-  constructor(private categoria_service:CategoriaService, private router : Router) { }
+  constructor(private categoria_service:CategoriaService, private router : Router,private modalService: ModalService) { }
 
+  closeModal(id: string) {
+    this.modalService.close(id);
+  }
+  openModal(id: string) {
+    this.modalService.open(id);
+  }
  
   ngOnInit() {
     this.loading = true;
@@ -60,6 +67,10 @@ export class ListarCategoriaComponent implements OnInit {
     this.categoria_service.eliminarCategoria(id).subscribe(
       (response)=>{
         this.buscar();
+        this.openModal('modal-eliminar-correcto');
+      },
+      (error)=>{
+        this.openModal('modal-eliminar-incorrecto');
       }
     )
   }

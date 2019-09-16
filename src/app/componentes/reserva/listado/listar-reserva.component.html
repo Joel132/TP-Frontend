@@ -100,4 +100,13 @@
             </div>
         </div>
     </jw-modal>
+
+    <jw-modal id="modal-eliminar-incorrecto">
+            No se puede eliminar!
+            <button class="btn btn-secondary" (click)="closeModal('modal-eliminar-incorrecto');">Cerrar</button>
+    </jw-modal>
+    <jw-modal id="modal-eliminar-correcto">
+            Eliminado exitosamente!
+            <button class="btn btn-secondary" (click)="closeModal('modal-eliminar-correcto');">Cerrar</button>
+    </jw-modal>
 </div>
