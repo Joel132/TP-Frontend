@@ -58,12 +58,12 @@ export class ListarProductoComponent implements OnInit {
   }
 
   buscarPorNombre(nombre: string){
-    this.nombre=nombre;
+    this.nombre=nombre;this.pagina_actual=1;
     this.buscar({});
   }
   
   buscarPorSubCategoria(id:number){
-    this.subcategoriaSelected=id;
+    this.subcategoriaSelected=id;this.pagina_actual=1;
     this.buscar({});
   }
 

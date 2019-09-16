@@ -30,8 +30,9 @@ export class BuscarDoctorComponent implements OnInit {
       });
   }
 
-  buscar(nombre?: String){
+  buscar(nombre?: String,pagina?:number){
     let cat = nombre ? this.buscarPor == "nombre" ? { nombre:nombre}: { apellido:nombre}:null;
+    if(pagina)this.pagina_actual=pagina;
     //Se calcula desde donde pedir a partir de la pagina solicitada
     let inicio=(this.pagina_actual-1)*this.limite;
     this.service=this.doctor_service.getDoctors(String(inicio),String(this.limite),this.orderBy,'asc',cat).subscribe(

@@ -55,12 +55,12 @@ export class ListarHorarioExComponent implements OnInit {
   }
 
   buscarPorDia(dia){
-    this.diaSelected=dia;
+    this.diaSelected=dia;this.pagina_actual=1;
     this.buscar();
   }
 
   buscarPorDoctor(id:number){
-    this.doctorSelected=id;
+    this.doctorSelected=id;this.pagina_actual=1;
     this.buscar();
   }
 

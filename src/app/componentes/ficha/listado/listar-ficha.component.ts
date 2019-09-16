@@ -66,27 +66,27 @@ export class ListarFichaComponent implements OnInit {
   }
 
   setFechaDesde(fecha){
-    this.fechaDesde=fecha;
+    this.fechaDesde=fecha;this.pagina_actual=1;
     this.buscar({});
   }
 
   setFechaHasta(fecha){
-    this.fechaHasta=fecha;
+    this.fechaHasta=fecha;this.pagina_actual=1;
     this.buscar({});
   }
 
   buscarPorDoctor(id:number){
-    this.doctorSelected=id;
+    this.doctorSelected=id;this.pagina_actual=1;
     this.buscar({});
   }
 
   buscarPorPaciente(id:number){
-    this.pacienteSelected=id;
+    this.pacienteSelected=id;this.pagina_actual=1;
     this.buscar({});
   }
   
   buscarPorSubCategoria(id:number){
-    this.subcategoriaSelected=id;
+    this.subcategoriaSelected=id;this.pagina_actual=1;
     this.buscar({});
   }
 

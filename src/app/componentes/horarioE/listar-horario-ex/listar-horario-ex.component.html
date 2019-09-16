@@ -10,7 +10,7 @@
     </div>
     <div class="col-sm">
       <label>Tipo de Excepcion</label>
-      <select class="form-control" #flag (change)="flagEsHabilitar=flag.value;buscar()">
+      <select class="form-control" #flag (change)="flagEsHabilitar=flag.value;pagina_actual=1;;buscar()">
           <option value="S" selected>Habilitar</option>
           <option value="N">Desabilitar</option>
       </select>

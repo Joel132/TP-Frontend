@@ -37,8 +37,9 @@ export class ListarCategoriaComponent implements OnInit {
       });
   }
 
-  buscar(nombre?: String){
+  buscar(nombre?: String,pagina?:number){
     let cat = nombre ? { descripcion:nombre}: null;
+    if(pagina)this.pagina_actual=pagina;
     //Se calcula desde donde pedir a partir de la pagina solicitada
     let inicio=(this.pagina_actual-1)*this.limite;
     this.service=this.categoria_service.getCategorias(String(inicio),String(this.limite),this.orderBy,'asc',cat).subscribe(

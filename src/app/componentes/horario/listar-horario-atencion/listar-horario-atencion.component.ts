@@ -54,12 +54,12 @@ export class ListarHorarioAtencionComponent implements OnInit {
   }
 
   buscarPorDia(dia:number){
-    this.diaSelected=dia;
+    this.diaSelected=dia;this.pagina_actual=1;
     this.buscar();
   }
 
   buscarPorDoctor(id:number){
-    this.doctorSelected=id;
+    this.doctorSelected=id;this.pagina_actual=1;
     this.buscar();
   }
 
