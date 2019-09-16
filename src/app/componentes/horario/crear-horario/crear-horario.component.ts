@@ -3,18 +3,20 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from
 import { ModalService } from 'src/app/_modal';
 import { HorarioService } from 'src/app/servicios/horario/horario.service';
 import { Router } from '@angular/router';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 @Component({
   selector: 'app-crear-horario',
   templateUrl: './crear-horario.component.html',
-  styleUrls: ['./crear-horario.component.css']
+  styleUrls: ['./crear-horario.component.css'],
+  providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })
 export class CrearHorarioComponent implements OnInit {
   crearForm : FormGroup;
   dias_semana = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
   aceptado = false;
   doctorSel;
-  constructor(private formBuilder : FormBuilder, private modalService:ModalService, private horSer: HorarioService,
+  constructor(private location: Location,private formBuilder : FormBuilder, private modalService:ModalService, private horSer: HorarioService,
     private router : Router) { }
 
   ngOnInit() {
@@ -64,6 +66,7 @@ export class CrearHorarioComponent implements OnInit {
     this.aceptado = false;
     this.crearForm.reset();
     this.doctorSel="";
+    this.location.back();
   }
 
   get val(){

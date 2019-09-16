@@ -88,6 +88,7 @@ import { ServiciosDetalladoComponent } from './componentes/servicios/servicios-d
       { path: 'pacientes/crear', component: CrearComponent, canActivate:[AuthorizatedGuardService]},
       { path: 'pacientes', component: PacientesComponent, canActivate:[AuthorizatedGuardService]},
       { path: 'pacientes/editar/:pacId', component: ModificarComponent, canActivate:[AuthorizatedGuardService]},
+      { path: 'listar/pacientes/editar/:pacId', component: ModificarComponent, canActivate:[AuthorizatedGuardService]},
       { path: 'listar/pacientes',component: PacientesComponent, canActivate:[AuthorizatedGuardService]},
       { path: 'login', component: LoginComponent},
       { path: 'horario/crear', component: CrearHorarioComponent, canActivate:[AuthorizatedGuardService] },

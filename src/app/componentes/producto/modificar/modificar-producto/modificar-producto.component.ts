@@ -103,6 +103,7 @@ export class ModificarProductoComponent implements OnInit {
   onCancelar(){
     this.aceptado = false;
     this.llenarForm();
+    return;
   }
 
   get val(){

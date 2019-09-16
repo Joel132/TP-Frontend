@@ -3,6 +3,7 @@ import { Paciente } from '../../../modelos/paciente';
 import { PacientesService } from '../../../servicios/pacientes/pacientes.service';
 import { Router } from '@angular/router';
 import { ModalService } from 'src/app/_modal';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-pacientes',

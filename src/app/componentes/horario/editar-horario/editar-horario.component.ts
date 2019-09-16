@@ -4,11 +4,13 @@ import { ModalService } from 'src/app/_modal';
 import { HorarioService } from 'src/app/servicios/horario/horario.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Horario } from 'src/app/modelos/horario';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 @Component({
   selector: 'app-editar-horario',
   templateUrl: './editar-horario.component.html',
-  styleUrls: ['./editar-horario.component.css']
+  styleUrls: ['./editar-horario.component.css'],
+  providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })
 export class EditarHorarioComponent implements OnInit {
   editarForm : FormGroup;
@@ -16,7 +18,7 @@ export class EditarHorarioComponent implements OnInit {
   dias_semana = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
   aceptado = false;
   doctorSel;
-  constructor(private formBuilder : FormBuilder, private modalService:ModalService, private horSer: HorarioService,
+  constructor(private location: Location,private formBuilder : FormBuilder, private modalService:ModalService, private horSer: HorarioService,
     private router : Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -85,7 +87,7 @@ export class EditarHorarioComponent implements OnInit {
       idEmpleado : this.horarioOriginal.idEmpleado
     });
     this.doctorSel=this.horarioOriginal.idEmpleado.nombre;
-    
+    this.location.back();
   }
 
   get val(){

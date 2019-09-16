@@ -11,12 +11,14 @@ import { FichaClinicaService } from 'src/app/servicios/ficha/ficha-clinica.servi
 import { DetalleServicio } from 'src/app/modelos/servicio';
 import { ProductoService } from 'src/app/servicios/presentacion/producto.service';
 import { Presentacion } from 'src/app/modelos/presentacion';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 
 @Component({
   selector: 'app-crear-servicio',
   templateUrl: './crear-servicio.component.html',
-  styleUrls: ['./crear-servicio.component.css']
+  styleUrls: ['./crear-servicio.component.css'],
+  providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })
 export class CrearServicioComponent implements OnInit {
 
@@ -43,7 +45,7 @@ export class CrearServicioComponent implements OnInit {
   productoSeleccionado:Presentacion;
   detalle_valido=true;
   fichaSeleccionada=true;
-  constructor(private fichaSer: FichaClinicaService, private router : Router, private modalService: ModalService,
+  constructor(private location: Location,private fichaSer: FichaClinicaService, private router : Router, private modalService: ModalService,
     private catSer: CategoriaService, private serSer: ServiciosService, private route: ActivatedRoute,
     private proSer: ProductoService) { }
 
@@ -209,5 +211,9 @@ export class CrearServicioComponent implements OnInit {
 
   closeModal(id: string) {
     this.modalService.close(id);
+  }
+
+  onCancelar(){
+    this.location.back();
   }
 }

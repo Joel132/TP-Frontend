@@ -4,11 +4,15 @@ import { HorarioExcepcionService } from 'src/app/servicios/horarioExc/horario-ex
 import { HorarioExcepcion } from 'src/app/modelos/horario';
 import { Router } from '@angular/router';
 import { ModalService } from 'src/app/_modal';
-import {formatDate} from 'src/app/otros/funciones'
+import {formatDate} from 'src/app/otros/funciones';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+
+
 @Component({
   selector: 'app-listar-horario-ex',
   templateUrl: './listar-horario-ex.component.html',
-  styleUrls: ['./listar-horario-ex.component.css']
+  styleUrls: ['./listar-horario-ex.component.css'],
+  providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })
 export class ListarHorarioExComponent implements OnInit {
   empleados: Doctor[];
@@ -22,7 +26,7 @@ export class ListarHorarioExComponent implements OnInit {
   orderBy="fechaCadena";
   diaSelected=formatDate(new Date);
   doctorSelected=-1;
-  constructor(private horServ: HorarioExcepcionService, private router : Router, private modalService: ModalService) { }
+  constructor(private location: Location,private horServ: HorarioExcepcionService, private router : Router, private modalService: ModalService) { }
 
   ngOnInit() {
     this.buscar();
@@ -92,6 +96,10 @@ export class ListarHorarioExComponent implements OnInit {
 
   openModal(id: string) {
     this.modalService.open(id);
+}
+
+onAtras(){
+  this.location.back();
 }
 
 closeModal(id: string) {
