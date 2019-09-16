@@ -98,7 +98,11 @@ export class CrearReservaComponent implements OnInit {
       this.router.navigate(['reservas']);
       alertify.notify('Creado Correctamente!', 'success', 5, function(){  console.log('dismissed'); });
       //TODO: colocar mensaje de exito
-    })
+    },
+    error=>{
+      alertify.notify('Ha ocurrido un error!', 'error', 5, function(){  console.log('dismissed'); });
+    }
+  )
     
     
   }

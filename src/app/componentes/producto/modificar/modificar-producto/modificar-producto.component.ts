@@ -94,7 +94,11 @@ export class ModificarProductoComponent implements OnInit {
       .subscribe(response =>{ 
       this.router.navigate(['productos']);
       alertify.notify('Modificado Correctamente!', 'success', 5, function(){  console.log('dismissed'); });
-    })
+    },
+    error=>{
+      alertify.notify('Ha ocurrido un error!', 'error', 5, function(){  console.log('dismissed'); });
+    }
+  )
     
       //TODO: colocar mensaje de exito
     })

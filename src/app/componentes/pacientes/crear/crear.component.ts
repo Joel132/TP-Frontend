@@ -41,7 +41,11 @@ export class CrearComponent implements OnInit {
       console.log(response);
       this.router.navigate(['pacientes']);
       alertify.notify('Creado Correctamente!', 'success', 5, function(){  console.log('dismissed'); });
-    })
+    },
+    error=>{
+      alertify.notify('Ha ocurrido un error!', 'error', 5, function(){  console.log('dismissed'); });
+    }
+  )
   }
 
   onCancelar(){

@@ -41,7 +41,11 @@ export class ModificarCategoriaComponent implements OnInit {
       console.log(response);
       this.router.navigate(['categoria']);
       alertify.notify('Modificado Correctamente!', 'success', 5, function(){  console.log('dismissed'); });
-    })
+    },
+    error=>{
+      alertify.notify('Ha ocurrido un error!', 'error', 5, function(){  console.log('dismissed'); });
+    }
+  )
   }
 
 }

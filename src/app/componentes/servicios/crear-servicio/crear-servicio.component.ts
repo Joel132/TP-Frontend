@@ -77,6 +77,10 @@ export class CrearServicioComponent implements OnInit {
         this.router.navigate(['/servicios']);
         alertify.notify('Creado Correctamente!', 'success', 5, function(){  console.log('dismissed'); });
       }
+      ,
+      error=>{
+        alertify.notify('Ha ocurrido un error!', 'error', 5, function(){  console.log('dismissed'); });
+      }
     )
   }
 

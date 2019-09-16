@@ -72,7 +72,11 @@ export class EditarHorarioComponent implements OnInit {
       this.router.navigate(['horarios']);
       alertify.notify('Modificado Correctamente!', 'success', 5, function(){  console.log('dismissed'); });
       //TODO: colocar mensaje de exito
-    })
+    },
+    error=>{
+      alertify.notify('Ha ocurrido un error!', 'error', 5, function(){  console.log('dismissed'); });
+    }
+  )
     
   }
 

@@ -77,7 +77,11 @@ export class CrearProductoComponent implements OnInit {
       .subscribe(response =>{ 
       this.router.navigate(['productos']);
       alertify.notify('Creado Correctamente!', 'success', 5, function(){  console.log('dismissed'); });
-    })
+    },
+    error=>{
+      alertify.notify('Ha ocurrido un error!', 'error', 5, function(){  console.log('dismissed'); });
+    }
+  )
     
       //TODO: colocar mensaje de exito
     })
