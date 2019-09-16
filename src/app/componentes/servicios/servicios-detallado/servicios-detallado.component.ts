@@ -8,6 +8,7 @@ import { CategoriaService } from 'src/app/servicios/categoria/categoria.service'
 import { Categoria } from 'src/app/modelos/categoria';
 import { Presentacion } from 'src/app/modelos/presentacion';
 import { ProductoService } from 'src/app/servicios/presentacion/producto.service';
+import { ExportarService } from 'src/app/servicios/export/exportar.service';
 
 @Component({
   selector: 'app-servicios-detallado',
@@ -35,7 +36,15 @@ export class ServiciosDetalladoComponent implements OnInit {
   precios: { [id: number] : number; } = {};
 
   constructor(private resServ: ServiciosService,private router : Router, private modalService: ModalService,private catSer: CategoriaService,
-    private preSer:ProductoService) { }
+    private preSer:ProductoService,private exportService:ExportarService) { }
+  
+    exportExcel(data) {
+      this.exportService.exportExcel(data, 'servicios-detallados');
+    }
+
+    exportPDF(data) {
+      this.exportService.exportPDF(data, 'servicios-detallados');
+    }
 
   ngOnInit() {
     this.buscar({});
