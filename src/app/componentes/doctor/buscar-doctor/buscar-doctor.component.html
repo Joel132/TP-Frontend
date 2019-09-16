@@ -1,8 +1,14 @@
 <div class="container-py">
     <div class="modal-header">
         <div class="row">
-            <div class="col-sm-9">
+            <div class="col-sm-6">
                 <input type="text" #nombreAbuscar class="form-control">
+            </div>
+            <div class="col-sm-2">
+                Nombre<input class="btn btn-info" type="radio"  value="nombre" name="nombre1" [(ngModel)]="buscarPor">
+            </div>
+            <div class="col-sm-2">
+                Apellido<input class="btn btn-info" type="radio" value="apellido" name="nombre1" [(ngModel)]="buscarPor">
             </div>
             <div class="col-sm-2">
                 <input class="btn btn-info" type="button" (click)="buscar(nombreAbuscar.value)" value="Buscar">
@@ -22,7 +28,7 @@
             <tbody>
                 <tr id="tablaPersonaliza" class="text-center" *ngFor="let doctor of lista_doctor" (click)="elegir(doctor)">
                     <td>{{doctor.cedula}}</td>
-                    <td>{{doctor.nombre}}</td>
+                    <td>{{doctor.nombreCompleto}}</td>
                     <td>{{doctor.email}}</td>
                     <td>{{doctor.telefono}}</td>
                 </tr>
