@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Horario } from 'src/app/modelos/horario';
+import { StorageService } from '../session/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import { Horario } from 'src/app/modelos/horario';
 export class HorarioService {
 
   private api_Horario="/stock-pwfe/personaHorarioAgenda"; 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private session: StorageService) { }
 
   getHorarios(inicio='0', cantidad, orderBy, orderDir='asc',busqueda): Observable<ResponseHorario>{
     let params = new HttpParams();
@@ -27,14 +28,14 @@ export class HorarioService {
 
   crearHorario(horario: Horario, usuario: string): Observable<Horario>{
     let header=new HttpHeaders().set('Content-Type','application/json');
-    header=header.set('usuario',usuario?usuario:"pedro");//CAMBIAR CUANDO SE CONECTE A LOGIN
+    header=header.set('usuario',this.session.getCurrentSession());//CAMBIAR CUANDO SE CONECTE A LOGIN
     const options={headers:header};
     return this.http.post<Horario>(this.api_Horario, horario, options);
   }
 
   editarHorario(horario: Horario, usuario: string): Observable<Horario>{
     let header=new HttpHeaders().set('Content-Type','application/json');
-    header=header.set('usuario',usuario?usuario:"pedro");//CAMBIAR CUANDO SE CONECTE A LOGIN
+    header=header.set('usuario',this.session.getCurrentSession());//CAMBIAR CUANDO SE CONECTE A LOGIN
     const options={headers:header};
     return this.http.put<Horario>(this.api_Horario, horario, options);
   }

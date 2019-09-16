@@ -4,6 +4,7 @@ import { FichaClinica } from 'src/app/modelos/ficha-clinica';
 import { Servicio, DetalleServicio } from 'src/app/modelos/servicio';
 import { Observable } from 'rxjs';
 import { retry } from 'rxjs/operators';
+import { StorageService } from '../session/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { retry } from 'rxjs/operators';
 export class ServiciosService {
 
   private api_servicio = "/stock-pwfe/servicio"
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private session: StorageService) { }
 
    /**
  * Metodo para registrar un servicio dado. Se requiere autenticacion de usuario
@@ -20,7 +21,7 @@ export class ServiciosService {
  */
 public crearServicio(servicio,usuario){
   let header=new HttpHeaders().set('Content-Type','application/json');
-  header=header.set('usuario',usuario?usuario:"pedro");//CAMBIAR CUANDO SE CONECTE A LOGIN
+  header=header.set('usuario',this.session.getCurrentSession());//CAMBIAR CUANDO SE CONECTE A LOGIN
   const options = {headers:header}
   return this.httpClient.post<number>(this.api_servicio,servicio,options)
 }
@@ -32,7 +33,7 @@ public crearServicio(servicio,usuario){
    */
   public modificarServicio(servicio,usuario){
     let header=new HttpHeaders().set('Content-Type','application/json');
-    header=header.set('usuario',usuario?usuario:"pedro");//CAMBIAR CUANDO SE CONECTE A LOGIN
+    header=header.set('usuario',this.session.getCurrentSession());//CAMBIAR CUANDO SE CONECTE A LOGIN
     const options = {headers:header}
     return this.httpClient.put<Servicio>(this.api_servicio,servicio,options)
   }
@@ -61,7 +62,7 @@ public crearServicio(servicio,usuario){
 
   public agregarDetalle(servicioId, detalle,usuario){
     let header=new HttpHeaders().set('Content-Type','application/json');
-    header=header.set('usuario',usuario?usuario:"pedro");//CAMBIAR CUANDO SE CONECTE A LOGIN
+    header=header.set('usuario',this.session.getCurrentSession());//CAMBIAR CUANDO SE CONECTE A LOGIN
     const options = {headers:header}
     return this.httpClient.post<Servicio>(this.api_servicio+'/'+servicioId+'/detalle',detalle,options).pipe(retry(3)) 
   }

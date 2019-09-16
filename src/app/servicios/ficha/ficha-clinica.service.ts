@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { FichaClinica } from 'src/app/modelos/ficha-clinica';
 import { Observable } from 'rxjs';
+import { StorageService } from '../session/storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FichaClinicaService {
   private api_ficha = "/stock-pwfe/fichaClinica"
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private session: StorageService) { }
 
 
   /**
@@ -18,7 +19,7 @@ export class FichaClinicaService {
  */
   public cargarFicha(ficha,usuario){
     let header=new HttpHeaders().set('Content-Type','application/json');
-    header=header.set('usuario',usuario?usuario:"pedro");//CAMBIAR CUANDO SE CONECTE A LOGIN
+    header=header.set('usuario',this.session.getCurrentSession());//CAMBIAR CUANDO SE CONECTE A LOGIN
     const options = {headers:header}
     return this.httpClient.post<FichaClinica>(this.api_ficha,ficha,options)
   }
@@ -30,7 +31,7 @@ export class FichaClinicaService {
    */
   public modificarFicha(ficha,usuario){
     let header=new HttpHeaders().set('Content-Type','application/json');
-    header=header.set('usuario',usuario?usuario:"pedro");//CAMBIAR CUANDO SE CONECTE A LOGIN
+    header=header.set('usuario',this.session.getCurrentSession());//CAMBIAR CUANDO SE CONECTE A LOGIN
     const options = {headers:header}
     return this.httpClient.put<FichaClinica>(this.api_ficha,ficha,options)
   }

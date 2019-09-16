@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Reserva } from 'src/app/modelos/reserva';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { StorageService } from '../session/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class ReservaService {
   private api_agenda="/stock-pwfe/persona"; 
   private api_reserva="/stock-pwfe/reserva"; 
   
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private session: StorageService) { }
 
 /**
  * Obtener horarios posibles de un doctor en una cierta fecha
@@ -34,7 +35,7 @@ export class ReservaService {
  */
   public agendarTurno(reserva,usuario){
     let header=new HttpHeaders().set('Content-Type','application/json');
-    header=header.set('usuario',usuario?usuario:"pedro");//CAMBIAR CUANDO SE CONECTE A LOGIN
+    header=header.set('usuario',this.session.getCurrentSession());//CAMBIAR CUANDO SE CONECTE A LOGIN
     const options = {headers:header}
     return this.httpClient.post<Reserva>(this.api_reserva,reserva,options)
   }
@@ -46,7 +47,7 @@ export class ReservaService {
    */
   public modificarReserva(reserva,usuario){
     let header=new HttpHeaders().set('Content-Type','application/json');
-    header=header.set('usuario',usuario?usuario:"pedro");//CAMBIAR CUANDO SE CONECTE A LOGIN
+    header=header.set('usuario',this.session.getCurrentSession());//CAMBIAR CUANDO SE CONECTE A LOGIN
     const options = {headers:header}
     return this.httpClient.put<Reserva>(this.api_reserva,reserva,options)
   }

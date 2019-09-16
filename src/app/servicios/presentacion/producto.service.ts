@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Presentacion } from 'src/app/modelos/presentacion';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { StorageService } from '../session/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class ProductoService {
   private api_presentacion ="/stock-pwfe/presentacionProducto"
   private api_producto ="/stock-pwfe/producto"
   private api_existencia ="/stock-pwfe/existenciaProducto"
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private session: StorageService) { }
 
 
   /**
@@ -21,7 +22,7 @@ export class ProductoService {
  */
   public crearProducto(producto,usuario){
     let header=new HttpHeaders().set('Content-Type','application/json');
-    header=header.set('usuario',usuario?usuario:"pedro");//CAMBIAR CUANDO SE CONECTE A LOGIN
+    header=header.set('usuario',this.session.getCurrentSession());//CAMBIAR CUANDO SE CONECTE A LOGIN
     const options = {headers:header}
     return this.httpClient.post<Presentacion>(this.api_presentacion,producto,options)
   }
@@ -32,7 +33,7 @@ export class ProductoService {
    * @param usuario 
    */
    public getIdProductoBySub(idSub:number, usuario):Observable<number>{
-    const header=new HttpHeaders().set('usuario',usuario?usuario:"pedro");//CAMBIAR CUANDO SE CONECTE A LOGIN
+    const header=new HttpHeaders().set('usuario',this.session.getCurrentSession());//CAMBIAR CUANDO SE CONECTE A LOGIN
     const ejemplo={idTipoProducto:{idTipoProducto:idSub}};
     const params=new HttpParams().set('ejemplo',JSON.stringify(ejemplo));
     const options = {headers:header,params:params}
@@ -45,7 +46,7 @@ export class ProductoService {
    * @param usuario 
    */
   public getPrecioPresentacion(idPresentacion:number, usuario): Observable<number>{
-    const header=new HttpHeaders().set('usuario',usuario?usuario:"pedro");//CAMBIAR CUANDO SE CONECTE A LOGIN
+    const header=new HttpHeaders().set('usuario',this.session.getCurrentSession());//CAMBIAR CUANDO SE CONECTE A LOGIN
     const ejemplo={idPresentacionProductoTransient:idPresentacion};
     const params=new HttpParams().set('ejemplo',JSON.stringify(ejemplo));
     const options = {headers:header,params:params}
@@ -59,7 +60,7 @@ export class ProductoService {
    */
   public modificarPresentacion(presentacion,usuario){
     let header=new HttpHeaders().set('Content-Type','application/json');
-    header=header.set('usuario',usuario?usuario:"pedro");//CAMBIAR CUANDO SE CONECTE A LOGIN
+    header=header.set('usuario',this.session.getCurrentSession());//CAMBIAR CUANDO SE CONECTE A LOGIN
     const options = {headers:header}
     return this.httpClient.put<Presentacion>(this.api_presentacion,presentacion,options)
   }

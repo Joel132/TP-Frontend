@@ -16,8 +16,10 @@
         <table>
             <thead>
                 <tr>
-                <th>IdFicha</th>
+                <th>Id Ficha</th>
                 <th>Fecha</th>
+                <th>Doctor</th>
+                <th>Paciente</th>
                 <th>Subcategoria</th>
                 <th>Acciones</th>
                 <th></th>
@@ -28,6 +30,8 @@
                 <tr *ngFor="let ficha of lista_ficha">
                     <td>{{ficha.idFichaClinica}}</td>
                     <td>{{ficha.fechaHora}}</td>
+                    <td>{{ficha.idEmpleado.nombre}}</td>
+                    <td>{{ficha.idCliente.nombre}}</td>
                     <td>{{ficha.idTipoProducto.descripcion}}</td>
                     <td><input type="radio" name="idFicha" [value]="ficha.idFichaClinica" [(ngModel)]="cabecera_servicio.idFichaClinica.idFichaClinica" ></td>
                 </tr>
