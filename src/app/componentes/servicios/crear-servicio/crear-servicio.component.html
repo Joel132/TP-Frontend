@@ -50,7 +50,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row d-flex justify-content-center">
   <my-pagination
     (goPage)="goToPage($event)"
     (goNext)="onNext()"
@@ -139,6 +139,6 @@
   </div><br>
   <div class="row">
     <button class="btn btn-primary" style="margin-left: 20px;" (click)="guardarServicio()">Guardar Servicio</button>
-    <button class="btn btn-secondary" (click)="onCancelar()">Cancelar</button>
+    <button class="btn btn-secondary" style="margin-left: 18px;" (click)="onCancelar()">Cancelar</button>
   </div>
 </div>        
