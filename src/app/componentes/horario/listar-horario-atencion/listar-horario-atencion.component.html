@@ -1,11 +1,11 @@
 <div class="container mt-3">
   <div class="row">
-    <h1 class="display-4" style="color: lightyellow;">Horarios</h1>
+    <h1 class="display-4">Horarios</h1>
   </div>
   <hr>
   <div class="row">
     <div class="col-sm">
-      <label style="color: lightyellow;">Dia: </label>
+      <label>Dia: </label>
       <select class="form-control form-control-sm" (change)="buscarPorDia($event.target.value)">
           <option value="-1">Cualquiera</option>
           <option *ngFor="let dia of dias_semana;let i=index" [value]="i">{{dia}}</option>

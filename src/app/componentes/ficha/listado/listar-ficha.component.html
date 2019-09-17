@@ -1,15 +1,15 @@
 <div class="container mt-3">
   <div class="row">
-    <h1 class="display-4" style="color: black">Fichas Clinicas</h1>
+    <h1 class="display-4">Fichas Clinicas</h1>
   </div>
   <hr>
   <div class="row">
     <div class="col-sm">
-      <label style="color: black">Fecha Desde:</label>
+      <label>Fecha Desde:</label>
       <input class="form-control" type="date" [value]="fechaDesde" (change)="setFechaDesde($event.target.value)">
     </div>
     <div class="col-sm">
-      <label style="color: black">Fecha Hasta:</label>
+      <label>Fecha Hasta:</label>
       <input class="form-control" type="date" [value]="fechaHasta" (change)="setFechaHasta($event.target.value)">
     </div>
   </div><br>
