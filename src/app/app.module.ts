@@ -40,6 +40,8 @@ import { ServiciosDetalladoComponent } from './componentes/servicios/servicios-d
 import { ListarSubCategoriaComponent } from './componentes/subcategoria/listado/listar-subcategoria.component';
 import { CrearSubCategoriaComponent } from './componentes/subcategoria/crear/crear-subcategoria/crear-subcategoria.component';
 import { ModificarSubCategoriaComponent } from './componentes/subcategoria/modificar/modificar-subcategirua/modificar-subcategoria.component';
+import { ServiciosDetalladoRComponent } from './componentes/reportes/servicios-detallado/servicios-r-detallado.component';
+import { ServiciosRComponent } from './componentes/reportes/servicios/servicios-r.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +79,9 @@ import { ModificarSubCategoriaComponent } from './componentes/subcategoria/modif
     ServiciosDetalladoComponent,
     ListarSubCategoriaComponent,
     CrearSubCategoriaComponent,
-    ModificarSubCategoriaComponent
+    ModificarSubCategoriaComponent,
+    ServiciosRComponent,
+    ServiciosDetalladoRComponent
     
   ],
   imports: [
@@ -113,6 +117,8 @@ import { ModificarSubCategoriaComponent } from './componentes/subcategoria/modif
       { path: 'ficha/crear', component: CrearFichaComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'servicios',component: ServiciosComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'servicios/detalles',component: ServiciosDetalladoComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'serviciosR',component: ServiciosRComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'serviciosR/detalles',component: ServiciosDetalladoRComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'servicios/crear-servicio',redirectTo:'servicios/crear-servicio/', canActivate:[AuthorizatedGuardService]},
       { path: 'servicios/crear-servicio/:ficId',component:CrearServicioComponent, canActivate:[AuthorizatedGuardService]},
       { path: 'servicio/modificar/:serId/:ficId',component:ModificarServicioComponent, canActivate:[AuthorizatedGuardService]},

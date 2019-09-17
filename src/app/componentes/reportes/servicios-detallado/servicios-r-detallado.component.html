@@ -1,16 +1,16 @@
 <div class="container mt-3">
   <div class="row">
-    <h1 class="display-4">Servicios Detallados</h1>
+    <h1 class="display-4">Reporte de Servicios Detallado</h1>
   </div>
   <hr>
   <div class="row">
     <div class="col-sm">
       <label>Fecha Desde:</label>
-      <input class="form-control form-control-sm" type="date" [value]="fechaDesde" (change)="setFechaDesde($event.target.value)">
+      <input class="form-control form-control-sm" type="date" [(ngModel)]="fechaDesde" (change)="setFechaDesde($event.target.value)">
     </div>
     <div class="col-sm">
       <label>Fecha Hasta:</label>
-      <input class="form-control form-control-sm" type="date" [value]="fechaHasta" (change)="setFechaHasta($event.target.value)">
+      <input class="form-control form-control-sm" type="date" [(ngModel)]="fechaHasta" (change)="setFechaHasta($event.target.value)">
     </div>
   </div><br>
   <div class="row">
@@ -53,7 +53,14 @@
       </select>
     </div>
   </div><br>
-  
+  <div class="row">
+    <div class="col-sm-2">
+      <button class="btn btn-dark" (click)="exportExcel(tabla)">Exportar Excel</button>
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-dark" (click)="exportPDF(tabla)">Exportar PDF</button>      
+    </div>
+  </div><br>
   <div class="table-resposive">
     <table class="table tableHover" #tabla>
       <thead class="thead-dark">
@@ -80,18 +87,6 @@
       </tbody>
     </table>
   </div>
-</div>
-
-<div class="row d-flex justify-content-center">
-  <my-pagination
-    (goPage)="goToPage($event)"
-    (goNext)="onNext()"
-    (goPrev)="onPrev()"
-    [pagesToShow]="3"
-    [page]="pagina_actual"
-    [perPage]="limite"
-    [count]="total">
-  </my-pagination>
 </div>
 
 <jw-modal id="modal-busqueda-doctor">
