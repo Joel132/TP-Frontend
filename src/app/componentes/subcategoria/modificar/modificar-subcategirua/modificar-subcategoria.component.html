@@ -1,0 +1,44 @@
+<div class="container py-3" *ngIf="editarForm">
+  <div class="row">
+    <div class="mx-auto col-sm-6">
+      <div class="card">
+        <div class="card-header text-center" style="background-color: lightseagreen;">
+          <h2>Modificar SubCategoria</h2>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="editarForm" (ngSubmit)="onEditar()">
+              <div class="row">
+                  <label for="mC">Descripcion:</label>
+                  <input type="text" formControlName="descripcion" name="mC" class="form-control form-control-sm" [ngClass]="{'is-invalid': aceptado && val.descripcion.errors}">
+                  <div *ngIf= " aceptado && val.descripcion.errors" class= "invalid-feedback">
+                    <div *ngIf="val.descripcion.errors.required" style="color:red;">Campo obligatorio</div>
+                  </div>
+                </div><br>
+                <div class="row" formGroupName="idCategoria">
+                    <div class="col-12">
+                      <label for="sub">Categoria:</label>
+                      <select formControlName="idCategoria" name="sub" class="form-control form-control-sm" [ngClass]="{'is-invalid': aceptado && val.idCategoria.controls.idCategoria.errors}">
+                          <option [value]="-1">Seleccione una</option>
+                          <option *ngFor="let cat of lista_categoria" [value]="cat.idCategoria">{{cat.descripcion}}</option>
+                      </select>
+                      <div *ngIf= " aceptado && val.idCategoria.controls.idCategoria.errors" class= "invalid-feedback">
+                        <div *ngIf="val.idCategoria.controls.idCategoria.errors" style="color:red;">Campo obligatorio</div>
+                      </div>
+                    </div>
+                </div><br>
+            <div class="d-flex justify-content-center">
+              <div class="row">
+                <div class="col-sm">
+                  <button type = "submit" class="btn btn-primary signin">Modificar</button>
+                </div>
+                <div class="col-sm">
+                  <button class="btn btn-secondary" type="reset" (click)="onCancelar()">Cancelar</button>
+                </div>
+              </div>
+            </div>    
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

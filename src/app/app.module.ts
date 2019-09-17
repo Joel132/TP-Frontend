@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { ListarCategoriaComponent } from './componentes/categoria/listar/categoria.component';
-import { SubcategoriaComponent } from './componentes/subcategoria/listar/subcategoria.component';
 import {HttpClientModule} from '@angular/common/http';
 import {environment} from '../environments/environment';
 import { PacientesComponent } from './componentes/pacientes/listar/pacientes.component';
@@ -38,13 +37,15 @@ import { ServiciosComponent } from './componentes/servicios/servicios/servicios.
 import { CrearServicioComponent } from './componentes/servicios/crear-servicio/crear-servicio.component';
 import { ModificarServicioComponent } from './componentes/servicios/modificar-servicio/modificar-servicio.component';
 import { ServiciosDetalladoComponent } from './componentes/servicios/servicios-detallado/servicios-detallado.component';
+import { ListarSubCategoriaComponent } from './componentes/subcategoria/listado/listar-subcategoria.component';
+import { CrearSubCategoriaComponent } from './componentes/subcategoria/crear/crear-subcategoria/crear-subcategoria.component';
+import { ModificarSubCategoriaComponent } from './componentes/subcategoria/modificar/modificar-subcategirua/modificar-subcategoria.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
     ListarCategoriaComponent,
-    SubcategoriaComponent,
     PacientesComponent,
     EliminarComponent,
     CrearComponent,
@@ -73,7 +74,10 @@ import { ServiciosDetalladoComponent } from './componentes/servicios/servicios-d
     ServiciosComponent,
     CrearServicioComponent,
     ModificarServicioComponent,
-    ServiciosDetalladoComponent
+    ServiciosDetalladoComponent,
+    ListarSubCategoriaComponent,
+    CrearSubCategoriaComponent,
+    ModificarSubCategoriaComponent
     
   ],
   imports: [
@@ -84,7 +88,6 @@ import { ServiciosDetalladoComponent } from './componentes/servicios/servicios-d
       { path: 'categoria/crear', component: CrearCategoriaComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'categoria/editar/:catId', component: ModificarCategoriaComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'categoria', component: ListarCategoriaComponent, canActivate:[AuthorizatedGuardService] },
-      { path: 'subcategoria', component: SubcategoriaComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'pacientes/crear', component: CrearComponent, canActivate:[AuthorizatedGuardService]},
       { path: 'pacientes', component: PacientesComponent, canActivate:[AuthorizatedGuardService]},
       { path: 'pacientes/editar/:pacId', component: ModificarComponent, canActivate:[AuthorizatedGuardService]},
@@ -103,6 +106,9 @@ import { ServiciosDetalladoComponent } from './componentes/servicios/servicios-d
       { path: 'productos', component: ListarProductoComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'producto/crear', component: CrearProductoComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'producto/modificar/:proId', component: ModificarProductoComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'subcategorias', component: ListarSubCategoriaComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'subcategoria/crear', component: CrearSubCategoriaComponent, canActivate:[AuthorizatedGuardService] },
+      { path: 'subcategoria/modificar/:subId', component: ModificarSubCategoriaComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'ficha/crear/:resId', component: CrearFichaComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'ficha/crear', component: CrearFichaComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'servicios',component: ServiciosComponent, canActivate:[AuthorizatedGuardService] },

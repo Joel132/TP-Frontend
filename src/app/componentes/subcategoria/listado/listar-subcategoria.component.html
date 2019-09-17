@@ -1,0 +1,64 @@
+<div class="container mt-3">
+  <div class="row">
+    <h1 class="display-4">Lista de Subcategorias</h1>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-6">
+      <input class="form-control" type="text" #nombreBuscar  placeholder="Busqueda de una subcategoria" aria-label="Busqueda de una subcategoria">
+    </div>
+    <div class="col-md-1 col-lg-2">
+      <button class="btn btn-dark" (click)="buscarPorNombre(nombreBuscar.value)">Buscar</button>  
+    </div>
+    </div><br>
+  <div class="row">
+    <div class="col-sm">
+      <button class="btn btn-dark" (click)="agregar()">Registrar Subcategoria</button>    
+    </div>
+  
+    <div class="col-sm">
+          Categoria:<select class="form-control form-control-sm" (change)="buscarPorCategoria($event.target.value)">
+          <option value="-1">Todas</option>
+          <option *ngFor="let cat of lista_categoria" [value]="cat.idCategoria" >
+              {{cat.descripcion}}
+          </option>
+        </select>
+    </div>
+  </div><br>
+  <div class="table-resposive">
+    <table class="table tableHover">
+      <thead class="thead-dark">
+        <tr class="text-center">
+          
+          <th scope="col">Descripcion</th>
+          <th scope="col">Categoria</th>
+          <th scope="col">Opciones</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <tr *ngFor="let subcategoria of lista_subcategoria">
+          
+          <td>{{subcategoria.descripcion}}</td>
+          <td>{{subcategoria.idCategoria.descripcion}}</td>
+          <td>
+            <a class="btn btn-warning" style="color: black;" [routerLink]="['/subcategoria/modificar',subcategoria.idTipoProducto]">Modificar</a>
+            <a class="btn btn-danger" style="margin-left: 10px; color: black; cursor: pointer;" (click)="eliminar(subcategoria.idTipoProducto)">Eliminar</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <my-pagination
+    (goPage)="goToPage($event)"
+    (goNext)="onNext()"
+    (goPrev)="onPrev()"
+    [pagesToShow]="3"
+    [page]="pagina_actual"
+    [perPage]="limite"
+    [count]="total">
+  </my-pagination>
+</div> 
+
