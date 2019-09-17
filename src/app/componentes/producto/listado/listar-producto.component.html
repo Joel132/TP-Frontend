@@ -1,50 +1,71 @@
-<h2>Lista de Productos</h2>
-<div id="buscador">
-        <input type="text" #nombreBuscar><button (click)="buscarPorNombre(nombreBuscar.value)">Buscar</button>
-            <button (click)="agregar()">Registrar Producto</button>
-        Categoria:<select (change)="cargarSubcategorias($event.target.value)">
-            <option value="-1">Todas</option>
-            <option *ngFor="let cat of lista_categoria" [value]="cat.idCategoria" >
-                {{cat.descripcion}}
-            </option>
-        </select>
-        SubCategoria:<select (change)="buscarPorSubCategoria($event.target.value)">
-            <option value="-1">Todas</option>
-            <option *ngFor="let subCat of lista_subcategoria" [value]="subCat.idTipoProducto" >
-                {{subCat.descripcion}}
-            </option>
-        </select>
-</div>
-<div id="tabla">
-    <table>
-        <thead>
-            <tr>
-            <th>Nombre</th>
-            <th>Descripcion</th>
-            <th>Subcategoria</th>
-            <th></th>
-            <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let producto of lista_producto">
-                <td>{{producto.nombre}}</td>
-                <td>{{producto.descripcion}}</td>
-                <td>{{producto.idProducto.idTipoProducto.descripcion}}</td>
-                <td><a [routerLink]="['/producto/modificar',producto.idPresentacionProducto]">Modificar</a></td>
-                <td><a (click)="eliminar(producto.idPresentacionProducto)">Eliminar</a></td>
-
-            </tr>
-        </tbody>
-        
+<div class="container mt-3">
+  <div class="row">
+    <h1 class="display-4">Lista de Productos</h1>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-6">
+      <input class="form-control" type="text" #nombreBuscar  placeholder="Busqueda de un producto" aria-label="Busqueda de un producto">
+    </div>
+    <div class="col-md-1 col-lg-2">
+      <button class="btn btn-dark" (click)="buscarPorNombre(nombreBuscar.value)">Buscar</button>  
+    </div>
+    </div><br>
+  <div class="row">
+    <div class="col-sm">
+      <button class="btn btn-dark" (click)="agregar()">Registrar Producto</button>    
+    </div>
+    <div class="col-sm">
+      Categoria:<select class="form-control form-control-sm" (change)="cargarSubcategorias($event.target.value)">
+        <option value="-1">Todas</option>
+        <option *ngFor="let cat of lista_categoria" [value]="cat.idCategoria" >
+          {{cat.descripcion}}
+        </option>
+      </select>
+    </div>
+    <div class="col-sm">
+      SubCategoria:<select class="form-control form-control-sm" (change)="buscarPorSubCategoria($event.target.value)">
+        <option value="-1">Todas</option>
+        <option *ngFor="let subCat of lista_subcategoria" [value]="subCat.idTipoProducto" >
+          {{subCat.descripcion}}
+        </option>
+      </select>
+    </div>
+  </div><br>
+  <div class="table-resposive">
+    <table class="table tableHover">
+      <thead class="thead-dark">
+        <tr class="text-center">
+          <th scope="col">Nombre</th>
+          <th scope="col">Descripcion</th>
+          <th scope="col">Subcategoria</th>
+          <th scope="col">Opciones</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <tr *ngFor="let producto of lista_producto">
+          <td>{{producto.nombre}}</td>
+          <td>{{producto.descripcion}}</td>
+          <td>{{producto.idProducto.idTipoProducto.descripcion}}</td>
+          <td>
+            <a class="btn btn-warning" style="color: black;" [routerLink]="['/producto/modificar',producto.idPresentacionProducto]">Modificar</a>
+            <a class="btn btn-danger" style="margin-left: 10px; color: black; cursor: pointer;" (click)="eliminar(producto.idPresentacionProducto)">Eliminar</a>
+          </td>
+        </tr>
+      </tbody>
     </table>
-    <my-pagination
-      (goPage)="goToPage($event)"
-      (goNext)="onNext()"
-      (goPrev)="onPrev()"
-      [pagesToShow]="3"
-      [page]="pagina_actual"
-      [perPage]="limite"
-      [count]="total"></my-pagination>
+  </div>
 </div>
+
+<div class="row">
+  <my-pagination
+    (goPage)="goToPage($event)"
+    (goNext)="onNext()"
+    (goPrev)="onPrev()"
+    [pagesToShow]="3"
+    [page]="pagina_actual"
+    [perPage]="limite"
+    [count]="total">
+  </my-pagination>
+</div> 
 

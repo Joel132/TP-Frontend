@@ -27,7 +27,7 @@
     </div>
   </div><br>
   <div class="table-resposive">
-    <table class="table table-hover">
+    <table class="table tableHover">
       <thead class="thead-dark">
         <tr class="text-center">
           <th scope="col">Dia</th>
@@ -46,8 +46,8 @@
           <td>{{horario.intervaloMinutos}}</td>
           <td>{{horario.idEmpleado.nombre}}</td>
           <td>
-            <a class="btn btn-warning" role="button" [routerLink]="['/horario/editar',horario.idPersonaHorarioAgenda]">Editar</a>
-            <a class="btn btn-danger" role="button" style="margin-left: 10px; cursor: pointer;" (click)="eliminar(horario.idPersonaHorarioAgenda)">Eliminar</a>
+            <a class="btn btn-warning" role="button" style="color: black;" [routerLink]="['/horario/editar',horario.idPersonaHorarioAgenda]">Editar</a>
+            <a class="btn btn-danger" role="button" style="margin-left: 10px; cursor: pointer; color: black;" (click)="eliminar(horario.idPersonaHorarioAgenda)">Eliminar</a>
           </td>
         </tr>
       </tbody>

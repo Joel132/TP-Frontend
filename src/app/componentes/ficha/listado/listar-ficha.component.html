@@ -1,6 +1,6 @@
 <div class="container mt-3">
   <div class="row">
-    <h1 class="display-4">Ficha Clinica</h1>
+    <h1 class="display-4">Fichas Clinicas</h1>
   </div>
   <hr>
   <div class="row">
@@ -31,7 +31,7 @@
     </div>
   </div><br>
   <div class="row">
-    <div class="col-sm">
+    <div class="col-sm" style="color: black;">
       Categoria:<select class="form-control form-control-sm" (change)="cargarSubcategorias($event.target.value)">
         <option value="-1">Todas</option>
         <option *ngFor="let cat of lista_categoria" [value]="cat.idCategoria" >
@@ -39,7 +39,7 @@
         </option>
       </select>
     </div>
-    <div class="col-sm">
+    <div class="col-sm" style="color: black;">
       SubCategoria:<select class="form-control form-control-sm" (change)="buscarPorSubCategoria($event.target.value)">
         <option value="-1">Todas</option>
         <option *ngFor="let subCat of lista_subcategoria" [value]="subCat.idTipoProducto" >
@@ -49,20 +49,20 @@
     </div>
   </div><br>
   <div class="table-resposive">
-    <table class="table table-hover">
+    <table class="table tableHover">
       <thead class="thead-dark">
         <tr class="text-center">
-          <th scope="col">Fecha</th>
-          <th scope="col">Doctor</th>
-          <th scope="col">Paciente</th>
-          <th scope="col">Subcategoria</th>
-          <th scope="col">Motivo Consulta</th>
-          <th scope="col">Diagnostico</th>
-          <th scope="col">Observacion</th>
-          <th scope="col">Opciones</th>
+          <th>Fecha</th>
+          <th>Doctor</th>
+          <th>Paciente</th>
+          <th>Subcategoria</th>
+          <th>Motivo Consulta</th>
+          <th>Diagnostico</th>
+          <th>Observacion</th>
+          <th>Opciones</th>
         </tr>
       </thead>
-      <tbody class="text-center">
+      <tbody>
         <tr *ngFor="let ficha of lista_ficha">
           <td>{{ficha.fechaHora}}</td>
           <td>{{ficha.idEmpleado.nombre}}</td>
@@ -72,8 +72,8 @@
           <td>{{ficha.diagnostico}}</td>
           <td>{{ficha.observacion}}</td>
           <td>
-            <a class="btn btn-warning" role="button" (click)="openModal('modal-modificar');setFichaModificar(ficha)">{{ficha.observacion?"Editar":"Agregar"}} Observacion</a>
-            <a class="btn btn-danger activo" style="margin-left: 10px;" role="button" (click)="eliminar(ficha.idFichaClinica)">Eliminar</a>
+            <a class="btn btn-warning" role="button" style="cursor: pointer; width: 170px; color: black;" (click)="openModal('modal-modificar');setFichaModificar(ficha)">{{ficha.observacion?"Editar":"Agregar"}} Observacion</a>
+            <a class="btn btn-danger" role="button" style="cursor: pointer; margin-top: 8px; margin-left: 40px; color: black;" (click)="eliminar(ficha.idFichaClinica)">Eliminar</a>
           </td>
         </tr>
       </tbody>
@@ -104,8 +104,14 @@
 </jw-modal>
 
 <jw-modal id="modal-modificar">
-  <label>Observacion</label>
-  <textarea #observacion>{{fichaModifcar?.observacion}}</textarea><br>
-  <button (click)="modificar(observacion.value)">Guardar</button>
-  <button (click)="closeModal('modal-modificar');">Cerrar</button>
+  <div class="row">
+    <label>Observacion:</label>
+  </div>
+  <div class="row">  
+    <textarea class="form-control" rows="3" #observacion>{{fichaModifcar?.observacion}}</textarea>
+  </div><br>
+  <div class="row">
+    <button class="btn btn-primary" (click)="modificar(observacion.value)">Guardar</button>
+    <button class="btn btn-secondary" style="margin-left: 20px;" (click)="closeModal('modal-modificar');">Cerrar</button>
+  </div>
 </jw-modal>

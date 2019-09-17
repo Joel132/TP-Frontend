@@ -1,15 +1,15 @@
-<div>
-    <img src="../../../assets/img/imagen1.png" class="img-fluid" style="position: absolute; right: 0; top: 0; z-index: -100; opacity: 0.75;">
-    <div class="loginbox">
-        <img src="../../../assets/img/imagen3.jpg" class="usuario">
-        <h1>Inicio de Sesion</h1>
-        <form [formGroup]="loginUser" (ngSubmit)="login(usuario.value)">
-            <p>Username</p>
-            <input type="text" name="user" placeholder="Enter Username" formControlName="nombre" #usuario>
-            <input type="submit" name="validar" value="Login" [disabled]="!loginUser.valid">
-            <div *ngIf="invalidLogin" class="alert alert-success">
-                <strong>Dato erroneo!</strong> Intente de nuevo.
-            </div>
-        </form>
-    </div>
+<div class="bg">
+  <img src="../../../assets/img/imagen1.png" alt="">
+  <div class="login-box">
+    <img src="../../../assets/img/avatar.png" class="avatar">
+    <h1>Inicio de Sesion</h1>
+    <form [formGroup]="loginUser" (ngSubmit)="login(usuario.value)">
+      <p>Username</p><br>
+      <input type="text" name="user" placeholder="Enter Username" formControlName="nombre" #usuario>
+      <input type="submit" name="validar" value="Login" [disabled]="!loginUser.valid">
+      <div *ngIf="invalidLogin" class="alert alert-success">
+        <strong>Dato erroneo!</strong> Intente de nuevo.
+      </div>
+    </form>
+  </div>
 </div>

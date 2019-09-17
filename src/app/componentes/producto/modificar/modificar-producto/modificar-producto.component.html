@@ -1,68 +1,70 @@
-<div class="crear" *ngIf="editarForm">
-    <h2 class="text-center">Modificar Producto</h2>
-    <form [formGroup]="editarForm" (ngSubmit)="onEditar()">
-            
-        <div class="form-group">
-                <label for="cod">Codigo:</label>
-                <input type="number" formControlName="codigo" name="cod" class="form-control" [ngClass]="{'is-invalid': aceptado && val.codigo.errors}">
-                <div *ngIf= " aceptado && val.codigo.errors" class= "invalid-feedback">
-                        <div *ngIf="val.codigo.errors.required" style="color:red;">Campo obligatorio</div>
-                </div>
+<div class="container py-3" *ngIf="editarForm">
+  <div class="row">
+    <div class="mx-auto col-sm-6">
+      <div class="card">
+        <div class="card-header text-center" style="background-color: lightseagreen;">
+          <h2>Modificar Producto</h2>
         </div>
-         
-            
-            <div class="form-group">
-                <label for="dgo">Nombre:</label>
-                <input type="text" formControlName="nombre" name="dgo" class="form-control" [ngClass]="{'is-invalid': aceptado && val.nombre.errors}">
-                <div *ngIf= " aceptado && val.nombre.errors" class= "invalid-feedback">
-                        <div *ngIf="val.nombre.errors.required" style="color:red;">Campo obligatorio</div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="mC">Descripcion:</label>
-                <input type="text" formControlName="descripcion" name="mC" class="form-control" [ngClass]="{'is-invalid': aceptado && val.descripcion.errors}">
-                <div *ngIf= " aceptado && val.descripcion.errors" class= "invalid-feedback">
-                        <div *ngIf="val.descripcion.errors.required" style="color:red;">Campo obligatorio</div>
-                </div>
-            </div>
-           
-            <div >
-                <label>Categoria:</label>
-                <select (change)="selectCategoria($event.target.value)">
-                        <option *ngFor="let cat of lista_categoria" [value]="cat.idCategoria" [selected]="categoriaIDSelected==cat.idCategoria">{{cat.descripcion}}</option>
+        <div class="card-body">
+          <form [formGroup]="editarForm" (ngSubmit)="onEditar()">
+            <div class="row">
+              <label for="cod">Codigo:</label>
+              <input type="number" formControlName="codigo" name="cod" class="form-control form-control-sm" [ngClass]="{'is-invalid': aceptado && val.codigo.errors}">
+              <div *ngIf= " aceptado && val.codigo.errors" class= "invalid-feedback">
+                <div *ngIf="val.codigo.errors.required" style="color:red;">Campo obligatorio</div>
+              </div>
+            </div><br>
+            <div class="row">
+              <label for="dgo">Nombre:</label>
+              <input type="text" formControlName="nombre" name="dgo" class="form-control form-control-sm" [ngClass]="{'is-invalid': aceptado && val.nombre.errors}">
+              <div *ngIf= " aceptado && val.nombre.errors" class= "invalid-feedback">
+                <div *ngIf="val.nombre.errors.required" style="color:red;">Campo obligatorio</div>
+              </div>
+            </div><br>
+            <div class="row">
+              <label for="mC">Descripcion:</label>
+              <input type="text" formControlName="descripcion" name="mC" class="form-control form-control-sm" [ngClass]="{'is-invalid': aceptado && val.descripcion.errors}">
+              <div *ngIf= " aceptado && val.descripcion.errors" class= "invalid-feedback">
+                <div *ngIf="val.descripcion.errors.required" style="color:red;">Campo obligatorio</div>
+              </div>
+            </div><br>
+            <div class="row">
+              <label>Categoria:</label>
+              <select class="form-control form-control-sm" (change)="selectCategoria($event.target.value)">
+                <option *ngFor="let cat of lista_categoria" [value]="cat.idCategoria" [selected]="categoriaIDSelected==cat.idCategoria">{{cat.descripcion}}</option>
+              </select>
+            </div><br>
+            <div class="row" formGroupName="idProducto">
+              <div class="col-12" formGroupName="idTipoProducto">
+                <label for="sub">Subcategoria:</label>
+                <select formControlName="idTipoProducto" name="sub" class="form-control form-control-sm" [ngClass]="{'is-invalid': aceptado && val.idProducto.controls.idTipoProducto.controls.idTipoProducto.errors}">
+                  <option *ngFor="let sub of lista_subcategoria" [value]="sub.idTipoProducto">{{sub.descripcion}}</option>
                 </select>
-            </div>
-
-            <div class="form-group" formGroupName="idProducto">
-                <div class="form-group" formGroupName="idTipoProducto">
-                        <label for="sub">Subcategoria:</label>
-                        <select formControlName="idTipoProducto" name="sub" class="form-control" [ngClass]="{'is-invalid': aceptado && val.idProducto.controls.idTipoProducto.controls.idTipoProducto.errors}">
-                                <option *ngFor="let sub of lista_subcategoria" [value]="sub.idTipoProducto">{{sub.descripcion}}</option>
-                        </select>
-                        <div *ngIf= " aceptado && val.idProducto.controls.idTipoProducto.controls.idTipoProducto.errors" class= "invalid-feedback">
-                                <div *ngIf="val.idProducto.controls.idTipoProducto.controls.idTipoProducto.errors.required" style="color:red;">Campo obligatorio</div>
-                        </div>
+                <div *ngIf= " aceptado && val.idProducto.controls.idTipoProducto.controls.idTipoProducto.errors" class= "invalid-feedback">
+                  <div *ngIf="val.idProducto.controls.idTipoProducto.controls.idTipoProducto.errors.required" style="color:red;">Campo obligatorio</div>
                 </div>
-            </div>
-
-            <div class="form-group" formGroupName="existenciaProducto">
-                <label for="pre">Precio:</label>
-                <input type="number" formControlName="precioVenta" name="pre" class="form-control" [ngClass]="{'is-invalid': aceptado && val.existenciaProducto.controls.precioVenta.errors}">
-                <div *ngIf= " aceptado && val.existenciaProducto.controls.precioVenta.errors" class= "invalid-feedback">
-                        <div *ngIf="val.existenciaProducto.controls.precioVenta.errors.required" style="color:red;">Campo obligatorio</div>
+              </div>
+            </div><br>
+            <div class="row" formGroupName="existenciaProducto">
+              <label for="pre">Precio:</label>
+              <input type="number" formControlName="precioVenta" name="pre" class="form-control form-control-sm" [ngClass]="{'is-invalid': aceptado && val.existenciaProducto.controls.precioVenta.errors}">
+              <div *ngIf= " aceptado && val.existenciaProducto.controls.precioVenta.errors" class= "invalid-feedback">
+                <div *ngIf="val.existenciaProducto.controls.precioVenta.errors.required" style="color:red;">Campo obligatorio</div>
+              </div>
+            </div><br>
+            <div class="d-flex justify-content-center">
+              <div class="row">
+                <div class="col-sm">
+                  <button type = "submit" class="btn btn-primary signin">Modificar</button>
                 </div>
-            </div>
-            
-                    
-            
-            <div class="form-group">
-                    <button type = "submit" class="btn btn-primary signin">Modificar</button>
-                    <button class= "btn btn-secondary" type="button" (click)="onCancelar()">Cancelar</button>    
-            </div>
-            
-                         
-    </form>
+                <div class="col-sm">
+                  <button class="btn btn-secondary" type="reset" (click)="onCancelar()">Cancelar</button>
+                </div>
+              </div>
+            </div>    
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-
-
