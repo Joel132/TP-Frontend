@@ -1,6 +1,6 @@
 <div class="container mt-3">
   <div class="row">
-    <h1 class="display-4">Categoria</h1>
+    <h1 class="display-4" style="color: lightyellow;">Categoria</h1>
   </div>
   <hr>
   <div class="row">
@@ -15,7 +15,7 @@
     <input type="button" class="btn btn-dark" (click)="agregar()" value="Agregar" style="margin-left: 14px;">
   </div><br>
   <div class="table-responsive">
-    <table class="table table-hover">
+    <table class="table tableHover">
       <thead class="thead-dark">
         <tr class="text-center">
           <th scope="col">Descripcion</th>
@@ -26,8 +26,8 @@
         <tr *ngFor="let categoria of lista_categoria">
           <td>{{categoria.descripcion}}</td>
           <td>
-            <a class="btn btn-warning" [routerLink]="['editar',categoria.idCategoria]">Editar</a>
-            <a class="btn btn-danger" style="margin-left: 10px; cursor: pointer;" (click)="eliminar(categoria.idCategoria)">Eliminar</a>
+            <a class="btn btn-warning" style="color: black;" [routerLink]="['editar',categoria.idCategoria]">Editar</a>
+            <a class="btn btn-danger" style="margin-left: 10px; cursor: pointer; color: black;" (click)="eliminar(categoria.idCategoria)">Eliminar</a>
           </td>
         </tr>
       </tbody>

@@ -8,3 +8,9 @@ hr {
 .activo:hover{
     cursor: pointer;
 }
+
+.tableHover tr:hover{
+    background: #C0C0C0;
+    color: #fff;
+}
+

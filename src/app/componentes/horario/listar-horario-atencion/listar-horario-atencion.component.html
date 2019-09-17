@@ -1,11 +1,11 @@
 <div class="container mt-3">
   <div class="row">
-    <h1 class="display-4">Horarios</h1>
+    <h1 class="display-4" style="color: lightyellow;">Horarios</h1>
   </div>
   <hr>
   <div class="row">
     <div class="col-sm">
-      <label>Dia: </label>
+      <label style="color: lightyellow;">Dia: </label>
       <select class="form-control form-control-sm" (change)="buscarPorDia($event.target.value)">
           <option value="-1">Cualquiera</option>
           <option *ngFor="let dia of dias_semana;let i=index" [value]="i">{{dia}}</option>
@@ -27,7 +27,7 @@
     </div>
   </div><br>
   <div class="table-resposive">
-    <table class="table table-hover">
+    <table class="table tableHover">
       <thead class="thead-dark">
         <tr class="text-center">
           <th scope="col">Dia</th>
@@ -46,8 +46,8 @@
           <td>{{horario.intervaloMinutos}}</td>
           <td>{{horario.idEmpleado.nombre}}</td>
           <td>
-            <a class="btn btn-warning" role="button" [routerLink]="['/horario/editar',horario.idPersonaHorarioAgenda]">Editar</a>
-            <a class="btn btn-danger" role="button" style="margin-left: 10px; cursor: pointer;" (click)="eliminar(horario.idPersonaHorarioAgenda)">Eliminar</a>
+            <a class="btn btn-warning" role="button" style="color: black;" [routerLink]="['/horario/editar',horario.idPersonaHorarioAgenda]">Editar</a>
+            <a class="btn btn-danger" role="button" style="margin-left: 10px; cursor: pointer; color: black;" (click)="eliminar(horario.idPersonaHorarioAgenda)">Eliminar</a>
           </td>
         </tr>
       </tbody>

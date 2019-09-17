@@ -1,15 +1,15 @@
 <div class="container mt-3">
     <div class="row">
-        <h1 class="display-4">Reservas</h1>
+        <h1 class="display-4" style="color: lightyellow;">Reservas</h1>
     </div>
     <hr>
     <div class="row">
         <div class="col-sm">
-            <label>Fecha Desde: </label>
+            <label style="color: black;">Fecha Desde: </label>
             <input class="form-control" type="date" [value]="fechaDesde" (change)="setFechaDesde($event.target.value)">
         </div>
         <div class="col-sm">
-            <label>Fecha Hasta: </label>
+            <label style="color: black;">Fecha Hasta: </label>
             <input class="form-control" type="date" [value]="fechaHasta" (change)="setFechaHasta($event.target.value)">
         </div>
     </div><br>
@@ -31,7 +31,7 @@
         </div>
     </div><br>
     <div class="table-resposive">
-        <table class="table table-hover">
+        <table class="table tableHover">
             <thead class="thead-dark">
                 <tr class="text-center">
                     <th scope="col">Fecha</th>

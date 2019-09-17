@@ -4,3 +4,8 @@ hr {
     border-bottom: 1px solid #333; 
     height:0;
 }
+
+.tableHover tr:hover{
+    background: #C0C0C0;
+    color: #fff;
+}

@@ -13,7 +13,7 @@
     </div>
     <br>
     <div class="table-responsive">
-        <table class="table table-hover">
+        <table class="table tableHover">
             <thead class="thead-dark">
                 <tr class="text-center">
                     <th scope="col">Cedula</th>
@@ -30,8 +30,8 @@
                     <td>{{paciente.email}}</td>
                     <td>{{paciente.telefono}}</td>
                     <td>
-                        <a class="btn btn-warning" [routerLink]="['editar',paciente.idPersona]">Editar</a>
-                        <input type="button" class="btn btn-danger" style="margin-left: 10px;" (click)="eliminar(paciente.idPersona)" value="Eliminar">
+                        <a class="btn btn-warning" style="color: black;" [routerLink]="['editar',paciente.idPersona]">Editar</a>
+                        <input type="button" class="btn btn-danger" style="margin-left: 10px; color: black;" (click)="eliminar(paciente.idPersona)" value="Eliminar">
                     </td>
                 </tr>
             </tbody>
