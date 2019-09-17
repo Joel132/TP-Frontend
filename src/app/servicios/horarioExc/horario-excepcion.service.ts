@@ -16,6 +16,7 @@ export class HorarioExcepcionService {
     params=params.set('inicio',inicio);
     params=params.set('cantidad',cantidad);
     params=params.set('orderBy',orderBy);
+    params=params.set('orderDir',orderDir);
     if (busqueda){
       params=params.set('ejemplo',JSON.stringify(busqueda));
       params=params.set('like','S');

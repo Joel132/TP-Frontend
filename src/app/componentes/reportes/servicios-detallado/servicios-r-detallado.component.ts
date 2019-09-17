@@ -150,6 +150,7 @@ export class ServiciosDetalladoRComponent implements OnInit {
 
   cargarSubcategorias(categoriaId){
     this.subcategoriaSelected=-1;
+    this.presentacionSelected=-1;this.cargarPresentacion(-1)
     this.buscar({});
     //TODO: CARGAR SUBCATEGORIAS DESDE SU SERVICIO
     this.catSer.getSubcategorias(categoriaId).subscribe(

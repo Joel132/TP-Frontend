@@ -24,7 +24,7 @@ export class ListarHorarioExComponent implements OnInit {
   pagina_actual=1;
   loading = false;
   private service;
-  orderBy="fechaCadena";
+  orderBy="fecha";
   diaSelected=formatDate(new Date);
   doctorSelected=-1;
   constructor(private location: Location,private horServ: HorarioExcepcionService, private router : Router, private modalService: ModalService) { }

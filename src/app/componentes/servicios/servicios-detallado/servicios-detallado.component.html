@@ -29,23 +29,23 @@
   </div><br>
   <div class="row">
     <div class="col-sm">
-      Categoria:<select class="form-control form-control-sm" (change)="cargarSubcategorias($event.target.value)">
-        <option value="-1">Todas</option>
+      Categoria:<select class="form-control form-control-sm" #catSel (change)="cargarSubcategorias($event.target.value)">
+        <option value="-1">Seleccione una categoria</option>
         <option *ngFor="let cat of lista_categoria" [value]="cat.idCategoria" >
           {{cat.descripcion}}
         </option>
       </select>
     </div>
     <div class="col-sm">
-      SubCategoria:<select class="form-control form-control-sm" (change)="cargarPresentacion($event.target.value)">
-        <option value="-1">Todas</option>
+      SubCategoria:<select [disabled]="catSel.value==-1" #subcatSel class="form-control form-control-sm" (change)="cargarPresentacion($event.target.value)">
+        <option value="-1">Seleccione una subcategoria</option>
         <option *ngFor="let subCat of lista_subcategoria" [value]="subCat.idTipoProducto" >
           {{subCat.descripcion}}
         </option>
       </select> 
     </div>
     <div class="col-sm">
-      Presentacion:<select class="form-control form-control-sm" (change)="buscarPorPresentacion($event.target.value)">
+      Presentacion:<select [disabled]="catSel.value==-1&&subcatSel.value==-1" class="form-control form-control-sm" (change)="buscarPorPresentacion($event.target.value)">
         <option value="-1">Todas</option>
         <option *ngFor="let pro of lista_presentacion" [value]="pro.idPresentacionProducto" >
           {{pro.nombre}}

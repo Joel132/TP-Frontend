@@ -32,7 +32,7 @@ export class CrearReservaComponent implements OnInit {
       idEmpleado : [{idPersona:''}, noSeleccionadoValidator()],
       idCliente : [{idPersona:''}, noSeleccionadoValidator()],
       fechaCadena: ['', Validators.required],
-      horarioSel: [0,[Validators.required,Validators.min(0)]]
+      horarioSel: [-1,[Validators.required,Validators.min(0)]]
       
     })
   }

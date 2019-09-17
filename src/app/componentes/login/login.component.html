@@ -7,7 +7,7 @@
       <p>Username</p><br>
       <input type="text" name="user" placeholder="Enter Username" formControlName="nombre" #usuario>
       <input type="submit" name="validar" value="Login" [disabled]="!loginUser.valid">
-      <div *ngIf="invalidLogin" class="alert alert-success">
+      <div *ngIf="invalidLogin" class="alert alert-danger">
         <strong>Dato erroneo!</strong> Intente de nuevo.
       </div>
     </form>

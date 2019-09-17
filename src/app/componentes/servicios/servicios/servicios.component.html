@@ -29,15 +29,15 @@
   </div><br>
   <div class="row">
     <div class="col-sm" style="color: black;">
-      Categoria:<select class="form-control form-control-sm" (change)="cargarSubcategorias($event.target.value)">
-        <option value="-1">Todas</option>
+      Categoria:<select #catSel class="form-control form-control-sm" (change)="cargarSubcategorias($event.target.value)">
+        <option value="-1">Seleccione una categoria</option>
         <option *ngFor="let cat of lista_categoria" [value]="cat.idCategoria" >
             {{cat.descripcion}}
         </option>
       </select>
     </div>
     <div class="col-sm" style="color: black;">
-      SubCategoria:<select class="form-control form-control-sm" (change)="buscarPorSubCategoria($event.target.value)">
+      SubCategoria:<select [disabled]="catSel.value==-1" class="form-control form-control-sm" (change)="buscarPorSubCategoria($event.target.value)">
         <option value="-1">Todas</option>
         <option *ngFor="let subCat of lista_subcategoria" [value]="subCat.idTipoProducto" >
           {{subCat.descripcion}}

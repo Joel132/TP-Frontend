@@ -32,14 +32,16 @@
               <div class="col-sm">
                 <label for="horario">Horario:</label>
                 <select class="form-control form-control-sm" formControlName="horarioSel">
+                  <option value="-1">Seleccione un horario</option>
                   <option *ngFor="let horario of lista_horarios;let i=index" [value]="i">
                     {{horario.horaInicioCadena | formatoFecha}} -  {{horario.horaFinCadena | formatoFecha}}
                   </option>
                 </select>
+                <div *ngIf= " aceptado && val.horarioSel.errors">
+                    <div *ngIf="val.horarioSel.errors" style="color:red;">Campo obligatorio</div>
+                  </div>
               </div>
-              <div *ngIf= " aceptado && val.horarioSel.errors">
-                <div *ngIf="val.horarioSel.errors.required" style="color:red;">Campo obligatorio</div>
-              </div>
+              
             </div><br><br>
             <div class="d-flex justify-content-center">
               <div class="row">
