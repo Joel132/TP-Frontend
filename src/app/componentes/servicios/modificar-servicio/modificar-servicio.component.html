@@ -1,63 +1,79 @@
-<h2>Detalles del Servicio</h2>
-<label>Cliente</label><input type="text" [value]="fichaClinica.idCliente.nombre" disabled>
-<label>Empleado</label><input type="text" [value]="fichaClinica.idEmpleado.nombre" disabled>
-<!-- DETALLES SERVICIOS-->
-<h3>Productos</h3>
-<div id="buscador">
-    Categoria:
-    <select (change)="cargarSubcategorias($event.target.value)">
+<div class="container mt-3">
+  <div class="row">
+    <h1 class="display-4">Detalles del Servicio</h1>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-sm-2">
+      <label>Cliente:</label>
+      <input class="form-control form-control-sm" type="text" [value]="fichaClinica.idCliente.nombre" disabled>
+    </div>
+    <div class="col-sm-2">
+      <label>Empleado:</label>
+      <input class="form-control form-control-sm" type="text" [value]="fichaClinica.idEmpleado.nombre" disabled>        
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-sm">
+      Categoria:<select class="form-control form-control-sm" (change)="cargarSubcategorias($event.target.value)">
         <option value="-1">Seleccione una</option>
         <option *ngFor="let cat of lista_categoria" [value]="cat.idCategoria" >
-            {{cat.descripcion}}
+          {{cat.descripcion}}
         </option>
-    </select>
-
-    SubCategoria:
-    <select (change)="cargarPresentaciones($event.target.value)">
-            <option value="-1">Seleccione una</option>
-        <option *ngFor="let subCat of lista_subcategoria" [value]="subCat.idTipoProducto" >
-            {{subCat.descripcion}}
-        </option>
-    </select>
-    
-    Tipo Servicio:
-    <select (change)="cargarPrecio($event.target.value)">
-            <option value="-1">Seleccione una</option>
-        <option *ngFor="let pro of lista_productos;let i=index" [value]="i" >
-            {{pro.nombre}}
-        </option>
-    </select>
-    
-    Cantidad: <input type="number" #cantidad min="1" [value]="1">
-    Precio: <input type="number" [value]="precioSeleccionado" disabled>
-    <button (click)="agregarDetalle(cantidad.value)"> Agregar</button>
-    <div *ngIf="!detalle_valido">
-        <p>Selecciona al menos un producto</p>
+      </select>
     </div>
-    <table>
-        <thead>
-            <tr>
-                <th>Presentacion</th>
-                <th>Precio Unitario</th>
-                <th>Cantidad</th>
-                <th>Total</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let detalle of lista_detalle;let i=index">
-                <td>{{detalle.idPresentacionProducto.nombre}}</td>
-                <td>{{detalle.precio}}</td>
-                <td>{{detalle.cantidad}}</td>
-                <td>{{detalle.precio*detalle.cantidad}}</td>
-                <td><a (click)=eliminarDetalle(i)>Eliminar</a></td>
-            </tr>
-        </tbody>
+    <div class="col-sm">
+      SubCategoria:<select class="form-control form-control-sm" (change)="cargarPresentaciones($event.target.value)">
+        <option value="-1">Seleccione una</option>
+        <option *ngFor="let subCat of lista_subcategoria" [value]="subCat.idTipoProducto" >
+          {{subCat.descripcion}}
+        </option>
+      </select>
+    </div>
+    <div class="col-sm">
+      Tipo Servicio:<select class="form-control form-control-sm" (change)="cargarPrecio($event.target.value)">
+        <option value="-1">Seleccione una</option>
+        <option *ngFor="let pro of lista_productos;let i=index" [value]="i" >
+          {{pro.nombre}}
+        </option>
+      </select>
+    </div>
+    <div class="col-sm">
+      Cantidad: <input class="form-control form-control-sm" type="number" #cantidad min="1" [value]="1">
+    </div>
+    <div class="col-sm">
+      Precio: <input class="form-control form-control-sm" type="number" [value]="precioSeleccionado" disabled>
+    </div>
+  </div><br>
+  <div class="row">
+    <button class="btn btn-dark" style="margin-left: 20px;" (click)="agregarDetalle(cantidad.value)"> Agregar</button>       
+  </div><br>
+  <div class="row" style="color: black; margin-left: 20px; background: cornflowerblue;" *ngIf="!detalle_valido">
+    Selecciona al menos un producto
+  </div><br>
+  <div class="table-resposive">
+    <table class="table tableHover">
+      <thead class="thead-dark">
+        <tr class="text-center">
+          <th scope="col">Presentacion</th>
+          <th scope="col">Precio Unitario</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Total</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let detalle of lista_detalle;let i=index">
+          <td>{{detalle.idPresentacionProducto.nombre}}</td>
+          <td>{{detalle.precio}}</td>
+          <td>{{detalle.cantidad}}</td>
+          <td>{{detalle.precio*detalle.cantidad}}</td>
+          <td><a (click)=eliminarDetalle(i)>Eliminar</a></td>
+        </tr>
+      </tbody>
     </table>
+  </div>
+  <div class="row">
+    <button class="btn btn-primary" style="margin-left: 20px;" (click)="guardarServicio()">Guardar Servicio</button>
+  </div>
 </div>
-
-<div>
-    <button (click)="guardarServicio()">Guardar Servicio</button>
-</div>
-
-        

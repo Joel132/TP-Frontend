@@ -1,80 +1,112 @@
-<h2>Servicios Detallados</h2>
-<div id="buscador">
-        <label>Fecha Desde:</label>
-        <input type="date" [value]="fechaDesde" (change)="setFechaDesde($event.target.value)">
-        <label>Fecha Hasta:</label>
-        <input type="date" [value]="fechaHasta" (change)="setFechaHasta($event.target.value)">
-        <button (click)="openModal('modal-busqueda-doctor')">Buscar Doctor</button>
-        <button (click)="openModal('modal-busqueda-paciente')">Buscar Paciente</button>
-            
-            <button *ngIf="doctorSelected>-1" (click)="buscarPorDoctor(-1)">Quitar filtro por doctor</button>
-            <button *ngIf="pacienteSelected>-1" (click)="buscarPorPaciente(-1)">Quitar filtro por paciente</button>
-        Categoria:<select (change)="cargarSubcategorias($event.target.value)">
-            <option value="-1">Todas</option>
-            <option *ngFor="let cat of lista_categoria" [value]="cat.idCategoria" >
-                {{cat.descripcion}}
-            </option>
-        </select>
-        SubCategoria:<select (change)="cargarPresentacion($event.target.value)">
-            <option value="-1">Todas</option>
-            <option *ngFor="let subCat of lista_subcategoria" [value]="subCat.idTipoProducto" >
-                {{subCat.descripcion}}
-            </option>
-        </select>  
-        Presentacion:<select (change)="buscarPorPresentacion($event.target.value)">
-                <option value="-1">Todas</option>
-                <option *ngFor="let pro of lista_presentacion" [value]="pro.idPresentacionProducto" >
-                    {{pro.nombre}}
-                </option>
-            </select>
-            <button (click)="exportExcel(tabla)">Exportar Excel</button>
-            <button (click)="exportPDF(tabla)">Exportar PDF</button>    
-        
-</div>
-<div id="tabla" #tabla>
-    <table>
-        <thead>
-            <tr>
-            <th>Fecha</th>
-            <th>Doctor</th>
-            <th>Paciente</th>
-            <th>Precio Unitario</th>
-            <th>Cantidad</th>
-            <th>Total detalle</th>
-            <th>Presentacion</th>
-
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let servicio of lista_servicio">
-                <td>{{servicio.idServicio.fechaHora}}</td>
-                <td>{{servicio.idServicio.idFichaClinica.idEmpleado.nombre}}</td>
-                <td>{{servicio.idServicio.idFichaClinica.idCliente.nombre}}</td>
-                <td>{{precios[servicio.idPresentacionProducto.idPresentacionProducto]}}</td>
-                <td>{{servicio.cantidad}}</td>
-                <td>{{servicio.cantidad*precios[servicio.idPresentacionProducto.idPresentacionProducto]}}</td>
-                <td>{{servicio.idPresentacionProducto.nombre}}</td>
-            </tr>
-        </tbody>
-        
+<div class="container mt-3">
+  <div class="row">
+    <h1 class="display-4">Servicios Detallados</h1>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-sm">
+      <label>Fecha Desde:</label>
+      <input class="form-control form-control-sm" type="date" [value]="fechaDesde" (change)="setFechaDesde($event.target.value)">
+    </div>
+    <div class="col-sm">
+      <label>Fecha Hasta:</label>
+      <input class="form-control form-control-sm" type="date" [value]="fechaHasta" (change)="setFechaHasta($event.target.value)">
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-sm-2">
+      <button class="btn btn-dark" (click)="openModal('modal-busqueda-doctor')">Buscar Doctor</button>
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-dark" (click)="openModal('modal-busqueda-paciente')">Buscar Paciente</button>
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-warning" style="width: 200px;" *ngIf="doctorSelected>-1" (click)="buscarPorDoctor(-1)">Quitar filtro por doctor</button>
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-warning" style="width: 200px; margin-left: 20px;" *ngIf="pacienteSelected>-1" (click)="buscarPorPaciente(-1)">Quitar filtro por paciente</button>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-sm">
+      Categoria:<select class="form-control form-control-sm" (change)="cargarSubcategorias($event.target.value)">
+        <option value="-1">Todas</option>
+        <option *ngFor="let cat of lista_categoria" [value]="cat.idCategoria" >
+          {{cat.descripcion}}
+        </option>
+      </select>
+    </div>
+    <div class="col-sm">
+      SubCategoria:<select class="form-control form-control-sm" (change)="cargarPresentacion($event.target.value)">
+        <option value="-1">Todas</option>
+        <option *ngFor="let subCat of lista_subcategoria" [value]="subCat.idTipoProducto" >
+          {{subCat.descripcion}}
+        </option>
+      </select> 
+    </div>
+    <div class="col-sm">
+      Presentacion:<select class="form-control form-control-sm" (change)="buscarPorPresentacion($event.target.value)">
+        <option value="-1">Todas</option>
+        <option *ngFor="let pro of lista_presentacion" [value]="pro.idPresentacionProducto" >
+          {{pro.nombre}}
+        </option>
+      </select>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-sm-2">
+      <button class="btn btn-dark" (click)="exportExcel(tabla)">Exportar Excel</button>
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-dark" (click)="exportPDF(tabla)">Exportar PDF</button>      
+    </div>
+  </div><br>
+  <div class="table-resposive">
+    <table class="table tableHover" #tabla>
+      <thead class="thead-dark">
+        <tr class="text-center">
+          <th scope="col">Fecha</th>
+          <th scope="col">Doctor</th>
+          <th scope="col">Paciente</th>
+          <th scope="col">Precio Unitario</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Total detalle</th>
+          <th scope="col">Presentacion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let servicio of lista_servicio">
+          <td>{{servicio.idServicio.fechaHora}}</td>
+          <td>{{servicio.idServicio.idFichaClinica.idEmpleado.nombre}}</td>
+          <td>{{servicio.idServicio.idFichaClinica.idCliente.nombre}}</td>
+          <td>{{precios[servicio.idPresentacionProducto.idPresentacionProducto]}}</td>
+          <td>{{servicio.cantidad}}</td>
+          <td>{{servicio.cantidad*precios[servicio.idPresentacionProducto.idPresentacionProducto]}}</td>
+          <td>{{servicio.idPresentacionProducto.nombre}}</td>
+        </tr>
+      </tbody>
     </table>
-    <my-pagination
-      (goPage)="goToPage($event)"
-      (goNext)="onNext()"
-      (goPrev)="onPrev()"
-      [pagesToShow]="3"
-      [page]="pagina_actual"
-      [perPage]="limite"
-      [count]="total"></my-pagination>
+  </div>
+</div>
+
+<div class="row d-flex justify-content-center">
+  <my-pagination
+    (goPage)="goToPage($event)"
+    (goNext)="onNext()"
+    (goPrev)="onPrev()"
+    [pagesToShow]="3"
+    [page]="pagina_actual"
+    [perPage]="limite"
+    [count]="total">
+  </my-pagination>
 </div>
 
 <jw-modal id="modal-busqueda-doctor">
-        <app-buscar-doctor (doctorSeleccionado)="buscarPorDoctor($event.idPersona);closeModal('modal-busqueda-doctor')"></app-buscar-doctor>
-        <button (click)="closeModal('modal-busqueda-doctor');">Cerrar</button>
+  <app-buscar-doctor (doctorSeleccionado)="buscarPorDoctor($event.idPersona);closeModal('modal-busqueda-doctor')"></app-buscar-doctor>
+  <button class="btn btn-dark" (click)="closeModal('modal-busqueda-doctor');">Cerrar</button>
 </jw-modal>
 
 <jw-modal id="modal-busqueda-paciente">
-        <app-buscar-paciente (pacienteSeleccionado)="buscarPorPaciente($event.idPersona);closeModal('modal-busqueda-paciente')"></app-buscar-paciente>
-        <button (click)="closeModal('modal-busqueda-paciente');">Cerrar</button>
+  <app-buscar-paciente (pacienteSeleccionado)="buscarPorPaciente($event.idPersona);closeModal('modal-busqueda-paciente')"></app-buscar-paciente>
+  <button class="btn btn-dark" (click)="closeModal('modal-busqueda-paciente');">Cerrar</button>
 </jw-modal>
-
