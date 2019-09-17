@@ -113,7 +113,8 @@ import { ModificarSubCategoriaComponent } from './componentes/subcategoria/modif
       { path: 'ficha/crear', component: CrearFichaComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'servicios',component: ServiciosComponent, canActivate:[AuthorizatedGuardService] },
       { path: 'servicios/detalles',component: ServiciosDetalladoComponent, canActivate:[AuthorizatedGuardService] },
-      { path: 'servicios/crear-servicio',component:CrearServicioComponent, canActivate:[AuthorizatedGuardService]},
+      { path: 'servicios/crear-servicio',redirectTo:'servicios/crear-servicio/', canActivate:[AuthorizatedGuardService]},
+      { path: 'servicios/crear-servicio/:ficId',component:CrearServicioComponent, canActivate:[AuthorizatedGuardService]},
       { path: 'servicio/modificar/:serId/:ficId',component:ModificarServicioComponent, canActivate:[AuthorizatedGuardService]},
       { path: 'servicios/crear-servicio:idFichaClinica',component:CrearServicioComponent,  canActivate:[AuthorizatedGuardService]}
       //{ path: 'products/:productId', component: ProductDetailsComponent },

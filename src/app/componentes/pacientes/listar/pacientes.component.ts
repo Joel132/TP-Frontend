@@ -20,6 +20,7 @@ export class PacientesComponent implements OnInit {
   loading = false;
   private service;
   orderBy="nombre";
+  buscarPor="nombre";
   constructor(private paciente_service:PacientesService, private router : Router, private modalService: ModalService) { }
 
   ngOnInit() {
@@ -33,7 +34,7 @@ export class PacientesComponent implements OnInit {
   }
 
   buscar(nombre?: String,pagina?:number){
-    let cat = nombre ? { nombre:nombre}: null;
+    let cat = nombre ? this.buscarPor == "nombre" ? { nombre:nombre}: { apellido:nombre}:null;
     //Se calcula desde donde pedir a partir de la pagina solicitada
     if(pagina)this.pagina_actual=pagina;
     let inicio=(this.pagina_actual-1)*this.limite;

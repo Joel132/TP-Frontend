@@ -51,9 +51,27 @@ export class CrearServicioComponent implements OnInit {
     private proSer: ProductoService) { }
 
   ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      let fichaId=+params.get('ficId');//SE OBTIENE EL ID DE LA FICHA SI ES QUE HAY
+      if(fichaId){//SI SE PASO COMO PARAMETRO ENTONCES SE OBTIENE LA FICHA Y SE LISTAN TODAS LAS FICHAS DE ESE DIA Y SE MARCA LA FICHA CON EL ID
+        
+        this.fichaSer.getFicha(fichaId).subscribe((resp)=>{
+          this.fechaDesde=resp.fechaHora.substr(0,10)
+          this.buscarFicha({});
+          this.cabecera_servicio.idFichaClinica.idFichaClinica=fichaId;
+          this.cargarCategorias();
+
+        })
+
+      }
+      else{
+        this.buscarFicha({});
+        this.cargarCategorias();
+      }
+      
+    })
     
-    this.buscarFicha({});
-    this.cargarCategorias();
+    
   }
 
   guardarServicio(){
@@ -90,6 +108,7 @@ export class CrearServicioComponent implements OnInit {
   buscarFicha(ejemplo){
     this.loading = true;
     this.lista_ficha=[];
+    this.cabecera_servicio.idFichaClinica.idFichaClinica=null;
     
     const fechaD=this.fechaDesde.replace(/\-/gi,""); ejemplo.fechaDesdeCadena=ejemplo.fechaHastaCadena=fechaD;
     

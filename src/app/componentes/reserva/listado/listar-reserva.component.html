@@ -55,7 +55,7 @@
                     <td>{{reserva.observacion}}</td>
                     <td>
                         <a *ngIf="reserva.flagEstado!='C'&&!reserva.flagAsistio&&reserva.fecha>fechaActual" class="btn btn-warning activo" role="button" (click)="openModal('modal-modificar');setReservaModificar(reserva)">Modificar</a>
-                        <a *ngIf="reserva.flagEstado!='C'&&!reserva.flagAsistio&&reserva.fecha>fechaActual" class="btn btn-danger activo" role="button" (click)="eliminar(reserva.idReserva)">Eliminar</a>
+                        <a *ngIf="reserva.flagEstado!='C'&&!reserva.flagAsistio" class="btn btn-danger activo" role="button" (click)="eliminar(reserva.idReserva)">Cancelar</a>
                         <a *ngIf="reserva.flagEstado!='C'&&!reserva.flagAsistio" class="btn btn-primary activo" role="button" [routerLink]="['/ficha/crear',reserva.idReserva]">Agregar Ficha</a>
                     </td>
                 </tr>

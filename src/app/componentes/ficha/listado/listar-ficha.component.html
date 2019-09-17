@@ -73,6 +73,7 @@
           <td>{{ficha.observacion}}</td>
           <td>
             <a class="btn btn-warning" role="button" style="cursor: pointer; width: 170px; color: black;" (click)="openModal('modal-modificar');setFichaModificar(ficha)">{{ficha.observacion?"Editar":"Agregar"}} Observacion</a>
+            <a class="btn btn-primary" role="button" style="cursor: pointer; margin-top: 8px; margin-left: 40px; color: black;" [routerLink]="['/servicios/crear-servicio',ficha.idFichaClinica]">Agregar Servicio</a>
             <a class="btn btn-danger" role="button" style="cursor: pointer; margin-top: 8px; margin-left: 40px; color: black;" (click)="eliminar(ficha.idFichaClinica)">Eliminar</a>
           </td>
         </tr>

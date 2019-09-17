@@ -95,10 +95,10 @@ export class ListarReservaComponent implements OnInit {
     this.resServ.cancelarReserva(id).subscribe(
       (response)=>{
         this.buscar({});
-        alertify.notify('Eliminado Correctamente!', 'success', 5, function(){  console.log('dismissed'); });
+        alertify.notify('Cancelado Correctamente!', 'success', 5, function(){  console.log('dismissed'); });
       },
       (error)=>{
-        alertify.notify('No se puede eliminar!', 'error', 5, function(){  console.log('dismissed'); });
+        alertify.notify('No se puede cancelar!', 'error', 5, function(){  console.log('dismissed'); });
       }
     )
   }
