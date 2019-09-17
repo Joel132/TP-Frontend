@@ -26,8 +26,8 @@
         <tr *ngFor="let categoria of lista_categoria">
           <td>{{categoria.descripcion}}</td>
           <td>
-            <a class="btn btn-warning" style="color: black;" [routerLink]="['editar',categoria.idCategoria]">Editar</a>
-            <a class="btn btn-danger" style="margin-left: 10px; cursor: pointer; color: black;" (click)="eliminar(categoria.idCategoria)">Eliminar</a>
+            <i class="fas fa-edit" title="Editar" [routerLink]="['editar',categoria.idCategoria]"></i>
+            <i class="fas fa-trash-alt" title="Eliminar" (click)="eliminar(categoria.idCategoria)"></i>
           </td>
         </tr>
       </tbody>

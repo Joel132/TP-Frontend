@@ -48,8 +48,8 @@
           <td>{{producto.descripcion}}</td>
           <td>{{producto.idProducto.idTipoProducto.descripcion}}</td>
           <td>
-            <a class="btn btn-warning" style="color: black;" [routerLink]="['/producto/modificar',producto.idPresentacionProducto]">Modificar</a>
-            <a class="btn btn-danger" style="margin-left: 10px; color: black; cursor: pointer;" (click)="eliminar(producto.idPresentacionProducto)">Eliminar</a>
+            <i class="fas fa-edit" title="Editar" [routerLink]="['/producto/modificar',producto.idPresentacionProducto]"></i>
+            <i class="fas fa-trash-alt" title="Eliminar" (click)="eliminar(producto.idPresentacionProducto)"></i> 
           </td>
         </tr>
       </tbody>

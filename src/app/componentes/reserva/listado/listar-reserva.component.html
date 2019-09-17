@@ -54,9 +54,9 @@
                     <td>{{reserva.flagAsistio=="S"?"Asistido":reserva.flagEstado=="C"?"Cancelado":reserva.flagAsistio=="N"?"No asistio":"Reservado"}}</td>
                     <td>{{reserva.observacion}}</td>
                     <td>
-                        <a *ngIf="reserva.flagEstado!='C'&&!reserva.flagAsistio&&reserva.fecha>fechaActual" class="btn btn-warning activo" role="button" (click)="openModal('modal-modificar');setReservaModificar(reserva)">Modificar</a>
-                        <a *ngIf="reserva.flagEstado!='C'&&!reserva.flagAsistio" class="btn btn-danger activo" role="button" (click)="eliminar(reserva.idReserva)">Cancelar</a>
-                        <a *ngIf="reserva.flagEstado!='C'&&!reserva.flagAsistio" class="btn btn-primary activo" role="button" [routerLink]="['/ficha/crear',reserva.idReserva]">Agregar Ficha</a>
+                        <i *ngIf="reserva.flagEstado!='C'&&!reserva.flagAsistio&&reserva.fecha>fechaActual" class="fas fa-edit" title="Editar" (click)="openModal('modal-modificar');setReservaModificar(reserva)"></i>
+                        <i *ngIf="reserva.flagEstado!='C'&&!reserva.flagAsistio" class="fas fa-window-close" title="Cancelar" (click)="eliminar(reserva.idReserva)"></i> 
+                        <i *ngIf="reserva.flagEstado!='C'&&!reserva.flagAsistio" class="fas fa-notes-medical" title="Agregar Ficha" [routerLink]="['/ficha/crear',reserva.idReserva]"></i>
                     </td>
                 </tr>
             </tbody>

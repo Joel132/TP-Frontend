@@ -36,8 +36,8 @@
                     <td>{{paciente.email}}</td>
                     <td>{{paciente.telefono}}</td>
                     <td>
-                        <a class="btn btn-warning" style="color: black;" [routerLink]="['editar',paciente.idPersona]">Editar</a>
-                        <input type="button" class="btn btn-danger" style="margin-left: 10px; color: black;" (click)="eliminar(paciente.idPersona)" value="Eliminar">
+                        <i class="fas fa-edit" title="Editar" [routerLink]="['editar',paciente.idPersona]"></i>
+                        <i class="fas fa-trash-alt" title="Eliminar" (click)="eliminar(paciente.idPersona)"></i> 
                     </td>
                 </tr>
             </tbody>

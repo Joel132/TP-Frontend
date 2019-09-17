@@ -41,8 +41,8 @@
           <td>{{subcategoria.descripcion}}</td>
           <td>{{subcategoria.idCategoria.descripcion}}</td>
           <td>
-            <a class="btn btn-warning" style="color: black;" [routerLink]="['/subcategoria/modificar',subcategoria.idTipoProducto]">Modificar</a>
-            <a class="btn btn-danger" style="margin-left: 10px; color: black; cursor: pointer;" (click)="eliminar(subcategoria.idTipoProducto)">Eliminar</a>
+            <i class="fas fa-edit" title="Editar" [routerLink]="['/subcategoria/modificar',subcategoria.idTipoProducto]"></i>
+            <i class="fas fa-trash-alt" title="Eliminar" (click)="eliminar(subcategoria.idTipoProducto)"></i>            
           </td>
         </tr>
       </tbody>
