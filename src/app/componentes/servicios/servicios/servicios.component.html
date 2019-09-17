@@ -1,80 +1,112 @@
-<h2>Servicios</h2>
-<div id="buscador">
-        <label>Fecha Desde:</label>
-        <input type="date" [value]="fechaDesde" (change)="setFechaDesde($event.target.value)">
-        <label>Fecha Hasta:</label>
-        <input type="date" [value]="fechaHasta" (change)="setFechaHasta($event.target.value)">
-        <button (click)="openModal('modal-busqueda-doctor')">Buscar Doctor</button>
-        <button (click)="openModal('modal-busqueda-paciente')">Buscar Paciente</button>
-            
-            <button *ngIf="doctorSelected>-1" (click)="buscarPorDoctor(-1)">Quitar filtro por doctor</button>
-            <button *ngIf="pacienteSelected>-1" (click)="buscarPorPaciente(-1)">Quitar filtro por paciente</button>
-        Categoria:<select (change)="cargarSubcategorias($event.target.value)">
-            <option value="-1">Todas</option>
-            <option *ngFor="let cat of lista_categoria" [value]="cat.idCategoria" >
-                {{cat.descripcion}}
-            </option>
-        </select>
-        SubCategoria:<select (change)="buscarPorSubCategoria($event.target.value)">
-            <option value="-1">Todas</option>
-            <option *ngFor="let subCat of lista_subcategoria" [value]="subCat.idTipoProducto" >
-                {{subCat.descripcion}}
-            </option>
-        </select>     
-        <button (click)="agregar()">Agregar</button>
-        <a [routerLink]="['/servicios/detalles']">Ver detallado</a>
-        <button (click)="exportExcel(tabla)">Exportar Excel</button>
-        <button (click)="exportPDF(tabla)">Exportar PDF</button>
-</div>
-<div id="tabla">
-    <table #tabla>
-        <thead>
-            <tr>
-            <th>Fecha</th>
-            <th>Id Ficha</th>
-            <th>Fecha Ficha</th>
-            <th>Doctor</th>
-            <th>Paciente</th>
-            <th>Subcategoria</th>
-            <th>Presupuesto</th>
-            <th>Acciones</th>
-            <th></th>
-            <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let servicio of lista_servicio">
-                <td>{{servicio.fechaHora}}</td>
-                <td>{{servicio.idFichaClinica.idFichaClinica}}</td>
-                <td>{{servicio.idFichaClinica.fechaHora}}</td>
-                <td>{{servicio.idFichaClinica.idEmpleado.nombre}}</td>
-                <td>{{servicio.idFichaClinica.idCliente.nombre}}</td>
-                <td>{{servicio.idFichaClinica.idTipoProducto.descripcion}}</td>
-                <td>{{servicio.presupuesto}}</td>
-                <td><a [routerLink]="['/servicio/modificar',servicio.idServicio,servicio.idFichaClinica.idFichaClinica]">Detalles</a></td>
-                
-
-            </tr>
-        </tbody>
-        
+<div class="container mt-3">
+  <div class="row">
+    <h1 class="display-4">Servicios</h1>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-sm">
+      <label>Fecha Desde:</label>
+      <input class="form-control form-control-sm" type="date" [value]="fechaDesde" (change)="setFechaDesde($event.target.value)">
+    </div>
+    <div class="col-sm">
+      <label>Fecha Hasta:</label>
+      <input class="form-control form-control-sm" type="date" [value]="fechaHasta" (change)="setFechaHasta($event.target.value)">
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-sm-2">
+      <button class="btn btn-dark" (click)="openModal('modal-busqueda-doctor')">Buscar Doctor</button>
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-dark" (click)="openModal('modal-busqueda-paciente')">Buscar Paciente</button>
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-warning" style="width: 200px;" *ngIf="doctorSelected>-1" (click)="buscarPorDoctor(-1)">Quitar filtro por doctor</button>
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-warning" style="width: 200px; margin-left: 20px;" *ngIf="pacienteSelected>-1" (click)="buscarPorPaciente(-1)">Quitar filtro por paciente</button>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-sm" style="color: black;">
+      Categoria:<select class="form-control form-control-sm" (change)="cargarSubcategorias($event.target.value)">
+        <option value="-1">Todas</option>
+        <option *ngFor="let cat of lista_categoria" [value]="cat.idCategoria" >
+            {{cat.descripcion}}
+        </option>
+      </select>
+    </div>
+    <div class="col-sm" style="color: black;">
+      SubCategoria:<select class="form-control form-control-sm" (change)="buscarPorSubCategoria($event.target.value)">
+        <option value="-1">Todas</option>
+        <option *ngFor="let subCat of lista_subcategoria" [value]="subCat.idTipoProducto" >
+          {{subCat.descripcion}}
+        </option>
+      </select>  
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-sm-2">
+      <button class="btn btn-dark" (click)="agregar()">Agregar servicio</button>
+    </div>
+    <div class="col-sm-2">
+      <a class="btn btn-dark" role="button" style="cursor: pointer;" [routerLink]="['/servicios/detalles']">Ver detallado</a>
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-dark" (click)="exportExcel(tabla)">Exportar Excel</button>
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-dark" (click)="exportPDF(tabla)">Exportar PDF</button>
+    </div>
+  </div><br>
+  <div class="table-resposive">
+    <table class="table tableHover" #tabla>
+      <thead class="thead-dark">
+        <tr class="text-center">
+          <th scope="col">Fecha</th>
+          <th scope="col">Id Ficha</th>
+          <th scope="col">Fecha Ficha</th>
+          <th scope="col">Doctor</th>
+          <th scope="col">Paciente</th>
+          <th scope="col">Subcategoria</th>
+          <th scope="col">Presupuesto</th>
+          <th scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let servicio of lista_servicio">
+          <td>{{servicio.fechaHora}}</td>
+          <td>{{servicio.idFichaClinica.idFichaClinica}}</td>
+          <td>{{servicio.idFichaClinica.fechaHora}}</td>
+          <td>{{servicio.idFichaClinica.idEmpleado.nombre}}</td>
+          <td>{{servicio.idFichaClinica.idCliente.nombre}}</td>
+          <td>{{servicio.idFichaClinica.idTipoProducto.descripcion}}</td>
+          <td>{{servicio.presupuesto}}</td>
+          <td><a class="btn btn-warning" style="cursor: pointer;" [routerLink]="['/servicio/modificar',servicio.idServicio,servicio.idFichaClinica.idFichaClinica]">Detalles</a></td>
+        </tr>
+      </tbody>
     </table>
-    <my-pagination
-      (goPage)="goToPage($event)"
-      (goNext)="onNext()"
-      (goPrev)="onPrev()"
-      [pagesToShow]="3"
-      [page]="pagina_actual"
-      [perPage]="limite"
-      [count]="total"></my-pagination>
+  </div>
 </div>
 
+<div class="row">
+  <my-pagination
+    (goPage)="goToPage($event)"
+    (goNext)="onNext()"
+    (goPrev)="onPrev()"
+    [pagesToShow]="3"
+    [page]="pagina_actual"
+    [perPage]="limite"
+    [count]="total">
+  </my-pagination>
+</div>
+   
 <jw-modal id="modal-busqueda-doctor">
-        <app-buscar-doctor (doctorSeleccionado)="buscarPorDoctor($event.idPersona);closeModal('modal-busqueda-doctor')"></app-buscar-doctor>
-        <button (click)="closeModal('modal-busqueda-doctor');">Cerrar</button>
+  <app-buscar-doctor (doctorSeleccionado)="buscarPorDoctor($event.idPersona);closeModal('modal-busqueda-doctor')"></app-buscar-doctor>
+  <button class="btn btn-dark" (click)="closeModal('modal-busqueda-doctor');">Cerrar</button>
 </jw-modal>
 
 <jw-modal id="modal-busqueda-paciente">
-        <app-buscar-paciente (pacienteSeleccionado)="buscarPorPaciente($event.idPersona);closeModal('modal-busqueda-paciente')"></app-buscar-paciente>
-        <button (click)="closeModal('modal-busqueda-paciente');">Cerrar</button>
+  <app-buscar-paciente (pacienteSeleccionado)="buscarPorPaciente($event.idPersona);closeModal('modal-busqueda-paciente')"></app-buscar-paciente>
+  <button class="btn btn-dark" (click)="closeModal('modal-busqueda-paciente');">Cerrar</button>
 </jw-modal>
-
